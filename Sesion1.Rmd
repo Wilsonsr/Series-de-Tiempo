@@ -54,7 +54,7 @@ sociales, las ciencias biológicas, y en muchas otras disciplinas.
 
 </center>
 
-### Demografía
+# Demografía
 
 -   Número de habitantes por año.
 -   Tasa de mortalidad infantil por año.
@@ -209,7 +209,7 @@ $$X_{t}=T_{t}+E_{t}+I_{t}$$
 
 donde: 
 
-- $T_{t}$: es la tendencia 
+- $T_{t}$: es la tendencia.
 - $E_{t}$: es la componente estacional 
 - $I_{t}$: es la componente aleatoria.
 
