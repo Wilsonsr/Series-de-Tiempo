@@ -20,5 +20,5 @@
 
     + https://rpubs.com/wilsonsr/1011187
 
-- <a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/boxcox.Rmd".Rmd"> Box-Cox  </a>
+- <a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/boxcox.Rmd"> Box-Cox  </a>
 
