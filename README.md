@@ -18,5 +18,7 @@
 
 - <a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/SARIMA%20(1).Rmd"> Sarima  </a>
 
-- https://rpubs.com/wilsonsr/1011187
+    + https://rpubs.com/wilsonsr/1011187
+
+- <a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/boxcox.Rmd".Rmd"> Box-Cox  </a>
 
