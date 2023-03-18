@@ -1,0 +1,318 @@
+---
+title: "Ejemplo Serie gas "
+author: "Wilson Sandoval Rodriguez"
+date: "`r Sys.Date()`"
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+    toc: true
+    float: true
+---
+
+
+# PROBLEMA -  SERIE GAS
+```{r, message=FALSE, warning=FALSE}
+library(car)
+library(urca)
+library(forecast)
+library(tseries)
+#library(FitAR)
+library(ggfortify)
+library(TSstudio)
+```
+
+
+#### Producción de gas mensual en Australia 1956-1995
+```{r}
+data(gas)
+```
+
+
+
+```{r, warning=FALSE}
+ts_plot(gas)
+ts_decompose(gas, type = "both")
+#autoplot(gas)
+#autoplot(stl(gas, s.window = 12))
+```
+
+
+```{r}
+summary(gas)
+```
+
+
+
+
+## Transformación de los datos
+
+```{r, message=FALSE, warning=FALSE}
+forecast::BoxCox.lambda(gas)
+#FitAR::BoxCox.ts(gas)  ### lamda =0.12
+z1 <- forecast::BoxCox(gas,0.12)
+ts_plot(z1)
+```
+
+
+
+
+```{r}
+ts_decompose(z1)
+```
+
+
+### Identificación
+
+```{r}
+par(mfrow=c(3,3))
+plot(z1,type="o")
+acf(z1, lag.max=40)
+pacf(z1, lag.max=40)
+plot(diff(z1),type="o")
+abline(h=2*sqrt(var(diff(z1))),col="red",lty=2)
+abline(h=-2*sqrt(var(diff(z1))),col="red",lty=2)
+acf(diff(z1), lag.max=40)
+pacf(diff(z1), lag.max=40)
+plot(diff(z1,12),type="o")
+acf(diff(z1,12), lag.max=40)
+pacf(diff(z1,12), lag.max=40)
+
+```
+
+
+#### Test DF sobre la serie desestacionalizada
+
+**Dickey-Fuller**
+
+```{r}
+adf.test(z1) 
+pp.test(z1)
+```
+
+- De acuerdo a la prueba de Dickey- Fuller el valor p obtenido fue 0.9586 por lo que no es posible rechazar la hipotesis nula y diremos no es estacionaria
+
+
+#### Dickey Fuller con una diferencia
+
+```{r}
+adf.test(diff(z1))  # estacionaria
+pp.test(diff(z1))
+
+```
+Los resultados de la serie anterior nos llevan a concluir que las serie con una diferencia ordinaria es estacionaria
+
+
+#### D-F y PP sobre la serie desestacionalizada
+
+```{r}
+adf.test(diff(z1,12)) 
+pp.test(diff(z1,12))
+
+```
+Las pruebas de Dickey Fuller y Phillips Perron nos indican que la serie z1 con una diferencia estacional es estacionaria
+
+
+```{r}
+adf.test(diff(diff(z1,12)))
+```
+
+
+
+```{r}
+par(mfrow=c(4,3))
+plot(z1,type="o")
+acf(z1, lag.max=40)
+pacf(z1, lag.max=40)
+plot(diff(z1),type="o")
+abline(h=2*sqrt(var(diff(z1))),col="red",lty=2)
+abline(h=-2*sqrt(var(diff(z1))),col="red",lty=2)
+acf(diff(z1), lag.max=40)
+pacf(diff(z1), lag.max=40)
+plot(diff(z1,12),type="o")
+acf(diff(z1,12), lag.max=40)
+pacf(diff(z1,12), lag.max=40)
+plot(diff(diff(z1,12)),type="o")
+abline(h=2*sqrt(var(diff(diff(z1,12)))),col="red",lty=2)
+abline(h=-2*sqrt(var(diff(diff(z1,12)))),col="red",lty=2)
+acf(diff(diff(z1,12)), lag.max=40)
+pacf(diff(diff(z1,12)), lag.max=40)
+
+```
+
+```{r}
+ts_plot(diff(diff(z1,12)))
+```
+
+
+
+```{r}
+ts_cor(diff(diff(z1,12)), lag.max = 40)
+```
+
+
+
+
+
+
+
+#### SARIMA(0,1,1)(0,1,1) BIC -347.7133 Lags:1,1
+#### SARIMA(0,1,5)(0,1,1) BIC -329.9128 Lags:1:5,1
+#### SARIMA(0,1,5)(0,1,1) BIC -341.6644 Lags:1,3,5;1
+#### SARIMA(0,1,5)(0,1,1) BIC -345.9592 Lags:1,5;1
+#### SARIMA(0,1,11)(0,1,1) BIC -344.8457 Lags:1,5, 10, 11;1
+#### SARIMA(0,1,11)(0,1,1) BIC -349.3178 Lags:1,5, 11;1
+#### SARIMA(0,1,16)(0,1,1) BIC -344.7575 Lags:1,5,11,16;1
+#### SARIMA(16,1,11)(0,1,1) BIC  -347.3572 Lags:16;1,5,11;1
+#### SARIMA(16,1,19)(0,1,1) BIC  -342.4163 Lags:16;1,5,11,18,19;1
+#### SARIMA(19,1,18)(0,1,1) BIC   -342.1835 Lags:16,19;1,5,11,18;1
+#### SARIMA(16,1,18)(0,1,1) BIC  -347.9725 Lags:16;1,5,11,18;1
+
+
+### Ajuste del Modelo
+
+```{r}
+#modelo1<-stats::arima(z1,
+                      #order=c(16,1,18), 
+                      #seasonal=list(order=c(0,1,1),
+                      #              period=12), 
+                      #fixed=c(rep(0,15),NA,NA,0,0,0,NA,0,0,0,0,0,NA,0,0,0,0,0,0,NA,NA)) 
+#modelo1
+
+#tt <- modelo1$coef[which(modelo1$coef!=0)]/sqrt(diag(modelo1$var.coef))
+#1 - pt(abs(tt),(modelo1$nobs - length(modelo1$coef[which(modelo1$coef!=0)])))
+#BIC(modelo1)
+```
+```{r}
+modelo1<-stats::arima(z1,
+                      order=c(11,1,0), 
+                      seasonal=list(order=c(0,1,1),
+                                    period=12), 
+                      fixed=c(NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA)) 
+modelo1
+
+tt <- modelo1$coef[which(modelo1$coef!=0)]/sqrt(diag(modelo1$var.coef))
+1 - pt(abs(tt),(modelo1$nobs - length(modelo1$coef[which(modelo1$coef!=0)])))
+BIC(modelo1)
+
+```
+
+
+
+
+### Diagnóstico
+
+```{r}
+et<-residuals(modelo1)
+x1.fit <- fitted(modelo1)
+```
+
+
+```{r}
+par(mfrow=c(3,2))
+plot(z1,type="l",lty=2)
+lines(x1.fit,type="l",col="red")
+plot(scale(et),type="l",main="Residuales")
+abline(h=2*sqrt(var(scale(et))),col="red",lty=2)
+abline(h=-2*sqrt(var(scale(et))),col="red",lty=2)
+acf(et)
+pacf(et)
+qqPlot(scale(et))
+acf(abs(et)) #Mide Estructura Heteroced?stica
+```
+
+       
+
+## Test de Autocorrelacion de Ljung-Box
+$H_0$: $r_1=r_2=r_3=...=r_{lag}=0$
+
+$H_a$: Al menos una es diferente de cero
+
+
+
+#autoplot(modelo1)
+
+```{r}
+?tsdiag
+```
+
+
+```{r}
+tsdiag(modelo1, gof.lag=20)
+```
+
+#LBQPlot(et)
+
+
+
+```{r}
+Box.test(et,lag=20,type="Ljung-Box")
+```
+
+
+
+
+
+
+
+#### Test de Normalidad basado en  Sesgo y Curtosis
+
+$H_0=$: Datos provienen de una Dist. Normal
+ 
+$H_a$: Los datos no provienen de una Dist. Normal
+
+```{r}
+jarque.bera.test(et)
+```
+
+
+
+#### Test de Aleatoriedad
+$H_0:$ Residuales exhiben un comport. de Aleatoriedad
+$H_a:$ Residuales no exhiben estructura (Tendencia, o cualquier otro comportamiento predecible)
+
+```{r}
+runs.test(as.factor(sign(et)), alternative="two.sided")
+```
+
+
+
+
+#### Pronóstico Fuera Muestra
+
+```{r}
+plot(forecast(modelo1,h=12, fan=T))
+lines(fitted(modelo1), col="red")
+```
+
+
+
+
+
+#### inversa de boxcox
+
+```{r}
+lambda <- 0.12 
+predt <- forecast(modelo1,h=12)
+z2inv <- forecast::InvBoxCox(predt$mean,lambda)
+z2inv.li <- forecast::InvBoxCox(predt$lower[,2],lambda) #Linf IC 95%
+z2inv.ls <- forecast::InvBoxCox(predt$upper[,2],lambda) #lsUP ic 95%
+z1.fit <- forecast::InvBoxCox(x1.fit,lambda)
+
+plot(ts(c(gas,z2inv),start=c(1956,1),freq=12), type="l", col="blue", lwd=2, 
+     main="Pronóstico h=12 Pasos al Frente Gas",
+     xlab="Anual",
+     ylab="", 
+     ylim=c(min(gas,z2inv.li,z2inv.ls),max(gas,z2inv.li,z2inv.ls)))
+polygon(c(time(z2inv.li),rev(time(z2inv.ls))),
+        c(z2inv.li,rev(z2inv.ls)),
+        col="gray", border=NA)
+lines(z2inv, type="b", col="blue", lwd=2) 
+lines(z1.fit, type="l", col="red", lty=2, lwd=3) 
+
+z3<-ts(tail(z1.fit,n=10))
+plot(z3)
+
+```
+
+
