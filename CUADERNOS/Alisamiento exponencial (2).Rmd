@@ -1,0 +1,673 @@
+---
+title: "Alisamiento Exponencial"
+author: "Wilson Sandoval R"
+date: "`r Sys.Date()`"
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+    toc: true
+---
+
+
+
+# Algoritmos de Alisamiento Exponencial
+
+- Los métodos de previsión se basan en la idea de que las observaciones pasadas contienen información sobre el patrón de comportamiento de la serie de tiempo.
+
+- El algoritmo de alisamiento exponencial intenta tratar este problema. 
+
+- Los algoritmos no tienen un desarrollo probabilístico que pruebe su eficiencia, pero en la práctica son muy útiles por su simplicidad y eficiencia computacional.
+
+
+## Suavizado exponencial: 
+
+- Técnica para suavizar datos de series de tiempo utilizando una función de ventana exponencial. 
+
+- Difiere  del promedio móvil simple, con el tiempo las funciones exponenciales asignan pesos exponencialmente decrecientes. 
+  + Los pesos mayores se asignan a los valores u observaciones recientes, mientras que los pesos menores se asignan a los valores u observaciones más antiguos. 
+  
+- Entre muchas funciones de ventana, en el procesamiento de señales, la función de suavizado exponencial generalmente se aplica para suavizar datos donde actúa como un filtro de paso bajo para eliminar el ruido de alta frecuencia. 
+  
+
+
+
+## Suaviamiento exponencial simple - **SES** (simple exponencial smoothing)
+
+Este procedimiento es adecuado cuando los datos no tienen tendencia o patrón estacional. Los pesos de cada observación son determinados por un parámetro de suavizamiento $\alpha$. 
+
+Para un conjunto de datos con $T$ observaciones , calculamos el valor predicho $\hat{y}_{t+1}$, el cual estará basado en $y_1$ a través de $y_t$ de la siguiente forma:
+
+$$\hat{y}_{t+1}=\alpha y_t+\alpha(1-\alpha)y_{t−1}+...+\alpha(1−\alpha)^{t−1}y_1$$
+
+
+Donde:
+
+- $0< \alpha < 1$. 
+- $\alpha$ puede ser visto como una tasa de aprendizaje. 
+
+- Valores cercanos a cero son considerados como aprendizaje lento ya que se da más peso a información histórica
+- Valores cercanos a 1 son considerados como aprendizaje rápido porque el algoritmo da más peso a las observaciones recientes.
+
+```{r message=FALSE}
+library(tseries)
+#library(FitAR)
+library(urca)
+library(highcharter)
+library(readxl)
+library(ggplot2)
+library(TSstudio)
+library(forecast)
+library(car)
+library(rio)
+
+```
+
+```{r}
+library(readxl)
+IPC <- rio::import("https://github.com/Wilsonsr/Series-de-Tiempo/raw/main/bases/IPC%20(4).xlsx")
+
+head(IPC)
+
+```
+
+
+```{r}
+z2=ts(IPC, start = c(2000,1),frequency = 12)
+z2
+```
+
+
+
+Damos formato de serie de tiempo
+```{r}
+
+z1=ts(IPC, start = c(2000,1), end=c(2018,12),frequency = 12)
+length(z1)
+```
+
+
+```{r}
+h1=auto.arima(z1)
+```
+
+```{r}
+hchart(forecast(h1,h=12))
+```
+
+
+```{r}
+v=as.vector(forecast(h1, h=12))
+w=v$mean
+```
+
+
+```{r}
+#rmse(data_real, w)
+```
+
+
+
+
+
+
+Realizamos la gráfica de los datos
+```{r}
+ts_plot(z1, title = "IPC 2000-2018" , slider = T)
+```
+
+
+
+```{r}
+ts_decompose(z1)
+```
+
+```{r}
+ts_decompose(z1,type="multiplicative")
+```
+
+
+```{r}
+ts_seasonal(z1, type="all")
+```
+
+
+```{r}
+ts_heatmap(z1)
+```
+
+
+
+```{r}
+ts_surface(z1)
+```
+
+
+
+### SES(Suavizado Exponencial Simple)
+
+- Datos que no tienen tendencia o patrón estacional. 
+
+
+```{r}
+library(tidyverse)
+#library(fpp2)
+```
+
+![](https://www.gestiondeoperaciones.net/wp-content/uploads/2011/08/Alisamiento-Exponencial.gif)
+
+El pronóstico del período $t$ $(F_{t})$ será igual al pronóstico del período anterior, es decir, del período $t-1$ $(F_{t-1})$ más alfa $(\alpha)$ por el error del período anterior $(A_{t-1}-F_{t-1})$
+
+
+
+```{r}
+ipc_ses <- ses(z1, alpha = .2,  h = 12)
+autoplot(ipc_ses)
+
+```
+```{r}
+summary(ipc_ses)
+```
+```{r}
+
+autoplot(ipc_ses) +
+  autolayer(fitted(ipc_ses), series="Fitted") +
+  xlab("Year")
+
+```
+
+```{r}
+ipc_ses
+```
+
+
+```{r}
+length(z2)
+length(z1)
+test=z2[229:240]
+```
+
+
+
+
+
+## ETS (Error tenndencia y estacionalidad)
+
+- El algoritmo ETS es especialmente útil para conjuntos de datos con estacionalidad y otras suposiciones previas sobre los datos.
+
+- ETS calcula un promedio ponderado sobre todas las observaciones en el conjunto de datos de las series temporales de entrada como su predicción.
+
+- Las ponderaciones disminuyen exponencialmente con el tiempo, en lugar de las ponderaciones constantes en los métodos de promedio móvil simple. 
+
+- Las ponderaciones dependen de un parámetro constante, conocido como parámetro de suavizamiento.
+
+
+
+
+```{r}
+fit_ets_default <- ets(z1)
+checkresiduals(fit_ets_default)
+
+```
+
+
+```{r}
+mod2 <- forecast(fit_ets_default, 12, level = 95)
+plot(mod2)
+```
+
+- Veamos el ajuste entre los datos de la serie y el pronóstico del modelo en la siguiente representación gráfica, usando la función `fitted()` que obtiene un ajuste con la data historica.
+
+```{r}
+autoplot(mod2)+
+  autolayer(fitted(mod2), series="Ajuste")
+```
+
+
+
+```{r}
+print(summary(mod2))
+```
+
+
+Y podemos representar solo los resultados a través de un dataframe, asignando la ejecución del mismo a la variable pronóstico.
+
+```{r}
+pronostico <- as.data.frame(mod2)
+pronostico
+```
+
+## SUAVIZADO EXPONENCIAL(HOLT-WINTERS)
+
+- El método se basa en un algoritmo iterativo que a cada tiempo realiza un pronóstico sobre el comportamiento de la serie en base a promedios debidamente ponderados de los datos obtenidos anteriormente.
+
+- A este particular hay que reseñar los 2 diferentes tipos de estacionalidad que se pueden dar en las gráficas, que son estacionalidad aditiva o estacionalidad multiplicativa.
+
+- El modelo multiplicativo  se usa cuando la magnitud del patron estacional en los datos depende de la magnitud de los datos. En otras palabras, la magnitud del patron estacional aumenta a medida que los valores de los datos se incrementan y disminuye a medida que los valores de los datos decrecen.
+
+- El modelo aditivo se usa cuando la magnitud del patron estacional en los datos no dependa de la magnitud de los datos. En otras palabras, la magnitud del patron estacional no cambia cuando la serie sube o baja.
+
+
+
+El método de Holt-Winters es una técnica de suavizado que utiliza un conjunto de estimaciones recursivas a partir de la serie histórica. Estas estimaciones utilizan 
+
+- Una constante de nivel $\alpha$
+
+- Una constante de tendencia $\beta$
+
+- Una constante estacional multiplicativa $\gamma$
+
+Las estimaciones recursivas se basan en las siguientes ecuaciones:
+
+
+$$\hat Y_t=\alpha(\hat Y_{t-1}-T_{t-1})+(1-\alpha)\frac{Y_t}{F_{t-s}}\ \ \ 0< \alpha <1$$
+
+$$T_t=\beta T_{t-1}+(1-\beta)(\hat Y_{t}-\hat Y_{t-1})\ \ \ 0< \beta <1$$
+
+$$F_t=\gamma F_{t-s}+(1-\gamma)\frac{Y_t}{\hat Y_{t}}\ \ \ 0< \gamma <1$$
+
+donde  $s=4$   en el caso de datos trimestrales y  $s=12$ en el caso de datos mensuales.  
+
+
+- $\hat{Y}_t$ sería el nivel suavizado de la serie,  
+
+- $T_t$ la tendencia suavizada de la serie y  
+
+- $F_t$  el ajuste estacional suavizado de la serie.
+
+
+`HoltWinters(x, alpha = NULL, beta = NULL, gamma = NULL, seasonal = c(“additive”,multiplicative“), start.periods = 2, l.start = NULL, b.start = NULL, s.start = NULL, optim.start = c(alpha = 0.3, beta = 0.1, gamma = 0.1), optim.control = list())`
+
+Graficando nuevamente nuestros datos
+
+`
+
+```{r}
+ts_plot(z1, slider = T, title = "IPC 2000-2019")
+```
+
+
+- Ahora  realizaremos  una gráfica donde se vea la serie del modelo (linea negra) y el ajuste con la predicción(linea roja), así mismo aparecerá la descomposición de la gráfica para evaluar los datos.
+
+```{r}
+m1 = HoltWinters(z1, seasonal = "additive")
+```
+
+
+
+
+```{r}
+plot(m1)
+```
+
+```{r}
+hchart(forecast(m1,12))
+```
+
+
+```{r}
+m1
+```
+
+
+```{r}
+checkresiduals(m1)
+```
+
+
+- A posterori realizaremos las predicciones a 12 meses vista y las graficaremos:
+
+
+```{r}
+mod3=predict(m1, 12, prediction.interval = TRUE)
+mod3
+```
+
+```{r}
+plot(m1, mod3)
+```
+
+## REDES NEURONALES DE RETROALIMENTACION (nntear)
+
+Son redes con una sola capa oculta y entradas retrasadas para pronosticar series de tiempo univariadas.
+
+Vamos a elaborar entonces el modelo de red neuronal con nuestros datos:
+```{r}
+set.seed(42)
+neural_network <- nnetar(z1)
+```
+
+```{r}
+class(neural_network)
+```
+
+
+- Una vez hecho esto vamos a comprobar los residuos que presenta nuestro modelo.
+
+```{r}
+checkresiduals(neural_network)
+```
+
+
+Una vez hecho esto realizamos la predicción a 12 meses de los datos, con una significancia del 95% de los mismos.
+
+```{r}
+mod4 <- forecast(neural_network, h=12, level = 95)
+mod4
+```
+
+
+
+
+
+- Luego realizamos un gráfico de nuestro pronostico.
+
+```{r}
+autoplot(mod4)
+```
+
+- Ahora vamos a ver representado el ajuste entre lo datos de la serie y el pronóstico del modelo en la siguiente representación gráfica, para ello utilizamos la función  `fitted()`  que obtiene un ajuste con la data histórica.
+
+```{r}
+autoplot(mod4)+
+  autolayer(fitted(mod4), series="Ajuste")
+```
+
+Ahora vamos a determinar los resultados de este modelo creando  un dataframe 
+
+```{r}
+pronostico <- as.data.frame(mod4)
+pronostico
+```
+
+## REDES NEURONALES RECURRENTES (Modelos Elman y Jordan).
+
+- Una red neuronal recurrente no tiene una estructura de capas definida, sino que permiten conexiones arbitrarias entre las neuronas, incluso pudiendo crear ciclos, con esto se consigue crear la temporalidad, permitiendo que la red tenga memoria.
+
+- Los RNN se denominan recurrentes porque realizan la misma tarea para cada elemento de una secuencia, y la salida depende de los cálculos anteriores.
+
+### Modelo Elman.
+
+
+![](http://software-tecnico-libre.es/Images/nolang/2016/elman-neural-network.png)
+
+
+- En las redes de **Elman**, las entradas de estas neuronas, se toman desde las salidas de las neuronas de una de las capas ocultas, y sus salidas se conectan de nuevo en las entradas de esta misma capa, lo que proporciona una especie de memoria sobre el estado anterior de dicha capa.
+
+- Para desarrollar este modelo junto con el de Jordan, se cargan las librerías
+
+```{r, message=FALSE}
+#install.packages("RSNNS")
+library(RSNNS)
+library(quantmod)
+```
+
+
+
+
+
+Vamos  pronosticar 12 meses de nuestros datos con esta red.
+
+- En primer lugar para actuar en dicho proceso con redes neuronales tenemos que normalizar nuestros datos para que tomen valores entre 0 y 1. Para ello hemos asociado a nuestro dataset de base una variable “Z” y a partir  de esta hemos realizar la normalización a través de la variable “S”.
+
+```{r}
+Z <- as.ts(z1,F)
+S <- (Z-min(Z))/(max(Z)-min(Z))  
+plot(S)
+```
+
+A continuación comprobamos el numero de filas totales que contiene nuestro dataset y dividiremos los conjuntos de entrenamiento en un 75% y prueba en un 25% respectivamente.
+
+```{r}
+tamano_total <- length(S)
+tamano_total
+```
+
+
+```{r}
+tamano_train <- round(tamano_total*0.75, digits = 0)
+train <- 0:(tamano_train-1)
+train
+
+```
+
+```{r}
+test <- (tamano_train):tamano_total
+test
+```
+
+- Ahora crearemos un dataframe con $n$ columnas, cada una de las cuales adelantara un valor de la serie en el futuro, a través de una variable tipo zoo, equivalente al periodo de retardo de la serie.
+
+```{r}
+y <- as.zoo(S)
+x1 <- Lag(y, k = 1)
+x2 <- Lag(y, k = 2)
+x3 <- Lag(y, k = 3)
+x4 <- Lag(y, k = 4)
+x5 <- Lag(y, k = 5)
+x6 <- Lag(y, k = 6)
+x7 <- Lag(y, k = 7)
+x8 <- Lag(y, k = 8)
+x9 <- Lag(y, k = 9)
+x10 <- Lag(y, k = 10)
+x11 <- Lag(y, k = 11)
+x12 <- Lag(y, k = 12)
+slogN <- cbind(y,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12)
+```
+
+```{r}
+DT::datatable(slogN)
+```
+
+
+
+- A continuacion eliminaremos los valores NA producidos al desplazar la serie:
+
+```{r}
+slogN1 <- slogN[-(1:12),]
+DT::datatable(slogN1)
+```
+
+
+- Luego definimos los valores de entrada y salida de la red neuronal:
+
+```{r}
+inputs <- slogN1[,2:13]
+outputs <- slogN1[,1]
+
+```
+
+- Ahora crearemos la red de Elman, probando diferentes tipos de combinaciones de neuronas en las capas ocultas e iteraciones máximas, ademas del ritmo de aprendizaje aunque este último apenas lo hemos tocado, para ajustar lo mejor posible la curva de predicción a la del modelo de la serie. De esta forma hemos llegado a estos valores a la hora de crear nuestra red. Asi mismo ponemos una semilla para que el resultado sea reproducible.
+
+```{r}
+set.seed(42)
+fit<-elman(inputs[train],outputs[train],size=c(10,3),learnFuncParams=c(0.1),
+                  maxit=64000)
+
+```
+
+- En la gráfica siguiente vemos como evoluciona el error de la red con el numero de iteraciones para los parámetros expuestos.
+
+```{r}
+plotIterativeError(fit, main = "Iterative Error for 7,3 Neuron")
+```
+
+- Observamos que el error converge a 0 muy rapidamente.
+
+- Ahora realizamos la predicción con el resto de los términos de la serie que son los datos seleccionados para `test`, pasamos pues una vez entrenada a probarla y a representarla graficamente para ver el ajuste del modelo.
+
+
+```{r}
+y <- as.vector(outputs[-test])
+plot(y,type="l")
+pred <- predict(fit, inputs[-test])
+lines(pred,col = "red")
+
+```
+
+
+-  El ajuste que predice bastante bien con los parametros elegidos, pues la curva del modelo de la serie y la de la prediccion parecen bastante ajustadas.
+
+- Esta representacion grafica se puede utilizar para ir ajustando la prediccion y el modelo a medida que vamos probando diferentes parametros de la red de Elman, de forma que la curva del modelo y de la prediccion queden lo mas ajustados posibles.
+
+- Ahora gracias al efecto memoria vamos a adelantarle a la serie al menos en un valor con una precision muy buena. Para ello volveremos a introducir los datos de entrenamiento.
+
+```{r}
+predictions <- predict(fit,inputs[-train])
+predictions
+```
+
+
+- posteriori desnormalizaremos los datos:
+
+```{r}
+mod5 <- predictions*(max(Z)-min(Z))+min(Z)
+mod5
+```
+
+
+
+- Ahora veamos la representación de los valores predecidos para el siguiente periodo.
+
+```{r}
+x <- 1:(tamano_total+length(mod5))
+y <- c(as.vector(Z),mod5)
+plot(x[1:tamano_total], y[1:tamano_total],col = "blue", type="l")
+lines( x[(tamano_total):length(x)], y[(tamano_total):length(x)], col="red")
+
+```
+```{r}
+length(y)
+```
+
+
+- Aquí vemos la gráfica con los valores predecidos con la linea roja.
+
+-Los valores que adelantamos en el tiempo corresponden a `mod5`, de los cuales adelantaremos 12 meses a futuro para nuestro estudio.
+
+
+## Modelo Jordan
+
+![](http://software-tecnico-libre.es/Images/nolang/2016/jordan-neural-network.png)
+
+- En las redes Jordan, la diferencia esta en que la entrada de las neuronas de la capa de contexto se toma desde la salida de la red.
+
+- Realizamos las mismas operaciones que con la red Elman, sustituyendo el modelo, obtenemos el resultado para la red Jordan.
+
+```{r}
+set.seed(42)
+fit <-jordan(inputs[train],outputs[train],size=6,learnFuncParams=c(0.3),
+             maxit=78000)
+
+plotIterativeError(fit, main = "Iterative Error for 6 Neuron")
+
+```
+
+
+```{r}
+y <- as.vector(outputs[-test])
+plot(y,type="l")
+pred <- predict(fit, inputs[-test])
+lines(pred,col = "red")
+
+```
+
+
+```{r}
+predictions <- predict(fit,inputs[-train])
+mod6 <- predictions*(max(Z)-min(Z))+min(Z)
+mod6
+```
+
+
+```{r}
+
+x <- 1:(tamano_total+length(mod6))
+y <- c(as.vector(Z),mod6)
+plot(x[1:tamano_total], y[1:tamano_total],col = "blue", type="l")
+lines( x[(tamano_total):length(x)], y[(tamano_total):length(x)], col="red")
+```
+
+- La anterior  grafica con los valores predecidos con la linea roja.
+
+- Los valores que adelantamos en el tiempo corresponden a mod6, de los cuales adelantaremos 12 meses a futuro para nuestro estudio
+
+## Estimación del error Comparativo de los modelos con los valores actuales observados.
+
+```{r}
+data=IPC[229:241,]
+data_real <- ts(data, start = c(2019,1), end=c(2019,12), frequency = 12)
+
+data_real
+```
+
+Ahora haremos la comparacion de nuestros modelos con la data_real(valor de test en RMSE).
+
+
+- **ETS:**
+```{r}
+accuracy(mod2,data_real)
+```
+
+
+
+- **HOLT-WINTERS:**
+
+```{r}
+accuracy(mod3,data_real)
+```
+
+
+
+- **NNTEAR:**
+
+```{r}
+accuracy(mod4,data_real)
+```
+
+
+
+- Para Elman y Jordan al no ser modelos con forecast, lo convertimos en series de tiempo para que lo acepte el comando accuracy.De tal forma que:
+```{r}
+mod5[1:12]
+```
+
+
+
+
+```{r}
+m5 <- mod5[1:12]
+mod5c <- ts(m5, frequency=12,start=c(2019,1))
+mod5c
+```
+
+
+
+
+```{r}
+m6 <- mod6[1:12]
+mod6c <- ts(m6, frequency=12,start=c(2019,1))
+mod6c
+```
+
+
+
+- **ELMAN(RNN):**
+
+```{r}
+accuracy(mod5c,data_real)
+```
+
+
+- **JORDAN(RNN):**
+
+```{r}
+accuracy(mod6c,data_real)
+
+```
+
+
+```{r}
+#accuracy(h1, data_real)
+```
+
