@@ -1,0 +1,210 @@
+---
+title: "Untitled"
+author: "Wilson Sandoval"
+date: "01/10/2022"
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+    float: true
+    toc: true
+---
+
+
+El conjunto de datos contiene las siguientes variables:
+
+- Consumo de helado en los EE. UU. (en pintas, per cápita),
+- Ingreso familiar promedio por semana (en USD),
+- Precio del helado (por pinta), y
+- Temperatura media (en grados Fahrenheit).
+El número de observaciones es 30. Corresponden a períodos de cuatro semanas en el lapso del 18 de marzo de 1951 al 11 de julio de 1953
+
+
+
+Cargamos el conjunto de datos y se grafican las variables `cons`(consumo de helado), `temp`(temperatura) y `income`.
+
+
+```{r}
+library(ggplot2)
+library(gridExtra)
+library(DT)
+```
+
+
+
+
+```{r}
+df <- read.csv("/cloud/project/SARIMAX/Icecream.csv")
+df%>%DT::datatable()
+```
+
+
+```{r}
+p1 <- ggplot(df, aes(x = X, y = cons)) +
+             ylab("Consumption") +
+             xlab("") +
+             geom_line() +
+             expand_limits(x = 0, y = 0)
+p2 <- ggplot(df, aes(x = X, y = temp)) +
+             ylab("Temperature") +
+             xlab("") +
+             geom_line() +
+             expand_limits(x = 0, y = 0)
+p3 <- ggplot(df, aes(x = X, y = income)) +
+             ylab("Income") +
+             xlab("Period") +
+             geom_line() +
+             expand_limits(x = 0, y = 0)
+grid.arrange(p1, p2, p3, ncol=1, nrow=3)
+
+```
+
+
+```{r}
+library(TSstudio)
+library(highcharter)
+```
+
+
+
+Se estima un modelo ARIMA para los datos sobre el consumo de helado usando la  función `auto.arima`. 
+
+Luego, pase el modelo como entrada a la forecastfunción para obtener un pronóstico para los próximos 6 períodos (funciones son del paquete forecast).
+
+```{r}
+library(forecast)
+fit_cons <- auto.arima(df$cons)
+fcast_cons <- forecast::forecast(fit_cons, h = 6)
+fcast_cons
+```
+
+
+Trazamos el pronóstico obtenido 
+
+
+```{r}
+library(forecast)
+#autoplot.forecast(fcast_cons)
+plot(fcast_cons)
+```
+
+
+Usando la función `accuracy` del paquete  `forecast` para encontrar el error escalado absoluto medio (MASE) del modelo ARIMA ajustado.
+
+```{r}
+accuracy(fit_cons)
+
+```
+
+
+Estimamos un modelo ARIMA extendido para los datos de consumo con la variable de temperatura como regresor adicional (usando la función `auto.arima`). 
+
+Pronostico los próximos 6 períodos (tenga en cuenta que este pronóstico requiere una suposición sobre la temperatura esperada; suponga que la temperatura para los próximos 6 períodos estará representada por el siguiente vector:) 
+
+`fcast_temp <- c(70.5, 66, 60.5, 45.5, 36, 28)`.
+
+Trace el pronóstico obtenido.
+
+
+
+```{r}
+fit_cons_temp <- auto.arima(df$cons, xreg = df$temp)
+fcast_temp <- c(70.5, 66, 60.5, 45.5, 36, 28)
+fcast_cons_temp <- forecast::forecast(fit_cons_temp, xreg = fcast_temp, h = 6)
+plot(fcast_cons_temp)
+```
+
+
+
+Imprimir resumen del pronóstico obtenido. Encuentre el coeficiente de la variable de temperatura, su error estándar y el MASE del pronóstico. Compare el MASE con el de la previsión inicial.
+
+
+```{r}
+summary(fcast_cons_temp)
+```
+
+
+Compruebe la significación estadística del coeficiente de la variable de temperatura utilizando la  función coeftest del  paquete `lmtest`.
+
+```{r}
+library(lmtest)
+coeftest(fit_cons_temp)
+```
+
+
+La función que estima el modelo ARIMA puede ingresar más regresores adicionales, pero solo en forma de matriz. Cree una matriz con las siguientes columnas:
+
+- valores de la variable de temperatura,
+- valores de la variable renta,
+- los valores de la variable de ingresos se retrasaron un período,
+- los valores de la variable renta se retrasaron dos períodos.
+
+Imprime la matriz.
+
+**Nota:** las últimas tres columnas se pueden crear anteponiendo dos `NA` al vector de valores de la variable de ingresos y utilizando el vector obtenido como entrada a la función `embed` (con el  parámetro dimension igual al número de columnas a crear).
+
+
+
+```{r}
+x <- 1:10
+x
+embed (x, 3)
+```
+
+
+```{r}
+temp_column <- matrix(df$temp, ncol = 1)
+income <- c(NA, NA, df$income)
+income_matrix <- embed(income, 3)
+vars_matrix <- cbind(temp_column, income_matrix)
+print(vars_matrix)
+```
+
+Usando la matriz obtenida para ajustar tres modelos ARIMA extendidos que usan las siguientes variables como regresores adicionales:
+
+- temperatura, ingresos,
+- temperatura, ingresos en rezagos 0, 1,
+- temperatura, ingresos en rezagos 0, 1, 2.
+Examine el resumen de cada modelo y busque el modelo con el valor más bajo del criterio de información de Akaike (AIC).
+
+Tenga en cuenta que el AIC no se puede utilizar para comparar modelos ARIMA con diferentes órdenes de integración (expresados por los términos intermedios en las especificaciones del modelo) debido a una diferencia en el número de observaciones. Por ejemplo, un valor AIC de un modelo no diferenciado, ARIMA (p, 0, q), no se puede comparar con el valor correspondiente de un modelo diferenciado, ARIMA (p, 1, q).
+
+
+```{r}
+fit_vars_0 <- auto.arima(df$cons, xreg = vars_matrix[, 1:2])
+fit_vars_1 <- auto.arima(df$cons, xreg = vars_matrix[, 1:3])
+fit_vars_2 <- auto.arima(df$cons, xreg = vars_matrix[, 1:4])
+print(fit_vars_0$aic)
+print(fit_vars_1$aic)
+print(fit_vars_2$aic)
+```
+
+
+
+Utilizando el modelo que se encontró en el ejercicio anterior para hacer un pronóstico para los próximos 6 períodos y grafique el pronóstico. (El pronóstico requiere una matriz de la temperatura y los ingresos esperados para los próximos 6 períodos; cree la matriz utilizando la variable `fcast_temp` y los siguientes valores para los ingresos esperados:) 91, 91, 93, 96, 96, 96.
+Encuentre el error escalado absoluto medio del modelo y compárelo con los de los dos primeros modelos de este conjunto de ejercicios
+
+
+
+```{r}
+expected_temp_income <- matrix(c(fcast_temp, 91, 91, 93, 96, 96, 96), ncol = 2, nrow = 6)
+fcast_cons_temp_income <-forecast::forecast(fit_vars_0, xreg = expected_temp_income, h = 6)
+#autoplot.forecast(fcast_cons_temp_income)
+plot(fcast_cons_temp_income)
+
+
+```
+
+
+```{r}
+accuracy(fit_cons)[, "MASE"]
+## [1] 0.8200619
+accuracy(fit_cons_temp)[, "MASE"]
+## [1] 0.7354048
+accuracy(fit_vars_0)[, "MASE"]
+## [1] 0.7290753
+# the model with two external regressors has the lowest 
+
+# mean absolute scaled error (0.7290753)
+```
+
