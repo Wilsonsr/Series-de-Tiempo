@@ -26,8 +26,9 @@
 
 - <a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/Alisamiento%20exponencial%20(2).Rmd"> oTras metodologías  </a> 
 
-- https://rpubs.com/wilsonsr/798470
+- <a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/series%20multivariadas%20armax.Rmd"> Series Tiempo Multivariadas SARIMAX  </a> 
+  - https://rpubs.com/wilsonsr/798470
 
-- https://rpubs.com/wilsonsr/764667
+  - https://rpubs.com/wilsonsr/764667
 
 - <a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/VAR.Rmd"> Modelo VAR  </a>
