@@ -33,3 +33,6 @@
 
 - <a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/VAR.Rmd"> Modelo VAR  </a>
   - https://rpubs.com/wilsonsr/960156
+    - <a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/ejemplo_modelo_var.Rmd"> Ejemplo Modelo VAR  </a>
+    -https://rpubs.com/wilsonsr/794419
+  
