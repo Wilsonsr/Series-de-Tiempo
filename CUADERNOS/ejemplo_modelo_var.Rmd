@@ -1,0 +1,244 @@
+---
+title: "Ejemplo modelo VAR"
+author: "WILSON SANDOVAL"
+date:  "`r Sys.Date()` "
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+    float: true
+    toc: true 
+---
+
+
+## Cargar las librerias
+
+```{r echo=TRUE, message=FALSE}
+library(vars)
+library(tseries)
+library(forecast)
+library(urca)
+library(highcharter)
+library(bvartools)
+```
+
+## Cargar los datos y darles formato de series de tiempo
+
+```{r echo=TRUE}
+datos <- read.csv("/cloud/project/VAR/blanchQua.csv")
+gdp <- ts(datos$GDP, start = c(1948, 2), freq = 4) # gdp
+une <- ts(datos$U, start = c(1948, 2), freq = 4)   # unemployment
+plot(cbind(gdp, une), main="PIB y DESEMPLEO" )
+hchart(cbind(gdp, une))
+```
+
+##  Pruebas de raíz unitaria
+
+Verificar si hay una raíz unitaria, donde notamos que podemos rechazar nulos de raíz unitaria al usar la prueba Dickey-Fuller
+
+
+```{r echo=TRUE}
+adf.une <- ur.df(une, type = "trend", selectlags = "BIC")
+summary(adf.une)   # La series es estacionaria
+```
+
+La serie de tiempo del desempleo es estacionaria.
+
+```{r echo=TRUE}
+adf.gdp <- ur.df(gdp, type = "trend", selectlags = "BIC")
+summary(adf.gdp)   
+plot(adf.gdp)
+```
+
+La serie de  tiempo del PIB  es estacionaria.
+
+
+```{r}
+summary(ur.pp(gdp, type = "Z-tau"))
+```
+
+
+## Selección y estimación del modelo
+
+Para crear un objeto bivariado para las dos series de tiempo que modelaremos, podemos simplemente unir en columna los dos objetos existentes. 
+
+### Selección
+A partir de entonces, podemos usar criterios de información para decidir el número de retrasos que se incluirán.
+
+
+```{r, echo=TRUE}
+dat.bv <- cbind(gdp, une)
+colnames(dat.bv) <- c("gdp", "une")
+info.bv <- VARselect(dat.bv, lag.max = 12, type = "const")
+info.bv
+info.bv$selection   
+```
+
+```{r}
+library(MTS)
+VARorder(dat.bv)
+```
+
+
+Todos los criterios de información sugieren  el uso de 2 rezagos sería apropiado, $p=2$
+
+###  Estimación del modelo VAR
+
+```{r, echo=TRUE}
+
+modelo <- vars::VAR(dat.bv, p = 2, type = "both")
+
+summary(modelo)
+
+```
+
+
+
+
+
+- El sistema es estable (las raíces características pueden interpretarse como valores propios en este caso). 
+
+- Hay variables no significativas en el modelo, donde **gdp**  está influenciado por el **desempleo** pasado;
+
+-  El **desempleo** está influenciado por medidas pasadas de **gdp** y desempleo.
+
+```{r echo=TRUE }
+#roots(modelo)
+```
+
+
+##  Evaluación del Modelo
+
+### correlación serial
+
+Para probar la correlación serial, se aplica la prueba  de **Portmanteau**.
+
+
+
+
+
+```{r echo=TRUE}
+bv.serial <- serial.test(modelo, lags.pt = 12, type = "PT.asymptotic")
+bv.serial$serial
+```
+ $p$-valor mayor 0.05 indica ausencia de correlación serial
+
+
+### Test heteroscedasticidad
+
+```{r echo=TRUE}
+bv.arch <- arch.test(modelo, lags.multi = 12, multivariate.only = TRUE)
+bv.arch
+```
+ $p$-valor mayor al 5% indicates ausencia de heterocedasticidad
+
+
+### Test de Normalidad de los residuales
+
+```{r echo=TRUE}
+bv.norm <- normality.test(modelo, multivariate.only = FALSE)
+bv.norm
+```
+
+
+ p-value indica  que los residuales son normales
+
+
+### Ruptura estructural en los residuos, 
+
+ aplicar una prueba CUSUM.
+```{r, echo=TRUE}
+bv.cusum <- stability(modelo, type = "OLS-CUSUM")
+plot(bv.cusum)
+```
+
+No parece haber una ruptura en los respectivos intervalos de confianza.
+
+
+
+## Causalidad de Granger, IRF y descomposiciones de varianza
+
+### Causalidad de Granger
+```{r, echo=TRUE}
+bv.cause.gdp <- causality(modelo, cause = "gdp")
+bv.cause.gdp
+```
+
+Segun los resultados el crecimiento trimestral de **gdp**  causa Granger el crecimiento trimestral de **une**, al menos en nuestro periodo de estimación. 
+
+
+```{r echo=TRUE}
+bv.cause.une <- causality(modelo, cause = "une")
+bv.cause.une
+
+```
+El crecimiento trimestral de  desempleo causa Granger el crecimiento trimestral del **gdp**.
+
+### Funcion de Impulso - Respuesta
+
+Las funciones de impulso respuesta muestran los efectos de los shock en la trayectoria de ajuste de las variables.
+
+Para generar funciones de respuesta a impulsos para describir la respuesta del producto a un shock de desempleo, procedemos de la siguiente manera:
+
+```{r echo=TRUE}
+irf.gdp <- vars::irf(modelo, impulse = "une", response = "gdp",n.ahead = 40, boot = TRUE)
+plot(irf.gdp) 
+```
+
+Un choque positivo al desempleo tiene un efecto negativo en la salida (es decir, un menor poder adquisitivo). 
+
+
+Para considerar la respuesta del desempleo al shock de salida,
+
+
+```{r, echo=TRUE}
+irf.une <- vars::irf(modelo, impulse = "gdp", response = "une",n.ahead = 40, boot = TRUE)
+plot(irf.une) # reponse of unemployment to gdp shock
+# positive shock to output decreases unemployment by large and persistent amount
+
+```
+Aquí observamos que un shock positivo en GDP disminuye el desempleo en una cantidad relativamente grande y persistente.
+
+
+- Del mismo modo, podemos ver el efecto de un shock de desempleo en el desempleo.
+
+
+```{r echo=TRUE}
+irf.une_un <- vars::irf(modelo, impulse = "une", response = "une",n.ahead = 40, boot = TRUE)
+#plot(irf.une, ylab = "unemployment", main = "Shock from GDP", xlab = "")
+plot(irf.une_un, ylab = "unemployment", main = "Shock from unemployment")
+
+```
+
+- ### Descomposición de La varianza
+
+```{r, echo=TRUE}
+bv.vardec <- vars::fevd(modelo, n.ahead = 10)
+plot(bv.vardec)
+
+```
+
+
+gdp  está determinado en gran medida por las perturbaciones del pib, mientras que el 
+desempleo está influenciado por ambas perturbaciones
+
+
+## Pronósticos
+
+Para pronosticar hacia adelante podemos usar el comando  $\textit{predict}$, donde en este caso pronosticamos 8 pasos adelante. También buscamos utilizar intervalos de confianza del 95% para el pronóstico
+
+
+```{r, echo=TRUE}
+predictions <- predict(modelo, n.ahead = 8, ci = 0.95)
+plot(predictions, names = "gdp")
+plot(predictions, names = "une")
+
+```
+
+
+```{r echo=TRUE}
+fanchart(predictions, names = "gdp")
+fanchart(predictions, names = "une")
+```
+
+
