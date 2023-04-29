@@ -1,0 +1,146 @@
+---
+title: "Vec-Cointegración"
+author: "WILSON SANDOVAL"
+date: "`r Sys.Date()`"
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+    float: true
+    toc: true
+---
+
+## **Introducción**
+
+- La mayoría de las variables macroeconómicas y financieras son no estacionarias
+- Se desplazan hacia arriba con el tiempo y a menudo exhiben características de una tendencia estocástica(cambio aleatorio de una serie a lo largo del tiempo)
+- Engle & Granger propuso que el orden de integración combinado de varias variables puede ser menor que su orden de integración individual
+- Permite el análisis de datos no estacionarios, donde podemos retener información relacionada con el nivel
+- Facilita un análisis de equilibrio, donde las variables exhiben desviaciones de la tendencia no estacionaria (estado estacionario)
+
+
+## **Cointegración definida**
+
+- En la mayoría de los casos, cuando las variables  
+ son no estacionarios $y_{1,t}$  y $y_{2,t}$ $I(1)$
+ variables, una combinación lineal de estas variables también será no estacionaria
+
+- Sin embargo, en algunos casos la combinación lineal de las variables puede ser estacionaria.
+
+- Esto ocurre cuando las variables comparten la misma tendencia estocástica
+- El efecto de la tendencia estocástica común puede estar contenido cuando se combinan las variables
+- En estos casos, decimos que las variables están cointegradas
+
+## Cointegración definida
+
+En la mayoría de los casos, cuando las variables $y_{1,t}$  y $y_{2,t}$  son no estacionarias $I(1)$ variables, una combinación lineal de estas variables también será no estacionaria. Sin embargo, en algunos casos la combinación lineal de estas variables puede ser estacionaria. Esto sucede cuando las variables comparten las mismas tendencias estocásticas, que se cancelan cuando se combinan. En estos casos, decimos que las variables están cointegradas.
+
+
+Sean las series, $y_{1,t}$  y $y_{2,t}$, que están integrados de primer orden, $I(1)$
+
+Al retroceder estas variables entre sí, podríamos reorganizar el modelo de regresión lineal, de modo que
+
+$$u_t=y_{1,t}-\beta_1 y_{2,t}$$
+
+- Si el término de error,$u_t$ es estacionario $I(0)$, entonces, por definición, la combinación Lineal $y_{1,t}-\beta_1 y_{2,t}$ también debe ser estacionario. Por lo tanto, mientras ambos $y_{1,t} , y_{2,t}$ tienen tendencias estocásticas, decimos que las variables   $y_{1,t}$  y   $y_{2,t}$  están cointegrados, como la combinación lineal 
+$y_{1,t}-\beta_1 y_{2,t}$ y tienen  las mismas propiedades estadísticas que una $I(0)$ 
+variable.
+
+
+## Cointegración definida
+
+- Usando álgebra matricial, si dejamos $\mathbf{y_t}=(y_{1,t} , y_{2,t} )'$  denona un vector de $2\times 1$  de variables$I(1)$ y  $\beta=(1,-\beta_1)'$
+
+- Se deduce que la relación  $\beta'y_t= y_{1,t} -\beta_1 y_{2,t}$
+
+- Entonces el sistema se cointegra cuando $\beta'\mathbf{y_t}$ es $I(0)$
+
+- En este caso las variables en el vector $\mathbf{y_t}$ comparten una tendencia estocástica común y se desplazarán juntos en el equilibrio a largo plazo
+
+
+- El vector $\beta$  se denomina vector cointegrante 
+
+
+## Resumen
+
+* El modelado de ecuaciones simples de variables no estacionarias da resultados espurios: a menos que las variables cointegraran
+
+* La cointegración implica que las variables comparten una tendencia común
+
+* La cointegración describe la relación a largo plazo entre variables
+
+* A menudo, tales relaciones están dadas por la teoría económica.
+
+* Para determinar si las variables comparten una o más relaciones de cointegración, podemos hacer lo siguiente:
+  + Determine si las series temporales son estacionarias o no estacionarias (análisis gráfico, prueba de raíz unitaria)
+  +  Si las series son estacionarias, proceda a estimar el modelo dinámico en los niveles de los datos.
+  + Si las series no son estacionarias, proceda a probar la cointegración
+
+
+
+## Resumen
+
+* Para probar la cointegración, se pueden usar dos enfoques:
+  + Enfoque de ecuación única: procedimiento de dos pasos de Engel-Granger
+  + Enfoque multivariante: prueba de Johansen
+  + Como la cointegración es inherentemente una propiedad del sistema, generalmente se prefiere el enfoque multivariante
+- Si somos capaces de rechazar la hipótesis nula de no cointegración, proceda a estimar un modelo de corrección de equilibrio ya sea por:
+  + Modelo de ecuación única: ECM o ARDL
+  + VECM multivariante
+- Si no se puede rechazar el nulo de no cointegración, proceda a estimar el modelo en primeras diferencias
+
+## Prueba de Cointegración
+
+Johansen propuso 2 tipos de pruebas para $r$ :
+
+
+#### La prueba eigenvalor máximo:
+Esta prueba está basada en la razón de máxima verosimilitud $\ln \left[L_{M V}(r) / L_{M V}(r+1)\right],$ y se efectua secuencialmente para
+\[
+r=0,1, \ldots, n-1
+\]
+- Esta prueba corrobora la hipótesis nula de que el rango de cointegración es $r$ versus la alterna de que el rango de cointegración es $r+1$ 
+
+- El estadístico de prueba es
+\[
+\ell_{r+1}^{*}-\ell_{r}^{*}=-\frac{T}{2} \ln \left(1-\widehat{\lambda}_{r+1}\right)
+\]
+
+
+
+#### La prueba de la traza:
+Esta prueba se basa en la razón de máxima verosimilitud $\ln \left[L_{M V}(r) / L_{M V}(n)\right]$ y es efectuada secuencialmente para $r=n-1, \ldots, 1,0$
+Esta prueba comprueba la hipótesis nula de que el rango de cointegración es $r$ frente a la alternativa que el rango de cointegración es $n$ El estadístico de prueba es
+\[
+\ell_{A}^{*}-\ell_{0}^{*}=-\frac{T}{2} \sum_{i=r+1}^{n} \log \left(1-\widehat{\lambda}_{i}\right)
+\]
+
+
+```{r, message=FALSE}
+library(urca)
+```
+
+
+
+```{r}
+
+
+data(denmark)
+sjd <- denmark[, c("LRM", "LRY", "IBO", "IDE")]
+sjd.vecm <- ca.jo(sjd, ecdet = "const", type="eigen", K=2, spec="longrun",
+                  season=4)
+summary(sjd.vecm)
+#
+
+```
+
+
+
+```{r}
+data(finland)
+sjf <- finland
+sjf.vecm <- ca.jo(sjf, ecdet = "none", type="trace", K=2,
+                  spec="longrun", season=4)
+summary(sjf.vecm)
+```
+
