@@ -43,3 +43,4 @@
 - <a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/ejemplovecgerman.Rmd"> Ejemplo modelo VEC  </a>
 
 
+https://rpubs.com/wilsonsr/773585
