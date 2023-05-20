@@ -46,3 +46,5 @@
 https://rpubs.com/wilsonsr/773585
 
 meet.google.com/ocz-mzio-dbr
+
+https://docs.google.com/spreadsheets/d/1p7NcxFMZeONxoQlIritktAabaswH9mYJ8qNH87D0mqg/edit?usp=sharing
