@@ -41,3 +41,7 @@
 
 - <a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/ejemplovecgerman.Rmd"> Ejemplo modelo VEC  </a>
 
+
+
+https://meet.google.com/oru-jsof-qjd
+
