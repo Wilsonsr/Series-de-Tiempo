@@ -23,7 +23,7 @@
 
   +<a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/Ejemplo%20Serie%20Gas%20(2).Rmd"> Ejemplo Box-Cox  </a>
 
-- <a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/Alisamiento%20exponencial%20(2).Rmd"> oTras metodologías  </a> 
+- <a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/Alisamiento%20exponencial%20(2).Rmd](https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/Alisamiento%20expone.Rmd"> oTras metodologías  </a> 
 
 - <a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/series%20multivariadas%20armax.Rmd"> Series Tiempo Multivariadas SARIMAX  </a> 
   - https://rpubs.com/wilsonsr/798470
