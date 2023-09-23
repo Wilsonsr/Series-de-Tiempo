@@ -25,6 +25,8 @@
 
 - <a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/Alisamiento%20expone.Rmd"> oTras metodologías  </a> 
 
+
+- <a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/imputacion%20(1).Rmd" > Imputación </a>
 - <a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/series%20multivariadas%20armax.Rmd"> Series Tiempo Multivariadas SARIMAX  </a> 
   - https://rpubs.com/wilsonsr/798470
 
