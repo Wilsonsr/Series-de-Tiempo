@@ -34,7 +34,7 @@
 
   - https://rpubs.com/wilsonsr/764667
     
-- <a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/SARIMAX-SOIREC.Rmd"> SARIMA </a>
+- <a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/SARIMAX-SOIREC.Rmd"> SARIMAX </a>
 
 <!--
 - <a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/VAR.Rmd"> Modelo VAR  </a>
