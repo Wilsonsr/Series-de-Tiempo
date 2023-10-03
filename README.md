@@ -49,6 +49,19 @@
 - <a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/ejemplovecgerman.Rmd"> Ejemplo modelo VEC  </a>
 -->
 
+ ## Evaluación
+Las notas se distribuirán de la siguiente manera
 
+|ACTIVIDAD|PORCENTAJE|
+|---|---|
+|Quices-Talleres| 50%|
+|Proyecto|50% (10 20 20)|
+|Total|100%|
+
+
++ Primer avance. Problema, justificación y objetivos.
++ Segundo avance. Marco teórico –previa metodología-
++ Metodología y primeros resultados.
++ Exposiciones Entrega Final
 https://meet.google.com/oru-jsof-qjd
 
