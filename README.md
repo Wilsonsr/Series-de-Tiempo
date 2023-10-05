@@ -63,5 +63,6 @@ Las notas se distribuirán de la siguiente manera
 + Segundo avance. Marco teórico –previa metodología-
 + Metodología y primeros resultados.
 + Exposiciones Entrega Final
+  
 https://meet.google.com/oru-jsof-qjd
 
