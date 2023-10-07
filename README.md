@@ -66,3 +66,7 @@ Las notas se distribuirán de la siguiente manera
   
 https://meet.google.com/oru-jsof-qjd
 
+ - Grupos de proyectos
+
+ https://docs.google.com/spreadsheets/d/1bHbCzUPqAHsE5lHzUAvdf_BHzY8Udni26CnFf0hP7Yc/edit?usp=sharing
+
