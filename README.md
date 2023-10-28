@@ -47,12 +47,15 @@
 
 - <a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/cointegracion.Rmd"> Cointegracion  </a>
 
-<!--  
 
   
-  - https://rpubs.com/wilsonsr/906136
+  #- https://rpubs.com/wilsonsr/906136
 
 - <a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/ejemplovecgerman.Rmd"> Ejemplo modelo VEC  </a>
+
+<!--  
+
+
 -->
 
  ## Evaluación
