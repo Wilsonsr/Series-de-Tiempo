@@ -5,7 +5,8 @@
 </div>
 
 
-- <a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/presentacion%20(2).Rmd"> Introducción </a>
+- <a href="[https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/presentacion%20(2).Rmd](https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/presentacion.Rmd)"> Introducción </a>
+
     
     + <a href="https://rpubs.com/wilsonsr/1147338"> Rpubs </a>
   
