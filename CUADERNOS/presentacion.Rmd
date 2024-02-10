@@ -3,7 +3,7 @@ title: "Series de Tiempo"
 author: "Wilson Sandoval Rodriguez"
 date: "`r Sys.Date()`"
 output:
-  slidy_presentation:
+  ioslides_presentation:
     incremental: yes
 ---
 
