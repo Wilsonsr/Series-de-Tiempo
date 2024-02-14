@@ -1,0 +1,605 @@
+---
+title: "Series de Tiempo Univariadas"
+author: "Wilson Sandoval Rodriguez"
+date: "`r Sys.Date()`"
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+    float: true
+    toc: true
+---
+
+
+Para hacer inferencias estadísticas en la estructura de un proceso estocástico (o serie de tiempo) sobre el histórico observado del proceso, normalmente se deben hacer algunas suposiciones simplificadoras (presumiblemente razonables) sobre esa estructura. El supuesto más importante es el de  **estacionariedad**.
+	 
+
+Dicho concepto tendrá dos versiones:
+
+- Estacionariedad fuerte 
+- Estacionariedad débil
+
+
+
+
+
+## Estacionariedad Fuerte y Débil.
+
+Una serie de tiempo se puede ver como un proceso estocástico, se dice que es estacionario si su media y varianza son constantes en el tiempo y si el valor de la covarianza entre 2 periodos depende sólo de la distancia o rezago entre los tiempos.
+
+Sea $Y_t$ una serie de tiempo con las siguientes propiedades se dice que es debilmente estacionaria o simplemente estacionaria:
+
+
+
+ * $E(y_t)$ es  constante para todo $t$.
+ * $Var(y_t)$ es constante para todo $t$ y,
+ * $Cov(y_t,y_{t+h})$ sólo depende de $h$ para cualquier $t$
+ 
+ La condición adicional para que una serie de tiempo sea fuertemente estacionaria es que la distribución conjunta de $Y_{t_1},Y_{t_2}, \cdots, Y_{t_n}$ es la misma que la distribución conjunta de $Y_{t_1-k}, Y_{t_2-k}, \cdots, Y_{t_n-k}$ para todas las opciones de puntos de tiempo $t_1, t_2, \cdots, t_n$ y todas las opciones de rezago temporal $k$. es decir, la distribución sólo depende de la diferencia de tiempo $h$ y no del tiempo $(t_1,...,t_k)$
+
+
+
+<span style="color: red;">
+*En la práctica, buscamos que los datos sean estacionarios para poder proseguir con el tratamiento estadístico de los mismos.*
+</span>
+
+
+
+<span style="color: red;">
+**La estacionariedad es un concepto fundamental para el análisis
+de las series de tiempo.** 
+</span>
+
+
+
+
+- La estacionariedad significa que el proceso mediante el cual se crearon los datos, es constante en el tiempo.
+
+-  **CUIDADO**: Esto no significa que los datos no puedan cambiar. Significa que los supuestos distribucionales del mecanismo que genera los datos son constantes en el
+tiempo.
+- El punto de partida de la metodología Box-Jenkins es la estacionariedad. De ahí su importancia práctica.
+
+## Librerias
+
+```{r, warning=FALSE, message=FALSE}
+library(foreign)
+library(ggfortify)
+library(forecast)
+library(gridExtra)
+library(seasonal)
+library(lattice)
+library(zoo)
+library(urca)
+library(dynlm)
+library(TSstudio)
+
+```
+
+## Asi se ve la no estacionariedad
+
+
+!["No estacionariedad"](https://github.com/Wilsonsr/Series-de-Tiempo/raw/main/bases/noestacionariedad.jpg)
+
+![Estacionariedad vs no estacionariedad](https://github.com/Wilsonsr/Series-de-Tiempo/raw/main/bases/estavsnoest.jpg)
+
+
+
+## **RUIDO BLANCO**
+
+El objetivo de las Series Temporales es descomponer la serie observada en dos partes: una es la parte dependiente del pasado y la otra la parte impredecible
+
+$$Y_t=f(Y_{(t-1)}, Y_{(t-2)},....,Y_1)+ a_t $$
+
+- Si todas las series que observamos en la realidad fuesen Ruido Blanco serían impredecibles y no habría ningún modelo que proponer.
+
+
+Un **Ruido Blanco** es una serie tal que su media es cero, la varianza es constante y es incorrelacionada.
+
+
+* $E(a_t)=0$
+* $Var(a_t)=\sigma_a^2$
+* $cov(a_t,a_{t+_h})=0$
+
+
+
+Se trata de un proceso en el que todas sus variables son independientes.
+
+
+
+
+## Así se ve un Ruido Blanco
+
+Generamos los datos
+
+```{r}
+ruido_blanco=rnorm(1000,0,1)
+```
+
+Graficamos la serie de tiempo
+
+
+
+```{r}
+ts_plot(ts(ruido_blanco),title = "Ruido Blanco", Xtitle = "Tiempo", Ytitle = "Valore",color = "red")
+```
+
+
+
+Otra forma de simular ruido blanco
+
+```{r}
+set.seed(123)
+ruido_blanco1 = arima.sim(n = 1000,
+                         list(order = c(0,0,0)))
+ts_plot(ruido_blanco1)
+```
+
+
+
+
+##  **MODELOS**
+
+Uno de los modelos de tipo ARIMA más simples es un modelo en el que utilizamos un modelo lineal para predecir el valor en el momento actual utilizando el valor en el momento anterior. Esto se llama un modelo *AR (1)* , que significa modelo autorregresivo de orden 1 . 
+
+- El orden del modelo indica cuántas veces anteriores usamos para predecir el tiempo presente.    
+
+## Modelo **AR($1$)**
+
+teóricamente, el modelo **AR ($1$)** está escrito
+    
+$$x_t = \delta + \phi_1 x_{t-1} + w_t$$
+    
+- $w_t \overset{iid}{\sim} N(0, \sigma^2_w)$ lo que significa que los errores se distribuyen independientemente con una distribución normal que tiene media 0 y varianza constante
+
+- Propiedades de los errores. $w_t$  son independientes de $x$.
+
+
+### **AR(2)**
+
+$$x_t = \delta + \phi_1 x_{t-1}+ \phi_2 x_{t-2} + w_t$$
+
+### **AR($p$)**
+
+
+$$x_t = \delta + \phi_1 x_{t-1}+ \phi_2 x_{t-2}+ \cdots\phi_{p}x_{t-p}  + w_t$$
+
+    
+
+
+
+## **Función de autocorrelación (ACF)**
+
+El **ACF** de la serie da correlaciones entre $x_t$ y $x_{t-h}$  para  $h= 1, 2, 3$, etc.
+
+
+Teóricamente, la autocorrelación entre $x_t$  y $x_{t-h}$ es igual
+
+
+ 
+$$\dfrac{\text{Covariance}(x_t, x_{t-h})}{\text{Std.Dev.}(x_t)\text{Std.Dev.}(x_{t-h})} = \dfrac{\text{Covariance}(x_t, x_{t-h})}{\text{Variance}(x_t)}$$    
+
+```{r}
+AirPassengers
+```
+
+
+```{r}
+acf(AirPassengers)
+```
+
+
+```{r}
+ts_cor(ruido_blanco1)
+```
+    
+    
+## Función de autocorrelación parcial PACF
+
+En general, una correlación parcial es una correlación condicional. Es la correlación entre dos variables bajo el supuesto de que conocemos y tenemos en cuenta los valores de algún otro conjunto de variables.
+
+Más formalmente, podemos definir la correlación parcial que se acaba de describir como
+
+
+Para una serie temporal, la autocorrelación parcial entre $x_t$ y $x_{t-h}$  se define como la correlación condicional entre $x_t$ y $x_{t-h}$ condicionado a $x_{t-h+1}$ , ...,$x_{t-1}$ , el conjunto de observaciones que se encuentran entre los puntos de tiempo  $t$ y $t-h$
+
+
+-  La  autocorrelación parcial de primer orden se definirá para que sea igual a la autocorrelación de primer orden.
+
+- El 2nd autocorrelación parcial orden (lag) es
+
+$$\dfrac{\text{Covariance}(x_t, x_{t-2}| x_{t-1})}{\sqrt{\text{Variance}(x_t|x_{t-1})\text{Variance}(x_{t-2}|x_{t-1})}}$$
+
+
+
+## Propiedades de la AR (1)
+    
+    
+- La media (teórica) de $x_t$ es: $E(x_t)=\mu = \dfrac{\delta}{1-\phi_1}$
+
+- La varianza de $x_t$ es: $\text{Var}(x_t) = \dfrac{\sigma^2_w}{1-\phi_1^2}$
+
+- La correlación $h$ entre observaciones períodos de tiempo separados es $\rho_h = \phi^h_1$
+ 
+    
+Esto define el ACF teórico para una variable d
+
+
+¡Nota!  $\phi_1$ es la pendiente en el modelo **AR ($1$)** y ahora vemos que también es la autocorrelación de retraso 1
+
+
+## Simular modelo autoregresivo AR($1$) con $\phi$ = 0.5
+
+
+$$y_t = 0.5 * y_{t-1} + w_t$$
+
+```{r}
+set.seed(123)
+ar1 = arima.sim(n = 1000, list(ar = 0.5))
+par(mfrow = c(1,3))
+plot(ar1)
+acf(ar1)
+pacf(ar1)
+```
+
+
+```{r}
+
+ggtsdisplay(ar1)
+```
+```{r}
+library(TSstudio)
+ts_cor(ar1)
+```
+
+###  simular un AR($1$) serie autoregresiva con $\phi$ = -0.9
+
+ El modelo es:
+ $$y_t = -0.9 * y_{t-1} + w_t$$
+
+```{r}
+set.seed(123)
+ar2 = arima.sim(n = 1000, list(ar = -0.9))
+ggtsdisplay(ar2)
+```
+
+```{r}
+ts_cor(ar2)
+```
+
+
+
+### Otra simulación con $\phi=0.1$
+
+```{r}
+set.seed(123)
+ar3 = arima.sim(n = 1000, list(ar = 0.1))
+ggtsdisplay(ar3)
+```
+
+```{r}
+ts_cor(ar3)
+```
+
+
+### Otra simulación con $\phi=0.1$
+
+```{r}
+set.seed(123)
+ar4 = arima.sim(n = 1000, list(ar = 0.6))
+ggtsdisplay(ar4)
+```
+
+
+```{r}
+ts_cor(ar4)
+```
+
+
+
+## **Simulaciones de un de un AR(2)**
+
+
+```{r}
+set.seed(123)
+ar5 = arima.sim(n = 1000, list(ar = c(0.1,0.5)))
+ggtsdisplay(ar5)
+```
+
+
+```{r}
+ts_cor(ar5)
+```
+
+
+
+###
+
+
+```{r}
+set.seed(123)
+ar6 = arima.sim(n = 1000, list(ar =c(-0.7, 0.2)))
+ggtsdisplay(ar6)
+
+```
+
+
+
+<div align="center">
+## **Modelos de media móvil (MA)**
+</div>
+ 
+
+
+
+
+### MA($1$)
+
+
+$$x_t = \mu + w_t -\theta_1w_{t-1}$$
+
+ 
+ $w_t \overset{iid}{\sim} N(0, \sigma^2_w)$
+
+
+
+### MA(2)
+ 
+$$x_t = \mu + w_t +\theta_1w_{t-1}+\theta_2w_{t-2}$$
+ 
+ $w_t \overset{iid}{\sim} N(0, \sigma^2_w)$
+
+### MA(q)
+
+
+$$x_t = \mu + w_t +\theta_1w_{t-1}+\theta_2w_{t-2}+\dots + \theta_qw_{t-q}$$
+
+
+<span style="color: blue;">
+¡Nota!
+Muchos libros de texto y programas de software definen el modelo con signos negativos antes de $\theta$. Esto no cambia las propiedades teóricas generales del modelo, aunque sí cambia los signos algebraicos de los valores de coeficientes estimados y (no cuadrado)términos en fórmulas para ACF y variaciones. 
+</span>
+
+
+## Propiedades teóricas de una serie temporal con un modelo MA ($1$)
+    
+    
+* La media es $E(x_t)=\mu$
+* La varianza es $Var(x_t)= \sigma^2_w(1+\theta^2_1)$
+* La función de autocorrelación (ACF) es:
+$\rho_1 = \dfrac{\theta_1}{1+\theta^2_1}, \text{ and } \rho_h = 0 \text{ for } h \ge 2$
+
+
+        
+<span style="color: blue;">
+Nota!
+Que el único valor distinto de cero en el ACF teórico es para el retraso 1 . Todas las demás autocorrelaciones son 0. Por lo tanto, una muestra de ACF con una autocorrelación significativa solo en el retraso 1 es un indicador de un posible modelo de MA ($1$).}
+</span>
+
+
+## Simulaciones $1$
+
+#### MA($1$)  con $\theta=0.7$ 
+
+```{r}
+set.seed(123)
+ma1 = arima.sim(n = 1000, list(ma =0.7))
+ggtsdisplay(ma1)
+
+```
+
+
+
+
+```{r}
+set.seed(123)
+ma2 = arima.sim(n = 1000, list(ma =-0.9))
+ggtsdisplay(ma2)
+```
+
+
+#### MA(2)
+
+
+```{r}
+set.seed(123)
+ma3 = arima.sim(n = 1000, list(ma =c(-0.9,0.5)))
+ggtsdisplay(ma3)
+```
+
+## Modelos de media móvil autorregresiva (ARMA)
+
+Al combinar los dos modelos  **MA** y **AR**, obtenemos lo que se llama un modelo de promedio móvil autoregresivo **(ARMA)**. 
+
+El caso más simple, es el proceso **ARMA ($1$,$1$)** como
+
+
+\begin{equation}
+y_{t}=\phi y_{t-1}+\varepsilon_{t}+\theta \varepsilon_{t-1}  
+\tag{3.1}
+\end{equation}
+
+
+En la discusión relacionada con los procesos de promedio móvil, notamos que el **ACF** daría una indicación del orden del proceso, mientras que el **PACF** disminuiría lentamente. En contraste, cuando discutimos los modelos autoregresivos, notamos que el **PACF** daría una indicación del orden del proceso, mientras que el **ACF** disminuiría lentamente.
+
+
+Cuando consideramos el proceso *ARMA* combinado, generalmente notamos que ambas funciones deberían decaer ligeramente y, como tal, puede ser difícil descifrar el orden del modelo ARMA combinado. 
+
+Un ejemplo de las funciones **ACF** y **PACF** para un modelo **ARMA ($1$,$1$)**. A pesar del hecho de que sabemos que estamos tratando con un modelo ARMA (1,1), las autocorrelaciones en **ACF** y **PACF** parecen diferir de cero en
+
+## Algunas librerias
+
+```{r,message=FALSE}
+library(foreign)
+library(ggfortify)
+library(forecast)
+library(gridExtra)
+library(seasonal)
+library(lattice)
+library(zoo)
+library(urca)
+library(dynlm)
+```
+
+
+## Simulación ARMA($1,1$)
+```{r}
+set.seed(123)
+arma1 = arima.sim(n = 1000, list(ar = 0.5,ma=0.7))
+ggtsdisplay(arma1)
+```
+
+```{r}
+set.seed(123)
+arma1 = arima.sim(n = 500, list(ar = 0.5,ma=0.5))
+ggtsdisplay(arma1)
+```
+
+
+
+Los modelos **ARMA** (incluidos los términos AR y MA) tienen *ACF* y *PACF* que ambos se reducen a 0. Estos son los más complicados porque el orden no será particularmente obvio. Básicamente, solo tiene que adivinar que uno o dos términos de cada tipo pueden ser necesarios y luego ver qué sucede cuando estima el modelo.
+
+
+## ARMA(p,q)
+
+\begin{equation}
+y_{t}=\phi_1 y_{t-1}+ \phi_2 y_{t-2}+ \cdots\phi_p y_{t-p} + \varepsilon_{t}+\theta_1 \varepsilon_{t-1}+ \theta_2 \varepsilon_{t-2}+ \cdots+ \theta_q \varepsilon_{t-q}  
+\end{equation}
+
+
+
+##  Diferenciación
+A menudo, la diferenciación se usa para dar cuenta de la no estacionariedad que ocurre en forma de tendencia y / o estacionalidad.
+
+
+
+La diferencia  $x_t-x_{t-1}$  puede expresarse como  $(1-B)x_{t}$.
+
+
+Una notación alternativa para una diferencia es
+
+$$(\boldsymbol{1-B})=\triangle$$
+
+Así  $$\triangle x_t = \boldsymbol{(1-B)}x_t = x_t-x_{t-1}$$
+
+Un superindice define una diferencia de retraso igual al subíndice. Por ejemplo,
+
+$$\triangle^{12} x_t = (\boldsymbol{1-B}^{12})x_t = x_t-x_{t-12}$$
+
+Este tipo de diferencia a menudo se usa con datos mensuales que exhiben estacionalidad
+
+
+```{r}
+data("AirPassengers")
+autoplot(AirPassengers)
+AirPassengers
+diff(AirPassengers)
+autoplot(diff(AirPassengers))
+ggtsdisplay(AirPassengers)
+ggtsdisplay(diff(AirPassengers))
+
+ggtsdisplay(diff(AirPassengers,12))
+
+ggtsdisplay(diff(diff(AirPassengers,12)))
+
+```
+
+
+```{r}
+AirPassengers
+```
+
+```{r}
+diff(AirPassengers,12) 
+```
+
+
+
+En general, se sabe que el punto de partida para el análisis en series de tiempo estacionarias. Es decir, que los datos involucrados cumplan unas exigencias mínimas: 
+
+
+- Ser constante en media (No tener tendencia en ninguna forma) 
+- Ser constante en varianza. 
+
+
+
+Si bien el criterio visual es importante para determinar el tratamiento a tomar, son necesarios criterios técnicos para tomar tales decisiones. Es así que se postulan las 
+
+## Las pruebas de raíz unitarias
+
+- notaremos como $I(0)$ a las **Series integradas de orden 0**. Dichas series son aquellas que no presentan problemas de estacionariedad. 
+
+- notaremos como $I(1)$ a las series no estacionarías.
+
+Así, en el caso que sea de nuestro interés saber cuándo una serie es ```bien comportada``` en el sentido de estacionariedad, tenemos la prueba aumentada de **Dickey-Fuller**  o  **Phillips- Perron**
+que establecerá si la serie es integrada de orden 1. Es decir, formalmente
+
+\[
+\begin{cases}
+H_0:y_t\sim I(1)  \ \ \ \ \ \ y_t \text{ no es estacionaria }\\
+H_1:y_t\sim I(0)   \ \ \ \ \ \ y_t \text{ es estacionaria }
+\end{cases}
+\]
+
+
+
+
+En la práctica, se utiliza la prueba de *Dickey-Fuller aumentada* con los comandos en \texttt{R},
+
+* $\texttt{ur.df()}$ y 
+* $\texttt{adf.test()}$ 
+
+de los paquetes $\texttt{urca}$ y $\texttt{tseries}$, respectivamente. Ahora, mientras que la prueba $\texttt{adf.test()}$ reporta directamente el p-valor de la prueba de raíz unitaria, la función $\texttt{ut.test()}$ reporta los valores de la estadística de prueba y de los valores críticos con los valores de significancia $1\%, 5\%$ y $10\%$. 
+
+
+
+Abordemos el siguiente ejemplo:
+
+
+## FASES
+
+    La metodología de Box y Jenkins se resume en cuatro fases:
+
+* La primera fase consiste en **identificar** el posible modelo ARIMA que sigue la serie, lo que requiere:
+
+  + Decidir qué transformaciones aplicar para convertir la serie observada en una serie estacionaria.
+  + Determinar un modelo ARMA para la serie estacionaria, es decir, los órdenes $p$ y $q$ de su
+estructura autorregresiva y de media móvil.
+
+* La segunda fase:  **estimación**,  En esta etapa se estiman los coeficientes de los términos autorregresivos y de media móvil incluidos
+en el modelo, cuyo número de rezagos $p$ y $q$ ya han sido identificados en la etapa anterior. 
+
+* La tercera fase es el **diagnostico**, donde se comprueba que los residuos no tienen estructura de dependencia y siguen un proceso de ruido blanco. 
+
+* La cuarta fase es la **predicción**, una vez que se ha obtenido un modelo adecuado se realizan
+predicciones con el mismo
+
+
+### Identificación de un modelo
+
+* Decidir si $x_t$ necesita ser transformada para eliminar la no estacionariedad en media o la no estacionariedad en varianza (heteroscedasticidad). Puede ser conveniente utilizar logaritmos de la serie o aplicar la transformación de Box‐Cox.
+
+* Determinación del grado $d$ de diferenciación adecuado.
+
+En general, la falta de estacionariedad se manifiesta en que los coeficientes de la función de autocorrelación estimada tienden a decrecer muy lentamente.
+
+* Decidir los valores de $(p, q)$, y si existe una componente estacional, decidir los órdenes de los operadores estacionales $(P, Q)$. Para este apartado se utilizan las funciones de autocorrelación **(ACF)**
+y autocorrelación parcial **(PACF)** según el siguiente cuadro:
+
+<center>
+![](https://github.com/Wilsonsr/Series-de-Tiempo/raw/main/bases/tablapq.png)
+</center>
+
+## Metodología Box Jenkins
+
+<center>
+![](https://github.com/Wilsonsr/Series-de-Tiempo/raw/main/bases/metodologiabj.png)
+</center>
+
+
+
+
+
+
+
+
+
