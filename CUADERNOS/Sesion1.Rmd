@@ -344,7 +344,7 @@ ts_seasonal(AirPassengers, type = "all")
 ```{r,message=FALSE}
 library(readr)
 #oilfilters <- read_csv("oilfilters.dat")
-oilfilters=rio::import("https://github.com/Wilsonsr/Series-de-Tiempo/raw/main/bases/oilfilters.dat")
+oilfilters=rio::import("https://github.com/Wilsonsr/Series-de-Tiempo/raw/main/bases/oilfilters.dat", format=",")
 oilfilters <-ts(oilfilters,  start=1984, end= c(1987,7), frequency = 12  )
 autoplot(oilfilters, colour = "red")
 ```
@@ -360,7 +360,7 @@ Dubuque 1/1964 - 12/1975
 
 ```{r}
 #tempdub <- read_csv("tempdub.dat")
-tempdub=rio::import("https://github.com/Wilsonsr/Series-de-Tiempo/raw/main/bases/tempdub.dat")
+tempdub=rio::import("https://github.com/Wilsonsr/Series-de-Tiempo/raw/main/bases/tempdub.dat", format=",")
 tempdub<-ts(tempdub, start=1964,end= 1976,frequency = 12)
 plot(tempdub)
 autoplot(tempdub, colour = "blue")
