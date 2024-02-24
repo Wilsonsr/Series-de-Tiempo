@@ -19,7 +19,6 @@
 - <a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/sesion2.Rmd"> Ruido Blanco, Estacionariedad, AR(p), MA(q) </a>
   + <a href="https://rpubs.com/wilsonsr/1004719">  R pubs  </a>
   
-- <a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/SCRIPT_SERIES%20DE%20TIEMPO.R"> Scrip arima  </a>
 
 - <a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/SARIMA%20(1).Rmd"> Sarima  </a>
 
