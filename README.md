@@ -20,7 +20,7 @@
   + <a href="https://rpubs.com/wilsonsr/1004719">  R pubs  </a>
   
 
-- <a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/SARIMA%20(1).Rmd"> Sarima  </a>
+- <a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/SARIMA.Rmd"> Sarima  </a>
 
     + https://rpubs.com/wilsonsr/1011187
 
