@@ -92,7 +92,7 @@ library(highcharter)
 
 ```{r, message=FALSE}
 library(rio)
-tempdub <-rio::import("https://github.com/Wilsonsr/Series-de-Tiempo/raw/main/bases/tempdub.dat")
+tempdub <-rio::import("https://github.com/Wilsonsr/Series-de-Tiempo/raw/main/bases/tempdub.dat", format=",")
 ```
 
 ```{r}
