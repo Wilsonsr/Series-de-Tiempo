@@ -19,13 +19,13 @@ length(z1)
 
 summary(z1)
 
-
-
 ts_plot(z1)
 
 ts_decompose(z1)
 
 ts_seasonal(z1, type="all")
+
+ts_heatmap(z1)
 ### Identificaci?n
 ###
 hchart(z1)
@@ -54,6 +54,7 @@ pacf(diff(diff(z1,12)), lag.max=40)
 plot(ur.df(z1,type="none",lag=10))
 summary(ur.df(z1,type="none",lag=10))
 
+adf.test(z1)
 
 
 ###  Dickey Fuller
@@ -72,6 +73,13 @@ plot(ur.pp(diff(z1,12),type="Z-tau",
            model="constant", lags="long"))
 summary(ur.pp(diff(z1,12),type="Z-tau",
               model="constant", lags="long"))
+
+
+######### d=1  y   D=1
+plot(ur.df(diff(diff(z1,12)),type="none",lag=10))
+summary(ur.df(diff(diff(z1,12)),type="none",lag=10))
+
+
 
 
 
@@ -136,3 +144,20 @@ runs.test(as.factor(sign(et)), alternative="two.sided")
 plot(forecast(modelo1,h=7, fan=T))
 lines(fitted(modelo1), col="red")
 
+####################################################
+
+pronostico=  forecast(modelo1,h=7)[4]$mean
+pronostico
+
+Reales= consumo[277:283,4]
+Reales
+
+library(Metrics)
+library(MLmetrics)
+
+mae(Reales, pronostico)
+
+RMSE(pronostico, Reales)
+
+MAPE(pronostico, Reales)
+mape(Reales,pronostico)
