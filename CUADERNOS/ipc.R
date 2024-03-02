@@ -2,12 +2,14 @@ library(car)
 library(urca)
 library(forecast)
 library(tseries)
-
 library(readxl)
 library(readxl)
-consumo <- read_excel("SESION 4/IPC.xlsx")
+library(rio)
+library(TSstudio)
+library(highcharter)
+consumo <- rio::import("https://github.com/Wilsonsr/Series-de-Tiempo/raw/main/bases/IPC.xlsx")
 
-z1<- ts(consumo[,4], start = c(2000,1), frequency = 12)
+z1<- ts(consumo[,4], start = c(2000,1), end=c(2022,12), frequency = 12)
 
 class(z1)
 start(z1)
@@ -17,7 +19,8 @@ length(z1)
 
 summary(z1)
 
-library(TSstudio)
+
+
 ts_plot(z1)
 
 ts_decompose(z1)
@@ -25,7 +28,7 @@ ts_decompose(z1)
 ts_seasonal(z1, type="all")
 ### Identificaci?n
 ###
-
+hchart(z1)
 par(mfrow=c(4,3))
 plot(z1,type="o")
 acf(z1, lag.max=40)
@@ -45,7 +48,6 @@ pacf(diff(diff(z1,12)), lag.max=40)
 
 ### Test DF sobre la serie
 ### desestacionalizada
-
 
 
 ## Dickey Fuller sobre z1
@@ -77,10 +79,9 @@ ts_cor(diff(diff(z1,12)), lag.max = 40)
 
 
 ### Ajuste del Modelo
-auto.arima(z1)
 
 modelo1<-stats::arima(z1,
-                      order=c(0,1,2), 
+                      order=c(1,1,1), 
                       seasonal=list(order=c(0,1,1),
                                     period=12), fixed=c(NA,NA,NA)) 
 modelo1
@@ -104,16 +105,15 @@ pacf(et)
 qqPlot(scale(et))
 acf(abs(et)) #Mide Estructura Heteroced?stica
 
-?qqPlot
 ## Test de Autocorrelacion de Ljung-Box
 ## Ho: r1=r2=r3=...=rlag=0
 ## Ha: Al menos una es dif de cero
-tsdiag(modelo1)
+tsdiag(modelo1, gof.lag = 20)
 
 length(z1)
 log(length(z1))
 
-Box.test(et,lag=20,type="Ljung-Box")
+Box.test(et,lag=6,type="Ljung-Box")
 #Box.test(abs(et),lag=20,type="Ljung-Box")
 
 ## Test de Normalidad basado en
@@ -133,11 +133,6 @@ runs.test(as.factor(sign(et)), alternative="two.sided")
 
 #### Pron?stico Fuera Muestra
 
-plot(forecast(modelo1,h=5, fan=T))
+plot(forecast(modelo1,h=7, fan=T))
 lines(fitted(modelo1), col="red")
-
-
-plot(forecast(auto.arima(z1),h=5, fan=T))
-lines(fitted(modelo1), col="red")
-
 
