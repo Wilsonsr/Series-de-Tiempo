@@ -161,6 +161,9 @@ ts_cor(diff(diff(z1,12)), lag.max = 40)
 ```
 
 
+```{r}
+auto.arima(z1)
+```
 
 
 
