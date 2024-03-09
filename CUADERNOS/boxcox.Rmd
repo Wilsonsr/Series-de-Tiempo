@@ -107,7 +107,7 @@ forecast::BoxCox.lambda(z1)
 
 
 ```{r}
-x3<-forecast::BoxCox(z1,0.051)
+x3<-forecast::BoxCox(z1,-0.2947)
 ts_plot(x3)
 ```
 
