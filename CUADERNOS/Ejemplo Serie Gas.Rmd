@@ -20,6 +20,7 @@ library(tseries)
 #library(FitAR)
 library(ggfortify)
 library(TSstudio)
+library(highcharter)
 ```
 
 
@@ -166,6 +167,9 @@ auto.arima(z1)
 ```
 
 
+```{r}
+hchart(forecast(auto.arima(z1),h=12))
+```
 
 
 
@@ -245,10 +249,6 @@ $H_a$: Al menos una es diferente de cero
 
 #autoplot(modelo1)
 
-```{r}
-?tsdiag
-```
-
 
 ```{r}
 tsdiag(modelo1, gof.lag=20)
@@ -259,7 +259,7 @@ tsdiag(modelo1, gof.lag=20)
 
 
 ```{r}
-Box.test(et,lag=7,type="Ljung-Box")
+Box.test(et,lag=11,type="Ljung-Box")
 ```
 
 
