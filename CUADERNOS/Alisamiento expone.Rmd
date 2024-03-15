@@ -182,6 +182,7 @@ ipc_ses <- ses(z1, alpha = .2,  h = 12)
 autoplot(ipc_ses)
 
 ```
+
 ```{r}
 summary(ipc_ses)
 ```
