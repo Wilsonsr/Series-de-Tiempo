@@ -31,6 +31,9 @@
 - <a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/Alisamiento%20expone.Rmd"> oTras metodologías  </a> 
 
 
+
+<!--  
+
 - <a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/imputacion%20(1).Rmd">  Imputación </a>
 
 
@@ -58,7 +61,6 @@
 
 - <a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/ejemplovecgerman.Rmd"> Ejemplo modelo VEC  </a>
 
-<!--  
 
 
 -->
