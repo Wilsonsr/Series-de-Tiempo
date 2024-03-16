@@ -32,6 +32,9 @@
 
     + <a href =https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/Suavizado%20Exponencial.ipynb > Suavizado exponencial </a>
     + <a href=https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/Bitcoin_Phrophet.ipynb> Prophet Bitcoin </a>
+    + <a href=https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/Prophet_in_Python%20(1).ipynb> Ejemplo 2 </a>
+
+    
 
 <!--
 
