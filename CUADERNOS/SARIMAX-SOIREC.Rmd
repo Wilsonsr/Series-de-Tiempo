@@ -336,7 +336,7 @@ modelo5 = Arima(rec1, order = c(4,1,0),
 BIC(modelo5)   # 3162.614
 ttest(modelo5)
 tt <- modelo5$coef[which(modelo5$coef!=0)]/sqrt(diag(modelo5$var.coef))
-1 - pt(abs(tt),(modelo4$nobs - length(modelo5$coef[which(modelo5$coef!=0)])))
+1 - pt(abs(tt),(modelo5$nobs - length(modelo5$coef[which(modelo5$coef!=0)])))
 ```
 
 
@@ -354,11 +354,11 @@ plotresiduos(et, rec1)
 ## Pronostico
 
 ```{r}
-newxreg1=soi[442:453]
+newxreg1=soi[442:447]
 newxreg1
 
 
-pred <- predict(modelo2, n.ahead=12, newxreg =newxreg1)
+pred <- predict(modelo2, n.ahead=6, newxreg =newxreg1)
 pred
 
 
@@ -394,7 +394,7 @@ b
 ```
 
 ```{r}
-reales=rec[442:453]
+reales=rec[442:447]
 ```
 
 ```{r}
