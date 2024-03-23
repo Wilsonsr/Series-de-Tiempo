@@ -474,4 +474,11 @@ ccfvalues
 
 Las correlaciones en esta región son negativas, lo que indica que es probable que un valor de SOI superior al promedio dé lugar a un valor de “recreuitment”(cantidad de peces) inferior al promedio unos 6 meses después. Y, un SOI por debajo del promedio se asocia con un valor Recruitment probablemente superior al promedio unos 6 meses después.
 
+```{r}
+library(TSA)
+
+# Ajustar un modelo SARIMAX
+fit <- sarimax(rec, 1, 1, 2, 0, 1, 1, 12, xreg=soi)
+```
+ 
  
