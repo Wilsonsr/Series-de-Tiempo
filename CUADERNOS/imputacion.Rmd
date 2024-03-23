@@ -193,10 +193,3 @@ na_kalman(serie4, model = modelo_imputacion, smooth = T)
 ```
 
 
-```{r}
-library(imputeTS)
-ts_data <- ts(c(1,2,NA,4,5,NA,7))
-
-ts_data_imputed <- na.nn(ts_data)
-```
-
