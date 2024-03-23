@@ -149,8 +149,9 @@ Lagt(AirPassengers, 5)
 
 ```{r}
 
-rec = scan("recruit.dat")
-soi=scan("soi.dat")
+rec = scan("https://raw.githubusercontent.com/Wilsonsr/Series-de-Tiempo/main/bases/recruit.dat")
+soi=scan("https://raw.githubusercontent.com/Wilsonsr/Series-de-Tiempo/main/bases/soi.dat")
+
 ```
 
 ```{r}
