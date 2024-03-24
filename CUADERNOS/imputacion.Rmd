@@ -1,5 +1,5 @@
 ---
-title: "Imputacion"
+title: "Imputación"
 author: "Wilson Sandoval"
 date: "`r Sys.Date()`"
 output:
@@ -154,7 +154,7 @@ na.interp(serie temporal) *paquete forescast*
 serie3=AirPassengers
 serie3[c(5,10,70,110,135)]<-NA
 serie3
-serie31=na_interpolation(serie3, option='spline')
+serie31=na_interpolation(serie3, option='linear')
 serie31
 ```
 
