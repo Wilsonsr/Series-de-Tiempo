@@ -118,7 +118,7 @@ Para probar la correlación serial, se aplica la prueba  de **Portmanteau**.
 
 
 ```{r echo=TRUE}
-bv.serial <- serial.test(modelo, lags.pt = 12, type = "PT.asymptotic")
+bv.serial <- serial.test(modelo, lags.pt = 5, type = "PT.asymptotic")
 bv.serial$serial
 ```
  $p$-valor mayor 0.05 indica ausencia de correlación serial
@@ -127,7 +127,7 @@ bv.serial$serial
 ### Test heteroscedasticidad
 
 ```{r echo=TRUE}
-bv.arch <- arch.test(modelo, lags.multi = 12, multivariate.only = TRUE)
+bv.arch <- arch.test(modelo, lags.multi = 5, multivariate.only = TRUE)
 bv.arch
 ```
  $p$-valor mayor al 5% indicates ausencia de heterocedasticidad
@@ -181,7 +181,7 @@ Las funciones de impulso respuesta muestran los efectos de los shock en la traye
 Para generar funciones de respuesta a impulsos para describir la respuesta del producto a un shock de desempleo, procedemos de la siguiente manera:
 
 ```{r echo=TRUE}
-irf.gdp <- vars::irf(modelo, impulse = "une", response = "gdp",n.ahead = 40, boot = TRUE)
+irf.gdp <- vars::irf(modelo, impulse = "une", response = "gdp",n.ahead = 12, boot = TRUE)
 plot(irf.gdp) 
 ```
 
@@ -192,7 +192,7 @@ Para considerar la respuesta del desempleo al shock de salida,
 
 
 ```{r, echo=TRUE}
-irf.une <- vars::irf(modelo, impulse = "gdp", response = "une",n.ahead = 40, boot = TRUE)
+irf.une <- vars::irf(modelo, impulse = "gdp", response = "une",n.ahead = 12, boot = TRUE)
 plot(irf.une) # reponse of unemployment to gdp shock
 # positive shock to output decreases unemployment by large and persistent amount
 
