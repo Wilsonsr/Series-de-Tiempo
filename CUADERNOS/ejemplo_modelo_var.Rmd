@@ -192,7 +192,7 @@ Para considerar la respuesta del desempleo al shock de salida,
 
 
 ```{r, echo=TRUE}
-irf.une <- vars::irf(modelo, impulse = "gdp", response = "une",n.ahead = 12, boot = TRUE)
+irf.une <- vars::irf(modelo, impulse = "gdp", response = "une",n.ahead = 30, boot = TRUE)
 plot(irf.une) # reponse of unemployment to gdp shock
 # positive shock to output decreases unemployment by large and persistent amount
 
