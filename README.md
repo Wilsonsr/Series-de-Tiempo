@@ -42,7 +42,12 @@
     
 - <a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/SARIMAX-SOIREC.Rmd"> SARIMAX </a>
 
-- - <a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/VAR.Rmd"> Modelo VAR  </a>
+- <a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/VAR.Rmd"> Modelo VAR  </a>
+
+- <a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/cointegracion.Rmd"> Cointegracion  </a>
+
+- <a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/ejemplovecgerman.Rmd"> Ejemplo modelo VEC  </a>
+
 <!--
 
 
@@ -54,13 +59,11 @@
   - https://rpubs.com/wilsonsr/794419
 
 
-- <a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/cointegracion.Rmd"> Cointegracion  </a>
 
 
   
   #- https://rpubs.com/wilsonsr/906136
 
-- <a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/ejemplovecgerman.Rmd"> Ejemplo modelo VEC  </a>
 
 
 
