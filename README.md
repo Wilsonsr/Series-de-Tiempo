@@ -90,3 +90,6 @@ https://meet.google.com/oru-jsof-qjd
 
  https://docs.google.com/spreadsheets/d/1bHbCzUPqAHsE5lHzUAvdf_BHzY8Udni26CnFf0hP7Yc/edit?usp=sharing
 
+
+ https://www.superfinanciera.gov.co/publicaciones/10082252/informes-y-cifrascifrasestablecimientos-de-creditoinformacion-periodicamensualcalidad-de-cartera-establecimientos-de-credito-10082252/
+
