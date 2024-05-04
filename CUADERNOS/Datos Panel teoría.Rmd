@@ -1,0 +1,163 @@
+---
+title: "Panel de Datos"
+author: "WILSON SANDOVAL"
+date: "`r Sys.Date()`"
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+    float: true
+    toc: true
+---
+
+
+## **Datos de Panel**
+Un conjunto de datos de panel (o longitudinales) consiste en una serie de tiempo por cada unidad de una  base de datos de corte transversal.
+
+Los datos de panel, también conocidos como datos longitudinales o datos de series de tiempo cruzadas, son un tipo de datos que se recogen observando múltiples individuos (por ejemplo, personas, empresas, países, etc.) 
+
+Objetivos de los modelos de datos de panel:
+
+El objetivo principal de los modelos de datos de panel es utilizar la variación tanto entre los individuos como a lo largo del tiempo para proporcionar estimaciones más precisas de los efectos de las variables independientes sobre la variable dependiente.
+
+En concreto, los datos de panel pueden ayudar a controlar las variables no observadas que varían entre los individuos pero no a lo largo del tiempo (efectos fijos), y las variables no observadas que varían a lo largo del tiempo pero no entre los individuos (efectos aleatorios).
+
+
+
+Los datos de panel, son definidos también \citet{PerezEconometriaPanel} como un conjunto de variables para un conjunto de unidades sociales o secciones, cuyos valores se observan durante un periodo de tiempo. Un conjunto de datos panel presenta tres dimensiones: unidad de análisis o agente social, variables y tiempo, la particularidad de esta estructura se presenta en que la muestra tomada permanece constante a lo largo de los periodos de tiempo observados.
+
+El objetivo de estudios que emplean información tipo panel de datos es identificar heterogeneidad no observable, analizando los efectos individuales específicos y los efectos temporales ya que cuenta con una dimensión temporal de los datos.
+
+
+Ejemplos de preguntas que se pueden responder utilizando datos de panel:
+
+- **Economía y finanzas:** ¿Cómo afecta un cambio en la política monetaria a la economía de diferentes países a lo largo del tiempo? ¿Cómo afectan las variaciones en el gasto en publicidad a las ventas de una empresa a lo largo del tiempo?
+
+- **Sociología:** ¿Cómo afectan las políticas gubernamentales a los indicadores de pobreza o desigualdad a lo largo del tiempo y entre diferentes regiones? ¿Cómo influyen las diferencias en la educación o el estatus socioeconómico en la salud y el bienestar a lo largo de la vida de los individuos?
+
+- **Ciencias de la salud:** ¿Cómo se desarrolla una enfermedad en diferentes grupos de pacientes a lo largo del tiempo? ¿Cómo afectan los diferentes tratamientos a la evolución de una enfermedad?
+
+- **Medio ambiente:** ¿Cómo afectan las políticas de cambio climático a las emisiones de gases de efecto invernadero de diferentes países a lo largo del tiempo?
+
+- **Educación:** ¿Cómo afectan las políticas educativas a los resultados de los estudiantes en diferentes escuelas o regiones a lo largo del tiempo?
+
+- **Marketing:** ¿Cómo afectan las diferentes estrategias de marketing al comportamiento de compra de los clientes a lo largo del tiempo?
+
+
+## **Especificación general de un modelo de datos de panel**
+
+La especificación general de un modelo de regresión con datos de panel es la siguiente:
+
+\begin{equation}
+    Y_{it}=a_{it}+ b_{1}X_{1it} + b_{2}X_{2it}+ \cdots + b_{k}X_{kit} + U_{it}; \ \ \ \ \ i=1,...,n \ \ \ y  \ \ \ t=1,...,T
+    \label{ec2}
+\end{equation}
+
+Donde:
+
+* $i$ se refiere al individuo o a la unidad de estudio (corte transversal)
+* $t$ a la dimensión en el tiempo.
+* $a$ es un vector de interceptos que puede contener entre $1$ y  $n+1$ parámetros.
+* $b$ es un vector de $k$ parámetros.
+* $X_{it}$ es la $i$‐ésima observación al momento $t$ para las variables explicativas $X_1$, $X_2$,...,$X_{k}$
+
+
+La muestra total de las observaciones en el modelo viene es $n\times T$
+
+
+## **Tabla datos Panel**
+
+<center>
+
+![](/cloud/project/Datos panel/tabladatospanel.jpg "Tabla Datos Panel")
+</center>
+
+
+## Componentes del error
+
+Es usual interpretar los modelos de datos de panel a través de sus componentes de errores. El término de error $U_{it}$ o en la ecuación (\ref{ec2}) se descompone como:
+
+\begin{equation}
+    U_{it}=u_i+v_t+w_{it}
+ \end{equation}
+
+
+- $u_i$ representa los efectos no observables que difieren entre las unidades de estudio pero no en el tiempo, que generalmente se los asocia a la tecnología incorporada.
+- $v_t$  son los efectos no cuantificables que varían en el tiempo pero no entre las unidades de estudio.
+- $w_{it}$ se refiere al término de error puramente aleatorio.  
+
+
+## Ventajas y Desventajas de la Técnica de Datos de Panel
+
+La técnica de datos tipo panel presenta una serie de ventajas y desventajas en comparación con los modelos de series de tiempo y de corte transversal.
+
+
+### Ventajas:  
+
+
+* La técnica permite al investigador disponer de un mayor número de observaciones  $n\times T$ incrementando los grados de libertad, reduciendo la colinealidad entre las variables explicativas y, en última instancia, mejorando la eficiencia de las estimaciones.  
+
+* La técnica permite capturar la heterogeneidad no observable ya sea entre unidades individuales de estudio como en el tiempo. Con base en lo anterior, la técnica permite aplicar una serie de pruebas de hipótesis para confirmar o rechazar dicha heterogeneidad y cómo capturarla.  
+
+* Los datos en panel suponen e incorporan, en el análisis los individuos. Los análisis de series de tiempo y de corte transversal no tratan de controlar esta heterogeneidad corriendo el riesgo de obtener resultados sesgados.  
+
+* Permite elaborar y probar modelos relativamente complejos de comportamiento
+en comparación con los análisis de series de tiempo y de corte transversal.   
+
+
+### Desventajas:  
+En términos generales, las desventajas asociadas a la técnica de datos de panel se relacionan con los procesos para la obtención y el procesamiento de la información estadística sobre las unidades individuales de estudio, cuando esta se obtiene por medio de encuestas, entrevistas o utilizando algún otro medio de relevamiento de los datos. 
+
+
+
+## Modelo de Efectos fijos
+
+
+El modelo de efectos fijos considera que existe un término constante diferente para cada individuo y supone que los efectos individuales son independientes entre sí. 
+Con este modelo se considera que las variables explicativas afectan por igual a las unidades de corte transversal y que éstas se diferencian por características propias de cada una de ellas, medidas por medio del intercepto. Es por ello que los  interceptos se asocian con variables dummy con coeficientes específicos para cada unidad, los cuales se deben estimar. Para la $i$‐ésima unidad de corte transversal, la relación es la siguiente:
+
+\begin{equation}
+    Y_i=ia_i + b_{1}X_{1i}+b_{2}X_{2i}+ \cdots + b_{k}X_{ki} + U_{i}; \ \ \ i=1,2,..., n
+\end{equation}
+
+Donde el subíndice $i$ representa un vector columna de unos individuos.
+
+
+Este modelo presenta los residuos
+\begin{equation*}
+    U_{it}=u_i+v_{t}+W_{it}
+\end{equation*}
+
+Siendo $w_{it}$, variable aleatoria y $u_{i}$ (efectos de sección cruzada) y $v_{t}$ (efectos de tiempo) deterministas.
+
+
+
+## Modelo de Efectos Aleatorios
+
+El modelo de efectos aleatorios considera que los efectos individuales no son independientes entre sí, sino que están distribuidos aleatoriamente alrededor de un valor dado. El  modelo  considera que tanto el impacto de las variables explicativas como las características propias de cada unidad de corte transversal son diferentes.
+
+El modelo se expresa algebraicamente de la siguiente forma:  
+
+\begin{equation}
+    Y_{it}=(a+u_i) + b_{1}X_{1it}+b_{2}X_{2it}+ \cdots + b_{k}X_{kit} + w_{it}; \ \ \ i=1,2,..., n \ \ \ t=1,2,...,T
+\end{equation}
+
+
+
+## Test de Hausman
+El test propuesto por Hausman en el año 1978, es un test Chi cuadrado que determina si las diferencias son sistemáticas y significativas entre dos estimaciones, comparando los $\beta$ obtenidos por medio del estimador de efectos fijos y efectos aleatorios, identificando si las diferencias entre ellos son o no son significativas. En la hipótesis nula se comprueba la existencia de no correlación entre los $\alpha_i$ y las variables explicativas.
+
+
+H$_0$: = *No existe correlación entre las variables explicativas y los efectos individuales.*
+
+H$_1$ := *Existe correlación entre las variables explicativas y los efectos individuales.*
+
+
+#### Criterio de rechazo
+
+* Si el $p$-valor $<$ 0.05 se rechaza H$_0$, es decir que hay correlación entre los efectos individuales y las variables explicativas, lo que indica que el estimador fijo debe ser utilizado.
+
+* Si el $p$-valor $>$ 0.05, no se rechaza H$_0$, es decir que no hay una correlación entre los efectos individuales y las variables explicativas, lo que indica que el estimador de efectos aleatorios es el que se debe utilizar.
+
+
+
