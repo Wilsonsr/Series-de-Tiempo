@@ -88,6 +88,10 @@ https://meet.google.com/oru-jsof-qjd
 
  - Grupos de proyectos
 
+Horarios Revision Proyecto grupo 7am
+https://docs.google.com/spreadsheets/d/1ucFpFr5gSWmNC9-KrbS3Grbq2eFh05YJnQc36ikgWG8/edit?usp=sharing
+
+
  https://docs.google.com/spreadsheets/d/1bHbCzUPqAHsE5lHzUAvdf_BHzY8Udni26CnFf0hP7Yc/edit?usp=sharing
 
 
