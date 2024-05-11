@@ -88,6 +88,10 @@ https://meet.google.com/oru-jsof-qjd
 
  - Grupos de proyectos
 
+Horario Asesoria  grupo series Tiempo 10:00 am
+https://docs.google.com/spreadsheets/d/1ZfoB6uf9yYgmNSaH5brMqAWRdvO29ajwHjSGDHmQyIU/edit?usp=sharing
+
+
 Horarios Revision Proyecto grupo 7am
 https://docs.google.com/spreadsheets/d/1ucFpFr5gSWmNC9-KrbS3Grbq2eFh05YJnQc36ikgWG8/edit?usp=sharing
 
