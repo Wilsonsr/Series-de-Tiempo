@@ -139,7 +139,7 @@ summary(sjd.vecm)
 ```{r}
 data(finland)
 sjf <- finland
-sjf.vecm <- ca.jo(sjf, ecdet = "none", type="trace", K=2,
+sjf.vecm <- ca.jo(sjf, ecdet = "none", type="eigen", K=2,
                   spec="longrun", season=4)
 summary(sjf.vecm)
 ```
