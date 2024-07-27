@@ -42,7 +42,7 @@ El deflactor del PIB se utiliza para conocer la parte del crecimiento de una eco
 
 ## Pruebas de estacionariedad
 
-- pruebas de estacionariedad empleo
+- pruebas de estacionariedad R  tasa de interes nominal 
 ```{r, echo=TRUE}
 adf.R<- ur.df(e6[,1], type = "trend", selectlags = "BIC")
 summary(adf.R)   
@@ -124,10 +124,18 @@ plot(p1ct , name="Dp")
 ## Diagnostico VAR(4)
 
 ```{r, echo=TRUE}
-ser11 <- serial.test(p1ct, lags.pt = 16, type = "PT.asymptotic")
+ser11 <- serial.test(p1ct, lags.pt = 6, type = "PT.asymptotic")
 ser11$serial
+```
+
+
+```{r, echo=TRUE}
 norm1 <-normality.test(p1ct)
 norm1$jb.mul
+```
+
+
+```{r, echo=TRUE}
 arch1 <- arch.test(p1ct, lags.multi = 12)
 arch1$arch.mul
 plot(arch1, names = "R")
@@ -138,7 +146,7 @@ plot(stability(p1ct), nc = 2)
 ##  Estimar
 
 ```{r, echo=TRUE}
-vec <- ca.jo(e6, ecdet = "none", type = "trace",
+vec <- ca.jo(e6, ecdet = "none", type = "eigen",
              K = 4, spec = "transitory", season = 4)
 
 summary(vec)
@@ -162,10 +170,18 @@ var1
 
 
 ```{r, echo=TRUE}
-ser11 <- serial.test(var, lags.pt = 16, type = "PT.asymptotic")
+ser11 <- serial.test(var, lags.pt = 6, type = "PT.asymptotic")
 ser11$serial
+```
+
+
+```{r, echo=TRUE}
 norm1 <-normality.test(var)
 norm1$jb.mul
+```
+
+
+```{r, echo=TRUE}
 arch1 <- arch.test(var, lags.multi = 12)
 arch1$arch.mul
 plot(arch1, names = "R")
