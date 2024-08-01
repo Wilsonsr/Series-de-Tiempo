@@ -88,15 +88,7 @@ https://meet.google.com/oru-jsof-qjd
 
  - Grupos de proyectos
 
-Horario Asesoria  grupo series Tiempo 10:00 am
-https://docs.google.com/spreadsheets/d/1ZfoB6uf9yYgmNSaH5brMqAWRdvO29ajwHjSGDHmQyIU/edit?usp=sharing
 
-
-Horarios Revision Proyecto grupo 7am
-https://docs.google.com/spreadsheets/d/1ucFpFr5gSWmNC9-KrbS3Grbq2eFh05YJnQc36ikgWG8/edit?usp=sharing
-
-
- https://docs.google.com/spreadsheets/d/1bHbCzUPqAHsE5lHzUAvdf_BHzY8Udni26CnFf0hP7Yc/edit?usp=sharing
 
 
  https://www.superfinanciera.gov.co/publicaciones/10082252/informes-y-cifrascifrasestablecimientos-de-creditoinformacion-periodicamensualcalidad-de-cartera-establecimientos-de-credito-10082252/
