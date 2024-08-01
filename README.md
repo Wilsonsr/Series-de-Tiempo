@@ -75,7 +75,7 @@ Las notas se distribuirán de la siguiente manera
 |ACTIVIDAD|PORCENTAJE|
 |---|---|
 |Quices-Talleres| 50%|
-|Proyecto|50% (10 20 20)|
+|Proyecto|50% (10- 20- 20)|
 |Total|100%|
 
 
@@ -84,8 +84,6 @@ Las notas se distribuirán de la siguiente manera
 + Metodología y primeros resultados.
 + Exposiciones Entrega Final
   
-https://meet.google.com/oru-jsof-qjd
-
  - Grupos de proyectos
 
 
