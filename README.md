@@ -81,8 +81,9 @@ Las notas se distribuirán de la siguiente manera
 + Metodología y primeros resultados.
 + Exposiciones Entrega Final
   
- - Grupos de proyectos
 
+ 
+https://meet.google.com/tzc-nwgv-ufo
 
 
 
