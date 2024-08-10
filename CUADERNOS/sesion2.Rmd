@@ -69,7 +69,7 @@ library(gridExtra)
 library(seasonal)
 library(lattice)
 library(zoo)
-library(urca)
+#library(urca)
 library(dynlm)
 library(TSstudio)
 
