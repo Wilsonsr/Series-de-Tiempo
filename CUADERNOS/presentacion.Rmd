@@ -16,7 +16,7 @@ output:
 La metodología de \textbf{series de tiempo} es una herramienta estadística que pretende estudiar un mismo fenómeno cuantitativo a través del tiempo con la finalidad de poder obtener pronósticos de forma asertiva.
 
 
-Esta metodología se utiliza ampliamente en los negocios, las ciencias sociales, las ciencias biológicas, y en muchas otras disciplinas.
+Esta metodología se utiliza ampliamente en los negocios, las ciencias sociales, las ciencias biológicas, y en muchas otras- disciplinas.
 
 
 
@@ -28,9 +28,9 @@ Esta metodología se utiliza ampliamente en los negocios, las ciencias sociales,
   + Beneficios netos mensuales de cierta entidad bancaria.
   + Índices del precio del petróleo.
 
-<center> 
-![economia](https://github.com/Wilsonsr/Series-de-Tiempo/raw/main/bases/economia.png)
-</center>
+
+<img src="https://github.com/Wilsonsr/Series-de-Tiempo/raw/main/bases/economia.png" width=500 />
+
 
 ##
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=2, fig.width=2}
@@ -39,20 +39,27 @@ library(highcharter)
 library(tseries)
 library(ggfortify)
 library(TSstudio)
-#INFLACION <- read_excel("INFLACION.xlsx")
 
 ```
 
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 library(rio)
+```
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
 INFLACION=rio::import("https://github.com/Wilsonsr/Series-de-Tiempo/raw/main/bases/INFLACION.xlsx")
+```
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
 infla=ts(INFLACION, start = c(2000,1),end = c(2019,12), frequency = 12)
 hchart(infla)%>%hc_add_theme(hc_theme_538())%>%hc_title(text = "IPC",
     margin = 20,
     align = "center",
     style = list(color = "#22A884", useHTML = TRUE))%>%
-  hc_xAxis(title="tIEMPO")
+  hc_xAxis(title="Tiempo")
 ```
 
 
@@ -125,10 +132,10 @@ hchart(airforecast) %>%  hc_add_theme(hc_theme_sandsignika())%>%hc_title(text = 
   + Número de habitantes por año.
   + Tasa de mortalidad infantil por año.
 
-<center>
 
-![Demografia](https://github.com/Wilsonsr/Series-de-Tiempo/raw/main/bases/demografia.png)
-</center>
+<img src="https://github.com/Wilsonsr/Series-de-Tiempo/raw/main/bases/demografia.png" alt="Demografia" width="500"/>
+
+
 
 
 ##
@@ -140,9 +147,7 @@ durante una serie de años.
   + Temperatura media mensual.
   + Medición diaria del contenido en residuos tóxicos en un río.
 
-<center>
-![Demografia](https://github.com/Wilsonsr/Series-de-Tiempo/raw/main/bases/medioambiente.png)
-</center>
+<img src="https://github.com/Wilsonsr/Series-de-Tiempo/raw/main/bases/medioambiente.png" width=400 />
 
 
 
@@ -181,13 +186,13 @@ durante una serie de años.
 
 Redes Neuronales 
 
-<center>
-![Demografia](https://github.com/Wilsonsr/Series-de-Tiempo/raw/main/bases/red.png)
+<img src="https://github.com/Wilsonsr/Series-de-Tiempo/raw/main/bases/red.png" width=500 />
+
 
 
 ##
 
-```{r, message=FALSE, echo=FALSE }
+```{r, message=FALSE, echo=FALSE , warning=FALSE}
 library(tseries)
 library(vars)
 library(highcharter)
@@ -247,8 +252,3 @@ Colombia, mediante el modelo de datos panel.
 
 - Efectos de la tasa de cambio en la compra de software importado en América Latina
 
-##
-
-
-- Rpubs
-<https://rpubs.com/wilsonsr/784325>
