@@ -60,9 +60,9 @@ $$\{x_t\}_{t \in T} = \{x_t\}, \quad t \in T$$
 donde:
 
 
-- $ \{x_t\} $ representa la serie de tiempo,
+- $\{x_t\}$ representa la serie de tiempo,
 - $t$ es el índice temporal, y
-- $T$ es el conjunto de todos los puntos en el tiempo en los cuales las observaciones se han realizado, como $T = \{t_1, t_2, t_3, \ldots, t_n\} $.
+- $T$ es el conjunto de todos los puntos en el tiempo en los cuales las observaciones se han realizado, como $T =\{t_1, t_2, t_3, \ldots, t_n\}$.
 
 Las series de tiempo pueden ser:
 
@@ -86,7 +86,7 @@ patrón de las series de tiempo. Los usos para tal modelo son:
 
 ## Nilo
 
-```{r,message=FALSE}
+```{r,message=FALSE, warning=FALSE}
 library(tseries)
 library(ggplot2)
 library(ggfortify)
@@ -149,7 +149,7 @@ donde:
 - $I_{t}$: es la componente aleatoria.
 
 
-## **Algunos Comandos en R**
+## Algunos Comandos en R
 
 Para que R trate a un conjunto de datos como serie de tiempo:
 
