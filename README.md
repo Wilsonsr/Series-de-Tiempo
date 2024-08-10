@@ -7,7 +7,7 @@
 1.  <a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/presentacion.Rmd"> Introducción </a>
 
   
-    + <a href="https://docs.google.com/document/d/1dfSlLBAIoffRO-MCypsF8Ca9EYLQogzw/edit?usp=sharing&ouid=111401641962812428858&rtpof=true&sd=true"> PDA </a>
+    + <a href="https://docs.google.com/document/d/1fP72mtPZtEHXrMqy5c6cvcA9g1NywioP/edit?usp=sharing&ouid=111401641962812428858&rtpof=true&sd=true"> PDA </a>
 
     + <a href="https://drive.google.com/drive/folders/1L2boStZYPTN7j37Nw9tsnu6OKTwCze-g?usp=sharing"> Textos </a>
 
