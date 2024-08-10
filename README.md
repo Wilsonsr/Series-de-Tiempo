@@ -11,7 +11,7 @@
 
     + <a href="https://drive.google.com/drive/folders/1L2boStZYPTN7j37Nw9tsnu6OKTwCze-g?usp=sharing"> Textos </a>
 
-2. <a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/Sesion1.Rmd"> Introducción Series de Tiempo </a>
+2. <a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/1_introducci%C3%B3n.Rmd"> Introducción Series de Tiempo </a>
 
 3. <a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/sesion2.Rmd"> Ruido Blanco, Estacionariedad, AR(p), MA(q) </a>
   + <a href="https://rpubs.com/wilsonsr/1004719">  R pubs  </a>
