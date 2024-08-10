@@ -4,19 +4,16 @@
 
 </div>
 
+1.  <a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/presentacion.Rmd"> Introducción </a>
 
-- <a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/presentacion.Rmd"> Introducción </a>
-
-    
-    + <a href="https://rpubs.com/wilsonsr/1147338"> Rpubs </a>
   
     + <a href="https://docs.google.com/document/d/1dfSlLBAIoffRO-MCypsF8Ca9EYLQogzw/edit?usp=sharing&ouid=111401641962812428858&rtpof=true&sd=true"> PDA </a>
 
     + <a href="https://drive.google.com/drive/folders/1L2boStZYPTN7j37Nw9tsnu6OKTwCze-g?usp=sharing"> Textos </a>
 
-- <a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/Sesion1.Rmd"> Introducción Series de Tiempo </a>
+2. <a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/Sesion1.Rmd"> Introducción Series de Tiempo </a>
 
-- <a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/sesion2.Rmd"> Ruido Blanco, Estacionariedad, AR(p), MA(q) </a>
+3. <a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/sesion2.Rmd"> Ruido Blanco, Estacionariedad, AR(p), MA(q) </a>
   + <a href="https://rpubs.com/wilsonsr/1004719">  R pubs  </a>
   
 
@@ -75,7 +72,7 @@ Las notas se distribuirán de la siguiente manera
 |ACTIVIDAD|PORCENTAJE|
 |---|---|
 |Quices-Talleres| 50%|
-|Proyecto|50% (10 20 20)|
+|Proyecto|50% (10- 20- 20)|
 |Total|100%|
 
 
@@ -84,19 +81,9 @@ Las notas se distribuirán de la siguiente manera
 + Metodología y primeros resultados.
 + Exposiciones Entrega Final
   
-https://meet.google.com/oru-jsof-qjd
-
  - Grupos de proyectos
 
-Horario Asesoria  grupo series Tiempo 10:00 am
-https://docs.google.com/spreadsheets/d/1ZfoB6uf9yYgmNSaH5brMqAWRdvO29ajwHjSGDHmQyIU/edit?usp=sharing
 
-
-Horarios Revision Proyecto grupo 7am
-https://docs.google.com/spreadsheets/d/1ucFpFr5gSWmNC9-KrbS3Grbq2eFh05YJnQc36ikgWG8/edit?usp=sharing
-
-
- https://docs.google.com/spreadsheets/d/1bHbCzUPqAHsE5lHzUAvdf_BHzY8Udni26CnFf0hP7Yc/edit?usp=sharing
 
 
  https://www.superfinanciera.gov.co/publicaciones/10082252/informes-y-cifrascifrasestablecimientos-de-creditoinformacion-periodicamensualcalidad-de-cartera-establecimientos-de-credito-10082252/
