@@ -7,11 +7,11 @@
 1.  <a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/presentacion.Rmd"> Introducción </a>
 
   
-    + <a href="https://docs.google.com/document/d/1dfSlLBAIoffRO-MCypsF8Ca9EYLQogzw/edit?usp=sharing&ouid=111401641962812428858&rtpof=true&sd=true"> PDA </a>
+    + <a href="https://docs.google.com/document/d/1fP72mtPZtEHXrMqy5c6cvcA9g1NywioP/edit?usp=sharing&ouid=111401641962812428858&rtpof=true&sd=true"> PDA </a>
 
     + <a href="https://drive.google.com/drive/folders/1L2boStZYPTN7j37Nw9tsnu6OKTwCze-g?usp=sharing"> Textos </a>
 
-2. <a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/Sesion1.Rmd"> Introducción Series de Tiempo </a>
+2. <a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/1_introducci%C3%B3n.Rmd"> Introducción Series de Tiempo </a>
 
 3. <a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/sesion2.Rmd"> Ruido Blanco, Estacionariedad, AR(p), MA(q) </a>
   + <a href="https://rpubs.com/wilsonsr/1004719">  R pubs  </a>
@@ -81,8 +81,9 @@ Las notas se distribuirán de la siguiente manera
 + Metodología y primeros resultados.
 + Exposiciones Entrega Final
   
- - Grupos de proyectos
 
+ 
+https://meet.google.com/tzc-nwgv-ufo
 
 
 
