@@ -175,8 +175,28 @@ El **ACF** de la serie da correlaciones entre $x_t$ y $x_{t-h}$  para  $h= 1, 2,
 Teóricamente, la autocorrelación entre $x_t$  y $x_{t-h}$ es igual
 
 
- 
-$$\dfrac{\text{Covariance}(x_t, x_{t-h})}{\text{Std.Dev.}(x_t)\text{Std.Dev.}(x_{t-h})} = \dfrac{\text{Covariance}(x_t, x_{t-h})}{\text{Variance}(x_t)}$$    
+**Definición Formal:**
+
+La **Función de Autocorrelación** \( \rho_k \) en un retardo \( k \) es una medida de la correlación entre los valores de una serie de tiempo \( \{X_t\} \) y los valores de la misma serie en retardos \( k \), es decir, entre \( X_t \) y \( X_{t-k} \). Matemáticamente, la ACF en un retardo \( k \) se define como:
+
+\[
+\rho_k = \frac{\text{Cov}(X_t, X_{t-k})}{\text{Var}(X_t)}
+\]
+
+donde:
+
+- \( \text{Cov}(X_t, X_{t-k}) \) es la covarianza entre \( X_t \) y \( X_{t-k} \).
+- \( \text{Var}(X_t) \) es la varianza de la serie de tiempo.
+
+Para una serie temporal estacionaria, la ACF depende solo del retardo \( k \) y no del tiempo \( t \).
+
+**Propiedades:**
+- \( \rho_0 = 1 \), porque la autocorrelación en el retardo cero es la correlación de la serie consigo misma.
+
+- \( \rho_k \) es simétrica respecto a \( k \), es decir, \( \rho_k = \rho_{-k} \).
+
+- La ACF es útil para identificar el orden del proceso MA (Media Móvil).
+
 
 ```{r}
 AirPassengers
@@ -197,7 +217,26 @@ ts_cor(ruido_blanco1)
 
 En general, una correlación parcial es una correlación condicional. Es la correlación entre dos variables bajo el supuesto de que conocemos y tenemos en cuenta los valores de algún otro conjunto de variables.
 
-Más formalmente, podemos definir la correlación parcial que se acaba de describir como
+
+**Definición Formal:**
+
+La **Función de Autocorrelación Parcial** \( \phi_{kk} \) en un retardo \( k \) mide la correlación entre \( X_t \) y \( X_{t-k} \) después de eliminar el efecto de las autocorrelaciones de todos los retardos menores (1, 2, ..., \( k-1 \)). Se define como la autocorrelación entre \( X_t \) y \( X_{t-k} \) condicionada a \( X_{t-1}, X_{t-2}, \dots, X_{t-(k-1)} \).
+
+Matemáticamente, para una serie estacionaria \( \{X_t\} \), la PACF en el retardo \( k \) está definida por la siguiente relación de recursión:
+
+\[
+\phi_{kk} = \frac{\text{Cov}(X_t - \hat{X}_{t|t-1,\dots,t-(k-1)}, X_{t-k} - \hat{X}_{t-k|t-k+1,\dots,t-(k-1)})}{\sqrt{\text{Var}(X_t - \hat{X}_{t|t-1,\dots,t-(k-1)}) \cdot \text{Var}(X_{t-k} - \hat{X}_{t-k|t-k+1,\dots,t-(k-1)})}}
+\]
+
+donde \( \hat{X}_{t|t-1,\dots,t-(k-1)} \) es la mejor predicción lineal de \( X_t \) basada en las observaciones \( X_{t-1}, X_{t-2}, \dots, X_{t-(k-1)} \).
+
+**Propiedades:**
+
+- La PACF en el retardo \( k = 1 \) es simplemente la ACF en \( k = 1 \).
+
+- La PACF puede ser utilizada para identificar el orden del proceso AR (Autorregresivo).
+
+
 
 
 Para una serie temporal, la autocorrelación parcial entre $x_t$ y $x_{t-h}$  se define como la correlación condicional entre $x_t$ y $x_{t-h}$ condicionado a $x_{t-h+1}$ , ...,$x_{t-1}$ , el conjunto de observaciones que se encuentran entre los puntos de tiempo  $t$ y $t-h$
@@ -207,8 +246,69 @@ Para una serie temporal, la autocorrelación parcial entre $x_t$ y $x_{t-h}$  se
 
 - El 2nd autocorrelación parcial orden (lag) es
 
-$$\dfrac{\text{Covariance}(x_t, x_{t-2}| x_{t-1})}{\sqrt{\text{Variance}(x_t|x_{t-1})\text{Variance}(x_{t-2}|x_{t-1})}}$$
+$$\dfrac{\text{Cov}(x_t, x_{t-2}| x_{t-1})}{\sqrt{\text{Var}(x_t|x_{t-1})\text{Var}(x_{t-2}|x_{t-1})}}$$
 
+### Cálculo de \( \phi_{22} \) usando las Ecuaciones de Yule-Walker
+
+1. **Expresión General de Yule-Walker:**
+
+   \[
+   \rho_i = \phi_{j1} \rho_{i-1} + \phi_{j2} \rho_{i-2} + \dots + \phi_{jj} \rho_{i-j}
+   \]
+
+2. **Cálculo de \( \phi_{11} \):**
+
+   Para \( j = 1 \) y \( i = 1 \):
+
+   \[
+   \rho_1 = \phi_{11}
+   \]
+
+3. **Cálculo de \( \phi_{22} \):**
+
+   Se establece un sistema de ecuaciones para \( j = 2 \):
+
+   - Para \( i = 1 \):
+
+     \[
+     \rho_1 = \phi_{21} + \phi_{22} \rho_1
+     \]
+
+   - Para \( i = 2 \):
+
+     \[
+     \rho_2 = \phi_{21} \rho_1 + \phi_{22}
+     \]
+
+   Estas ecuaciones se pueden expresar en forma matricial:
+
+   \[
+   \begin{pmatrix}
+   \rho_1 \\
+   \rho_2
+   \end{pmatrix}
+   =
+   \begin{pmatrix}
+   1 & \rho_1 \\
+   \rho_1 & 1
+   \end{pmatrix}
+   \begin{pmatrix}
+   \phi_{21} \\
+   \phi_{22}
+   \end{pmatrix}
+   \]
+
+4. **Resolución por la Regla de Cramer:**
+
+   Utilizando la regla de Cramer, se calcula \( \phi_{22} \):
+
+   \[
+   \phi_{22} = \frac{\rho_1^2 - \rho_2}{1 - \rho_1^2}
+   \]
+
+
+
+**Nota:** Calcular manualmente la Función de Autocorrelación Parcial (PACF) puede ser un proceso complejo. Esto se debe a que, para cada retardo, es necesario ajustar la correlación entre las observaciones eliminando la influencia de todos los retardos anteriores. Este ajuste se realiza resolviendo sistemas de ecuaciones lineales, frecuentemente utilizando las ecuaciones de Yule-Walker. 
 
 
 ## Propiedades de la AR (1)
