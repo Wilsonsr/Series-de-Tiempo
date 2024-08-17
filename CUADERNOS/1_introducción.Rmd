@@ -263,7 +263,6 @@ hchart(IPC)
 
 ```{r, message=FALSE, warning=FALSE}
 library(readr)
-#amazon=read_csv("AMZN.csv")
 amazon=rio::import("https://github.com/Wilsonsr/Series-de-Tiempo/raw/main/bases/AMZN.csv")
 amazon=ts(amazon[,5], start=c(1997,06,01), frequency = 12)
 hchart(amazon)
@@ -348,9 +347,8 @@ ts_seasonal(AirPassengers, type = "all")
 
 ```{r,message=FALSE}
 library(readr)
-#oilfilters <- read_csv("oilfilters.dat")
 oilfilters=rio::import("https://github.com/Wilsonsr/Series-de-Tiempo/raw/main/bases/oilfilters.dat", format=",")
-oilfilters <-ts(oilfilters,  start=1984, end= c(1987,7), frequency = 12  )
+oilfilters <-ts(oilfilters,  start=c(1984,1), end= c(1987,7), frequency = 12  )
 autoplot(oilfilters, colour = "red")
 ```
 
@@ -358,53 +356,49 @@ autoplot(oilfilters, colour = "red")
 autoplot(stl(oilfilters, s.window = "periodic"))
 ```
 
-## Tempdub
+```{r}
+hchart(stl(oilfilters, s.window="periodic"))
+```
 
-Temperatura promedio mensual (en grados Fahrenheit) registrada en
-Dubuque 1/1964 - 12/1975
 
 ```{r}
-#tempdub <- read_csv("tempdub.dat")
-tempdub=rio::import("https://github.com/Wilsonsr/Series-de-Tiempo/raw/main/bases/tempdub.dat", format=",")
-tempdub<-ts(tempdub, start=1964,end= 1976,frequency = 12)
-plot(tempdub)
-autoplot(tempdub, colour = "blue")
-
+df=rio::import("https://github.com/Wilsonsr/Series-de-Tiempo/raw/main/bases/Respiratorios.xlsx")
 ```
 
 ```{r}
-a<-autoplot(tempdub, ts.colour = "green")+
-    xlab("Tiempo")+
-    ylab("Temperatura")
-  
-ggplotly(a)
-
+head(df)
+```
+```{r}
+summary(df)
 ```
 
 ```{r}
-autoplot(stl(tempdub, s.window = "periodic"))
+library(xts)
+pm10=as.xts(df[,"pm10"], order.by = df[,"fecha"])
 ```
 
 ```{r}
-plot(decompose(tempdub))
+plot.xts(pm10)
 ```
 
 ```{r}
-boxplot(tempdub ~ cycle(tempdub))
+ts_plot(pm10)
+```
+```{r}
+hchart(pm10)
 ```
 
-#### Con el paquete highcharter
-
-```{r,message=FALSE}
-library(highcharter)
-hchart(tempdub)%>%hc_add_theme(hc_theme_darkunica())
+```{r}
+pm10_ts=ts(df[,"pm10"], start = c(2023,1,1) ,  frequency = 365)
 ```
 
-```{r,message=FALSE}
-hchart(stl(tempdub, s.window = "periodic"))
+
+```{r}
+ts_seasonal(pm10_ts, type = "all")
 ```
 
-## Estacionaria (descriptiva)
+
+# Estacionariedad (descriptiva)
 
 una serie es estacionaria cuando es estable a lo largo del tiempo, es
 decir, cuando la media y varianza son constantes en el tiempo. Esto se
@@ -419,7 +413,7 @@ variabilidad cambian en el tiempo.
 tendencia aproximadamente lineal es diferenciar la serie, es decir,
 considerar la serie de diferencias entre una observación y la anterior
 en lugar de la serie original. Si $x_t$ es una serie contenida en $x$,
-para calcular $∇x_t=x_t−x_{t−1}$ con R se escribe:
+para calcular $$∇x_t=x_t−x_{t−1}$$ con R se escribe:
 
 ```{r}
 autoplot(AirPassengers)
