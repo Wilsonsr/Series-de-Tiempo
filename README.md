@@ -88,3 +88,4 @@ https://meet.google.com/tzc-nwgv-ufo
 
  https://www.superfinanciera.gov.co/publicaciones/10082252/informes-y-cifrascifrasestablecimientos-de-creditoinformacion-periodicamensualcalidad-de-cartera-establecimientos-de-credito-10082252/
 
+https://docs.google.com/document/d/1y3lnQ_wxnQS7QVg2KbOwjuRYibVn2Oaw/edit?usp=sharing&ouid=111401641962812428858&rtpof=true&sd=true
