@@ -13,6 +13,7 @@ library(highcharter)
 
 
 cafe <- rio::import("https://github.com/Wilsonsr/Series-de-Tiempo/raw/main/bases/cafe.xlsx")
+cafe
 
 z1<- ts(cafe[,2], start = c(2000,1), end=c(2023,12), frequency = 12)
 
@@ -98,9 +99,9 @@ ts_cor(diff(z1,12), lag.max = 40)
 ### Ajuste del Modelo
 
 modelo1<-stats::arima(z1,
-                      order=c(6,0,0), 
+                      order=c(5,0,0), 
                       seasonal=list(order=c(0,1,1),
-                                    period=12), fixed=c(NA,NA,NA,NA,NA,NA,NA)) 
+                                    period=12), fixed=c(NA,NA,NA,NA,NA,NA)) 
 modelo1
 tt <- modelo1$coef[which(modelo1$coef!=0)]/sqrt(diag(modelo1$var.coef))
 1 - pt(abs(tt),(modelo1$nobs - length(modelo1$coef[which(modelo1$coef!=0)])))
@@ -154,11 +155,17 @@ plot(forecast(modelo1,h=7, fan=T))
 lines(fitted(modelo1), col="red")
 
 ####################################################
+forecast(modelo1,h=7)
+
+hchart(forecast(modelo1,h=7))
+
 
 pronostico=  forecast(modelo1,h=7)[4]$mean
 pronostico
 
-Reales= consumo[277:283,4]
+cafe
+
+Reales= cafe[289:295,2]
 Reales
 
 library(Metrics)
