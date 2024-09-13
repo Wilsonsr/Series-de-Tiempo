@@ -44,6 +44,13 @@ Siempre que $-1\leq\lambda\leq 1$
 - $\lambda =-1 \ \ $ Inversa
 
 
+- Seleccionar los datos positivos: La transformación de Box-Cox solo es aplicable a datos que son estrictamente positivos, por lo que todos los valores deben ser mayores que cero.
+
+- Elegir el valor de $\lambda$: El valor óptimo de $𝜆$λ se suele obtener mediante un procedimiento de máxima verosimilitud o mediante prueba y error. En algunos software, como R o Python, existe una función para encontrar este valor automáticamente.
+
+- Aplicar la transformación: Utilizando la fórmula anterior, transformas tus datos según el valor de 
+$𝜆$
+
 Para ejemplificar. 
 
 ```{r, message=FALSE}
