@@ -17,7 +17,6 @@ library(car)
 library(urca)
 library(forecast)
 library(tseries)
-#library(FitAR)
 library(ggfortify)
 library(TSstudio)
 library(highcharter)
@@ -50,7 +49,6 @@ summary(gas)
 
 ```{r, message=FALSE, warning=FALSE}
 forecast::BoxCox.lambda(gas)
-#FitAR::BoxCox.ts(gas)  ### lamda =0.12
 z1 <- forecast::BoxCox(gas,0.082)
 ts_plot(z1)
 ```
