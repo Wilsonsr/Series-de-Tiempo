@@ -53,6 +53,9 @@ z1 <- forecast::BoxCox(gas,0.082)
 ts_plot(z1)
 ```
 
+```{r}
+length(gas)
+```
 
 
 
@@ -200,10 +203,10 @@ hchart(forecast(auto.arima(z1),h=12))
 ```
 ```{r}
 modelo1<-stats::arima(z1,
-                      order=c(0,1,1), 
+                      order=c(0,1,11), 
                       seasonal=list(order=c(0,1,1),
                                     period=12), 
-                      fixed=c(NA,NA)) 
+                      fixed=c(NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA)) 
 modelo1
 
 tt <- modelo1$coef[which(modelo1$coef!=0)]/sqrt(diag(modelo1$var.coef))
@@ -325,6 +328,16 @@ z3<-ts(tail(z1.fit,n=10))
 plot(z3)
 
 ```
+
+
+```{r}
+z2inv
+```
+
+```{r}
+z2inv.ls
+```
+
 
 
 ```{r}
