@@ -21,7 +21,7 @@
 
 - <a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/boxcox.Rmd"> Box-Cox  </a>
 
-  +<a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/Ejemplo%20Serie%20Gas%20(2).Rmd"> Ejemplo Box-Cox  </a>
+  +<a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/Ejemplo%20Serie%20Gas.Rmd"> Ejemplo Box-Cox  </a>
 
 - <a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/Alisamiento%20expone.Rmd"> oTras metodologías  </a> 
 
