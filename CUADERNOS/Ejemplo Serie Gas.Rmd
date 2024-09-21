@@ -206,7 +206,7 @@ modelo1<-stats::arima(z1,
                       order=c(0,1,11), 
                       seasonal=list(order=c(0,1,1),
                                     period=12), 
-                      fixed=c(NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA)) 
+                      fixed=c(NA,0,0,0,NA,0,0,0,0,0,NA,NA)) 
 modelo1
 
 tt <- modelo1$coef[which(modelo1$coef!=0)]/sqrt(diag(modelo1$var.coef))
@@ -324,11 +324,14 @@ polygon(c(time(z2inv.li),rev(time(z2inv.ls))),
 lines(z2inv, type="b", col="blue", lwd=2) 
 lines(z1.fit, type="l", col="red", lty=2, lwd=3) 
 
-z3<-ts(tail(z1.fit,n=10))
-plot(z3)
 
 ```
 
+```{r}
+z3<-ts(z2inv)
+plot(z3)
+
+```
 
 ```{r}
 z2inv
