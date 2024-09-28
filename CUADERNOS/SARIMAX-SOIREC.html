@@ -12,7 +12,7 @@
 
 <meta name="author" content="Wilson Sandoval" />
 
-<meta name="date" content="2024-03-23" />
+<meta name="date" content="2024-09-28" />
 
 <title>SARIMAX</title>
 
@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function(e) {
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -150,7 +150,7 @@ code span.ot { color: #007020; }
 <section class="page-header">
 <h1 class="title toc-ignore project-name">SARIMAX</h1>
 <h4 class="author project-author">Wilson Sandoval</h4>
-<h4 class="date project-date">2024-03-23</h4>
+<h4 class="date project-date">2024-09-28</h4>
 </section>
 
 
@@ -1194,8 +1194,8 @@ hace 6 periodos</a></li>
 <div id="modelo-4-soi-rezagado-hace-6-periodos" class="section level3">
 <h3>modelo 4: SOi rezagado hace 6 periodos</h3>
 <div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" tabindex="-1"></a><span class="fu">library</span>(quantmod)</span></code></pre></div>
-<pre><code>## Loading required package: xts</code></pre>
-<pre><code>## Loading required package: TTR</code></pre>
+<pre><code>## Cargando paquete requerido: xts</code></pre>
+<pre><code>## Cargando paquete requerido: TTR</code></pre>
 <div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" tabindex="-1"></a>x1<span class="ot">&lt;-</span><span class="fu">ts</span>(<span class="fu">Lagtp</span>(soi1,<span class="dv">6</span>),<span class="at">frequency =</span> <span class="dv">12</span>)</span>
 <span id="cb56-2"><a href="#cb56-2" tabindex="-1"></a></span>
 <span id="cb56-3"><a href="#cb56-3" tabindex="-1"></a></span>
