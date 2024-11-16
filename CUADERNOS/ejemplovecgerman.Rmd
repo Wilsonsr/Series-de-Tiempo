@@ -147,7 +147,7 @@ plot(stability(p1ct), nc = 2)
 
 ```{r, echo=TRUE}
 vec <- ca.jo(e6, ecdet = "none", type = "eigen",
-             K = 4, spec = "transitory", season = 4)
+             K = 3, spec = "transitory", season = 4)
 
 summary(vec)
 class(vec)
@@ -170,7 +170,7 @@ var1
 
 
 ```{r, echo=TRUE}
-ser11 <- serial.test(var, lags.pt = 6, type = "PT.asymptotic")
+ser11 <- serial.test(var, lags.pt = 4, type = "PT.asymptotic")
 ser11$serial
 ```
 
@@ -182,7 +182,7 @@ norm1$jb.mul
 
 
 ```{r, echo=TRUE}
-arch1 <- arch.test(var, lags.multi = 12)
+arch1 <- arch.test(var, lags.multi = 7)
 arch1$arch.mul
 plot(arch1, names = "R")
 #plot(vars::stability(var), nc = 2)
