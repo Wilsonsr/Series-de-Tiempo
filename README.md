@@ -78,8 +78,9 @@ Las notas se distribuirán de la siguiente manera
 + Segundo avance. Marco teórico –previa metodología-
 + Metodología y primeros resultados.
 + Exposiciones Entrega Final
-  
 
+  Notas grupo 2.
+- https://docs.google.com/spreadsheets/d/16bWIHRQMnLKaixM9ut2VtwkPgvaA6EoX/edit?usp=sharing&ouid=111401641962812428858&rtpof=true&sd=true
  
 https://meet.google.com/tzc-nwgv-ufo
 
