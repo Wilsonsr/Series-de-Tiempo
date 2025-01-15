@@ -1,0 +1,334 @@
+---
+title: "Modelo VAR"
+author: "Wilson Sandoval Rodriguez"
+date:  " `r Sys.Date()`"
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+    float: true
+    toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+## VAR
+- Un modelo VAR (vector autoregresivo) es generalmente utilizado cuando se desean encontrar relaciones simultaneas en un grupo de variables, permitiendo así estimar un sistema de ecuaciones, a diferencia de los modelos ARIMA tradicionales que permiten estimar sólo una ecuación.
+
+- El modelo VAR es especialmente útil cuando las relaciones entre variables se transmiten a varios periodos, corrigiendo los problemas de endogeneidad (simultaneidad entre variables) y mostrando la interrelación dinámica que hay entre las variables estacionarias.
+
+
+## Modelo VAR($p$)
+
+La serie multivariada  $\boldsymbol{z_t}$ sigue un modelo  VAR de orden $p$, VAR($p$), si
+
+$$\boldsymbol{z}_{t}=\phi_{0}+\sum_{i=1}^{p} \phi_{i} z_{t-i}+\boldsymbol{a}_{t}$$
+
+- $\phi_0$:= es una constante de dimensión $k$
+
+- $\phi_i$  son matrices de  $k \times k$  para $i > 0$,  $\phi_p \neq \boldsymbol{0}$
+
+- $\boldsymbol{a_t}$ es una sucesión  de vectores aleatorios independientes e identicamente distribuidos (iid) con media cero y matriz de covarianza $\sum_a$ definida positiva.
+
+
+## VAR($1$)
+
+\[
+\boldsymbol{z}_{t}=\boldsymbol{\phi}_{0}+\boldsymbol{\phi}_{1} \boldsymbol{z}_{t-1}+\boldsymbol{a}_{t}
+\]
+
+Escribiendo el modelo explicitamente se tiene:
+
+\[
+\left[\begin{array}{l}
+z_{1 t} \\
+z_{2 t}
+\end{array}\right]=\left[\begin{array}{l}
+\phi_{10} \\
+\phi_{20}
+\end{array}\right]+\left[\begin{array}{ll}
+\phi_{1,11} & \phi_{1,12} \\
+\phi_{1,21} & \phi_{1,22}
+\end{array}\right]\left[\begin{array}{l}
+z_{1, t-1} \\
+z_{2, t-1}
+\end{array}\right]+\left[\begin{array}{l}
+a_{1 t} \\
+a_{2 t}
+\end{array}\right]
+\]
+
+
+
+
+$$\begin{array}{l}
+z_{1 t}=\phi_{10}+\phi_{1,11} z_{1, t-1}+\phi_{1,12} z_{2, t-1}+a_{1 t} \\
+z_{2 t}=\phi_{20}+\phi_{1,21} z_{1, t-1}+\phi_{1,22} z_{2, t-1}+a_{2 t}
+\end{array}$$
+
+
+- Las ecuaciones muestran que la variable $z_{1t}$ es explicada por rezagos de $z_{2t}$ y de sí misma; y de igual manera la variable $z_{2t}$ es afectada por rezagos de $z_{1t}$ y de sí misma, de manera que no es posible distinguir entre variables endógenas y variables exógenas .
+
+- Un VAR($1$) se refiere a un modelo cuyo máximo rezago es $1$.
+
+
+## Notas
+
+- En otras palabras, bajo el marco de Granger, decimos
+que $z_{1t}$ causa $z_{2t}$ si la información pasada de $z_{1t}$ mejora el pronóstico de $z_{2t}$
+
+- Para el modelo bivariado VAR(1) en la ecuación,  si $\sum_a$ no es una matriz diagonal, entonces $z_{1t}$ y $z_{2t}$ se correlacionan instantáneamente (o contemporáneamente
+correlacionado). 
+- En este caso, $z_{1t}$ y $z_{2t}$ tienen causalidad de Granger instantánea. La causalidad instantánea va en ambos sentidos.
+
+
+
+
+## Construir el Modelo
+
+Seguir el procedimiento iterativo de Box y Jenkins
+
+- Especificación, 
+- Estimación, 
+- Diagnostico 
+
+
+## Estimado el VAR(p), el usuario estará interesado en alguno de los siguientes elementos
+ 
+- Comprender la dinámica entre las variables parte del análisis
+- Análisis de causalidad
+- Análisis de Impulso Respuesta
+- Pronosticar fuera de la muestra
+- Descomposición del Error de pronóstico
+- Análisis de diagnóstico
+
+
+
+## Orden de Selección
+
+- Test de razones de verosimilitud
+- Criterios de Información
+
+$$\begin{array}{l}
+\operatorname{AIC}(\ell)=\ln \left|\hat{\mathbf{\Sigma}}_{a, \ell}\right|+\frac{2}{T} \ell k^{2} \\
+\operatorname{BIC}(\ell)=\ln \left|\hat{\mathbf{\Sigma}}_{a, \ell}\right|+\frac{\ln (T)}{T} \ell k^{2} \\
+\operatorname{HQ}(\ell)=\ln \left|\hat{\mathbf{\Sigma}}_{a, \ell}\right|+\frac{2 \ln [\ln (T)]}{T} \ell k^{2}
+\end{array}$$
+
+
+## Test de Correlación Serial
+
+- Test de Portmanteau
+- Test de Breusch-Godfrey
+
+
+## Causalidad
+- El test de causalidad se debe a los desarrollos de
+Granger(1969). “Investigating causal relations by econometric
+models and cross-sprectral methods”. Econometrika 46,
+1303-1310.
+-  Una variable X causa en el sentido de Granger a otra Y, si
+la variable X ayuda a predecir la variableY
+
+- R tiene implementado dos pruebas:
+  - Test de causalidad de Granger
+  - Test de causalidad instantánea
+
+
+$$H_0: \   X_t \  \  \text{no causa en el sentido de Granger a} \ \  Y_t $$
+
+
+
+## Ejemplo
+
+Cargar las librerias
+
+
+```{r= eval=FALSE}
+library(vars)
+library(tseries)
+library(forecast)
+library(urca)
+library(highcharter)
+```
+
+
+```{r,include=FALSE}
+library(vars)
+library(tseries)
+library(forecast)
+library(urca)
+library(highcharter)
+
+```
+
+
+```{r echo=TRUE}
+data(Canada)
+
+Canada=as.data.frame(Canada)
+
+layout(matrix(1:4, nrow = 2, ncol = 2))
+plot.ts(Canada$e, main = "Employment", ylab = "", xlab = "")
+plot.ts(Canada$prod, main = "Productivity", ylab = "", xlab = "")
+plot.ts(Canada$rw, main = "Real Wage", ylab = "", xlab = "")
+plot.ts(Canada$U, main = "Unemployment Rate", ylab = "", xlab = "")
+
+```
+
+## .
+
+```{r,echo=TRUE}
+var_canada<-ts(Canada[,c(1,2,3,4)],frequency = 12)
+
+plot.ts(var_canada)
+
+```
+
+
+## Pruebas de estacionariedad
+
+- pruebas de estacionariedad empleo
+```{r, echo=TRUE}
+pp.test(var_canada[,1])
+adf.test(var_canada[,1]) # no es estcionarias
+```
+
+
+
+- pruebas de estacionariedad Productividad
+```{r echo=TRUE}
+pp.test(var_canada[,2])
+adf.test(var_canada[,2]) # no es estacionaria
+
+```
+
+
+
+
+### pruebas de estacionariedad salario
+
+```{r echo=TRUE}
+pp.test(var_canada[,3])
+adf.test(var_canada[,3]) # no es estacionaria
+
+```
+
+
+
+
+- pruebas de estacionariedad Desempleo
+
+```{r,echo=TRUE}
+pp.test(var_canada[,4])
+adf.test(var_canada[,4]) # no es estacionaria
+```
+
+
+## Con una diferencia
+
+- Empleo
+```{r echo=TRUE}
+adf.test(diff(var_canada[,1]))
+pp.test(diff(var_canada[,1])) # Estacionaria segun PhILLIPS PERRON  
+```
+
+
+
+
+
+
+### Productividad con una diferencia
+```{r echo=TRUE}
+adf.test(diff(var_canada[,2]))
+pp.test(diff(var_canada[,2])) # estacionaria phillips perron
+```
+
+
+### Salario con una diferencia
+
+```{r echo=TRUE}
+adf.test(diff(var_canada[,3]))
+pp.test(diff(var_canada[,3])) # Estacionaria segun Phillips peron
+
+```
+
+
+
+
+### Desempleo
+```{r,echo=TRUE}
+adf.test(diff(var_canada[,4]))
+pp.test(diff(var_canada[,4]))  #Estacionaria pasa ambas pruebas
+```
+
+
+
+## diferencia de todas las variables 
+```{r echo=TRUE , warning=FALSE}
+var_canada_dif<-diff(var_canada[,c(1,2,3,4)])  
+plot.ts(var_canada_dif)
+hchart(var_canada_dif)
+```
+
+
+##  Una vez las series son estacionarias, se procede a realiza la estimacion
+
+```{r, echo=TRUE}
+VARselect(var_canada_dif,lag.max=8, type = "const")
+```
+
+
+
+## Modelo 
+### número de rezagos que se incluiran en el modelo
+
+```{r echo=TRUE}
+modelo_var<-VAR(Canada, p=2)
+summary(modelo_var)
+
+```
+
+
+## Plot del modelo
+
+```{r echo=TRUE}
+plot(modelo_var)
+```
+
+
+## Pruebas al modelo
+
+
+### Estacionariedad de multiples variables
+
+```{r echo=TRUE}
+roots(modelo_var)
+```
+
+Al ser todas menores a 1 este modelo cumple el supuesto de estacionierada
+
+
+### Comprobación de la autocorrelación en los errores
+Se utilizará la prueba Breusch- Godfrey, por medio del comando serial.test
+
+```{r echo=TRUE}
+serial.test(modelo_var,lags.pt=16,type = "PT.adjusted")
+```
+
+
+No hay autocorrelacion de los errores
+
+
+### Prueba de nomalidad
+```{r echo=TRUE}
+normality.test(modelo_var,multivariate.only = FALSE)
+```
+
+
+El modelo Tiene distribución normal de lo errores
+
+
