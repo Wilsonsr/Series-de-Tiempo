@@ -1,0 +1,432 @@
+---
+title: "SARIMAX"
+author: "Wilson Sandoval"
+date: "`r Sys.Date()`"
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+    float: true
+    toc: true
+
+---
+# SARIMAX
+
+
+- Cargar las librerias
+
+```{r, message=FALSE}
+library(tseries)
+library(forecast)
+#library(FitAR)
+library(dynlm)
+library(car)
+library(urca)
+```
+
+
+## FUNCIONES DE AYUDA 
+
+### Función $1$
+
+
+```{r}
+plotserie = function(data){
+  par(mfrow = c(2,3))
+  plot(data)
+  stats::acf(data)
+  stats::pacf(data)
+  
+  plot(diff(data))
+  abline(h=2*sd(diff(data)), col = "red")
+  abline(h=-2*sd(diff(data)), col = "red")
+  stats::acf(diff(data))
+  stats::pacf(diff(data))
+}
+
+```
+
+
+
+
+
+### función $2$
+
+```{r}
+plotserieciclo = function(data, s) {
+  par(mfrow = c(1,3))
+  plot(diff(data, s))
+  abline(h=2*sd(diff(data,s)), col = "red")
+  abline(h=-2*sd(diff(data,s)), col = "red")
+  stats::acf(diff(data,s))
+  stats::pacf(diff(data,s))
+}
+
+```
+
+
+
+
+
+
+### Función $3$
+
+```{r}
+plotresiduos = function(residuos, data) {
+  par(mfrow = c(2,2))
+  yfit = data - residuos
+  plot(yfit, type="l", col="red", lty = 2)
+  lines(data, col="blue")
+  qqPlot(et)
+  acf(et)
+  pacf(et) 
+}
+
+```
+
+
+
+
+### Función $4$
+
+```{r}
+ttest = function(modelo) {
+  return(modelo$coef[which(modelo$coef!=0)] / sqrt(diag(modelo$var.coef)))
+}
+```
+
+
+### Función $5$
+
+```{r}
+Lagtp = function(x, k){
+  n = length(x)
+  x1 = matrix(0, n)
+  for (i in (k+1):n) {
+    x1[i] = x[i-k]
+  }
+  return(x1)
+}
+
+```
+
+
+```{r}
+matrix(0,3)
+```
+
+
+
+### Funcion $6$
+
+```{r}
+Lagt = function(x, k){
+  n = length(x)
+  x1 = matrix(0, n, k)
+  for (j in 1:k){
+    for (i in (j+1):n) {
+      x1[i,j] = x[i-j]
+    }
+  }
+  return(x1)
+}
+```
+
+```{r}
+plotserie(AirPassengers)
+```
+
+
+```{r}
+AirPassengers
+Lagtp(AirPassengers, 5)
+Lagt(AirPassengers, 5)
+```
+
+
+
+## FASE 1: IDENTIFICACION 
+
+```{r}
+
+rec = scan("https://raw.githubusercontent.com/Wilsonsr/Series-de-Tiempo/main/bases/recruit.dat")
+soi=scan("https://raw.githubusercontent.com/Wilsonsr/Series-de-Tiempo/main/bases/soi.dat")
+
+```
+
+```{r}
+rec1<-ts(rec, start = c(1950,1), end = c(1986,9), frequency = 12) 
+soi1<-ts(soi, start = c(1950,1), end = c(1986,9), frequency = 12)
+length(rec1)
+```
+
+
+
+
+
+```{r}
+xreg1 = soi1
+xreg1
+
+```
+
+
+
+
+
+
+### Modelo 1
+
+```{r}
+modelo1 = Arima(rec1, order = c(1,1,0),
+                 season = list(order = c(0,1,1), 
+                               freq = 12),
+                 xreg = xreg1)
+```
+
+
+
+```{r}
+tt <- modelo1$coef[which(modelo1$coef!=0)]/sqrt(diag(modelo1$var.coef))
+1 - pt(abs(tt),(modelo1$nobs - length(modelo1$coef[which(modelo1$coef!=0)])))
+```
+
+
+### Modelo 2
+
+```{r}
+modelo2 = Arima(rec1, order = c(1,1,0),
+                 season = list(order = c(0,1,1), 
+                               freq = 12),
+                 xreg = xreg1)
+
+```
+
+
+```{r}
+BIC(modelo2) 
+ttest(modelo2)
+tt <- modelo2$coef[which(modelo2$coef!=0)]/sqrt(diag(modelo2$var.coef))
+1 - pt(abs(tt),(modelo2$nobs - length(modelo2$coef[which(modelo2$coef!=0)])))
+
+```
+
+
+
+```{r}
+et <- residuals(modelo2)
+Box.test(et,lag=12,type="Ljung-Box")
+tsdiag(modelo2, gof.lag=20 )
+jarque.bera.test(et)
+plotresiduos(et, rec1)
+
+```
+
+
+
+
+### modelo 3: Soi rezagado
+
+
+```{r}
+xreg2 = soi1
+xlag = Lagt(xreg2, 6)
+xlag# FUNCION ARRIBA 6
+```
+
+
+
+
+```{r}
+modelo3 = Arima(rec1, order = c(1,1,0),
+                 season = list(order = c(0,1,1), 
+                               freq = 12), fixed=c(NA,NA,0,0,0,NA,NA,NA),
+                 xreg = xlag)
+```
+
+
+```{r}
+BIC(modelo3)  
+ttest(modelo3)
+```
+
+
+```{r}
+tt <- modelo3$coef[which(modelo3$coef!=0)]/sqrt(diag(modelo3$var.coef))
+1 - pt(abs(tt),(modelo3$nobs - length(modelo3$coef[which(modelo3$coef!=0)])))
+```
+
+
+```{r}
+et <- residuals(modelo3)
+Box.test(et,lag=12,type="Ljung-Box")
+tsdiag(modelo3, gof.lag=20)
+jarque.bera.test(et)
+plotresiduos(et, rec1)
+
+```
+
+
+
+
+
+
+
+### modelo 4: SOi rezagado hace 6 periodos
+
+
+```{r}
+library(quantmod)
+x1<-ts(Lagtp(soi1,6),frequency = 12)
+
+
+modelo4 = Arima(rec1, order = c(1,1,0),
+                 season = list(order = c(0,1,1), 
+                               freq = 12),
+                 xreg =  Lag(soi1,6))
+
+```
+
+
+```{r}
+modelo4
+```
+
+
+```{r}
+BIC(modelo4)   # 3162.614
+ttest(modelo4)
+tt <- modelo4$coef[which(modelo4$coef!=0)]/sqrt(diag(modelo4$var.coef))
+1 - pt(abs(tt),(modelo4$nobs - length(modelo4$coef[which(modelo4$coef!=0)])))
+```
+
+
+
+```{r}
+et <- residuals(modelo4)
+Box.test(et,lag=12,type="Ljung-Box")
+tsdiag(modelo4, gof.lag=20)
+jarque.bera.test(et) # Los residuos no son normales
+plotresiduos(et, rec1)
+
+```
+
+
+
+# Modelo 5
+
+```{r}
+xreg5 = soi1
+xlag5 = Lagt(xreg5, 10)
+xlag5
+#lag456=xlag5[,4:6]# FUNCION ARRIBA 6
+#lag456
+```
+
+
+```{r}
+modelo5 = Arima(rec1, order = c(4,1,0),
+                 season = list(order = c(0,1,1), 
+                               freq = 12), fixed=c(NA,0,0, NA,NA, 0,0,0,0, NA,NA,NA,NA,NA,0) ,
+                 xreg = xlag5)
+```
+
+
+```{r}
+BIC(modelo5)   # 3162.614
+ttest(modelo5)
+tt <- modelo5$coef[which(modelo5$coef!=0)]/sqrt(diag(modelo5$var.coef))
+1 - pt(abs(tt),(modelo5$nobs - length(modelo5$coef[which(modelo5$coef!=0)])))
+```
+
+
+```{r}
+et <- residuals(modelo5)
+Box.test(et,lag=9,type="Ljung-Box")
+tsdiag(modelo5, gof.lag=20)
+jarque.bera.test(et) # Los residuos no son normales
+plotresiduos(et, rec1)
+```
+
+
+
+
+## Pronostico
+
+```{r}
+newxreg1=soi[442:447]
+newxreg1
+
+
+pred <- predict(modelo2, n.ahead=6, newxreg =newxreg1)
+pred
+
+
+pred2 <- predict(modelo4, n.ahead=6, newxreg =newxreg1)  # modelo 4 soi hace seis periodos
+pred2
+#comparacion
+
+
+length(soi)
+
+z2<-ts(rec, start = c(1950,1), frequency = 12)
+```
+
+
+```{r}
+plot(forecast(modelo2, xreg =newxreg1 ))
+lines(z2, col="blue")
+lines(z2-residuals(modelo2), col="red")
+```
+
+
+```{r}
+plot(forecast(modelo4, xreg =newxreg1 ))
+lines(z2, col="blue")
+lines(z2-residuals(modelo4), col="red")
+
+```
+
+
+```{r}
+b=as.vector(pred$pred)
+b
+```
+
+```{r}
+reales=rec[442:447]
+```
+
+```{r}
+pron=as.vector(pred2$pred)
+```
+
+```{r}
+sqrt((sum((reales- pron)^2))/length(reales))
+
+```
+
+
+```{r}
+ajustado=as.vector(modelo4$fitted)
+reales1=rec[1:441]
+sqrt((sum((reales1- ajustado)^2))/length(reales1))
+
+```
+
+
+```{r}
+ajustado2=as.vector(modelo2$fitted)
+reales1=rec[1:441]
+sqrt((sum((reales1- ajustado2)^2))/length(reales1))
+
+```
+
+
+```{r}
+
+sqrt((sum((reales- b)^2))/length(reales))
+
+```
+
+
