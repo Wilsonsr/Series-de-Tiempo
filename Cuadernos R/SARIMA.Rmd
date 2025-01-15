@@ -1,0 +1,307 @@
+---
+title: "MODELO SARIMA"
+author: "Wilson Sandoval Rodriguez"
+date: "`r Sys.Date()`"
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+    float: true
+    toc: true
+---
+ Al modelo ARIMA se le pueden hacer varias modificaciones para tener en cuenta el comportamiento estacional y no estacionario. A menudo, la dependencia del pasado tiende a ocurrir con más fuerza en múltiplos de algunos rezagos estacionales $s$
+
+
+- Los datos económicos mensuales, hay una fuerte
+componente anual que ocurre en rezagos que son múltiplos de $s = 12$, debido a las fuertes conexiones de toda la actividad con el año calendario.
+
+
+- Es apropiado introducir polinomios de media móvil y autorregresivos.
+que se identifican con los rezagos estacionales. El autorregresivo estacional puro resultante modelo de promedio móvil,  $ARMA (P, Q)_s$, 
+
+$$
+\Phi_{P}\left(B^{s}\right) x_{t}=\Theta_{Q}\left(B^{s}\right) w_{t}
+$$
+
+
+Donde
+$$
+\Phi_{P}\left(B^{s}\right)=1-\Phi_{1} B^{s}-\Phi_{2} B^{2 s}-\cdots-\Phi_{P} B^{P s}
+$$
+y
+$$
+\Theta_{Q}\left(B^{s}\right)=1+\Theta_{1} B^{s}+\Theta_{2} B^{2 s}+\cdots+\Theta_{Q} B^{Q s}
+$$
+
+son los operador autorregresivos estacional y de media móvil estacional
+ de órdenes $P$ y $Q$, respectivamente, con período estacional $s$.
+
+
+#### Ejemplo:
+
+Una Serie de medias móviles autorregresivas estacionales de primer orden  podrían escribirse como:
+
+
+$$\left(1-\Phi B^{12}\right) x_{t}=\left(1+\Theta B^{12}\right) w_{t}$$
+o
+$$x_{t}=\Phi x_{t-12}+w_{t}+\Theta w_{t-12}$$
+
+
+##
+
+**Definición:**  El modelo  autorregresivo estacional multiplicativo integrado
+ de media móvil, o modelo **SARIMA**, de Box y Jenkins (1970) es dado por
+
+
+$$\Phi_{P}\left(B^{s}\right) \phi(B) \nabla_{s}^{D} \nabla^{d} x_{t}=\alpha+\Theta_{Q}\left(B^{s}\right) \theta(B) w_{t}$$
+
+
+donde $w_t$ es el proceso habitual de ruido blanco. El modelo general se denota como  $ARIMA (p, d, q) × (P, D, Q)_s$.
+
+- Las componentes  autorregresivas  y  de media móvil ordinarias están representados por polinomios $\phi(B)$ y $\theta(B)$ de ordenes $p$ y $q$, respectivamente.
+
+
+- Las componentes autorregresivo y de medias moviles estacional  $\Phi(B)$ y $\Theta(B)$
+
+- Las diferencias ordinarias y estacionales son respectivamente $\nabla^{d}=(1-B)^d$   y $\nabla_{s}^{D}=(1-B^s)^D$
+
+### Ejemplo:
+
+El modelo $SARIMA(0, 1, 1) × (0, 1, 1)_{12}$ se representa como:
+
+
+$$\left(1-B^{12}\right)(1-B) x_{t}=\left(1+\Theta B^{12}\right)(1+\theta B) w_{t}$$
+
+## Tempdup
+
+Temperatura promedio mensual (en grados Fahrenheit) registrada en Dubuque 1/1964 - 12/1975
+
+#### Cargar las librerias
+```{r, message=FALSE}
+library(car)
+library(urca)
+library(forecast)
+library(tseries)
+#library(FitAR)
+library(highcharter)
+
+```
+
+
+#### Cargar los datos
+
+```{r, message=FALSE}
+library(rio)
+tempdub <-rio::import("https://github.com/Wilsonsr/Series-de-Tiempo/raw/main/bases/tempdub.dat", format=",")
+```
+
+```{r}
+head(tempdub)
+```
+
+
+
+### Formato serie de tiempo
+```{r}
+z1<- ts(tempdub, start = c(1964,1), end=c(1975,12), frequency = 12 )
+z1
+summary(tempdub)
+```
+
+```{r}
+diff(z1,12)
+```
+
+
+
+```{r}
+autoplot(z1)#
+plot(decompose(z1))
+```
+
+```{r}
+hchart(z1)
+```
+
+
+
+### Identificación
+
+```{r}
+par(mfrow=c(3,3))
+plot(z1,type="o")
+acf(z1, lag.max=40)
+pacf(z1, lag.max=40)
+plot(diff(z1),type="o")
+abline(h=2*sqrt(var(diff(z1))),col="red",lty=2)
+abline(h=-2*sqrt(var(diff(z1))),col="red",lty=2)
+acf(diff(z1), lag.max=40)
+pacf(diff(z1), lag.max=40)
+plot(diff(z1,12),type="o")
+acf(diff(z1,12), lag.max=40)
+pacf(diff(z1,12), lag.max=40)
+
+```
+
+
+
+```{r}
+adf.test(z1)
+```
+
+```{r}
+adf.test(diff(z1))
+```
+
+
+
+
+#### Test DF sobre la serie desestacionalizada
+
+
+```{r}
+plot(ur.df(diff(z1,12),type="none",lag=12))
+summary(ur.df(diff(z1,12),type="none",lag=12))
+```
+
+#### Dickey Fuller del paquete tseries
+```{r}
+adf.test(diff(z1,12))
+```
+
+
+
+
+#### test phillips- perron
+```{r}
+plot(ur.pp(diff(z1,12),type="Z-tau",
+     model="constant", lags="long"))
+summary(ur.pp(diff(z1,12),type="Z-tau",
+     model="constant", lags="long"))
+```
+Como la serie desestacionalizada es estacionaria vamos a plantear algunos modelos
+
+```{r}
+par(mfrow=c(1,3))
+plot(diff(z1,12),type="o")
+acf(diff(z1,12), lag.max=40)
+pacf(diff(z1,12), lag.max=40)
+
+```
+
+```{r}
+library(TSstudio)
+ts_cor(diff(z1,12), lag.max=40)
+```
+
+
+
+
+### Ajuste del Modelo
+
+
+```{r}
+modelo1<-stats::arima(z1,order=c(0,0,11), 
+        seasonal=list(order=c(0,1,1), period=12), 
+        fixed = c(NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA))
+```
+
+
+```{r}
+modelo1
+```
+
+
+```{r}
+tt <- modelo1$coef[which(modelo1$coef!=0)]/sqrt(diag(modelo1$var.coef))
+```
+
+
+```{r}
+1 - pt(abs(tt),(modelo1$nobs - length(modelo1$coef[which(modelo1$coef!=0)])))
+```
+
+
+```{r}
+BIC(modelo1)
+
+```
+
+
+### Diagnóstico
+
+
+```{r}
+et<-residuals(modelo1)
+x1.fit <- fitted(modelo1)
+
+par(mfrow=c(3,2))
+plot(z1,type="l",lty=2)
+lines(x1.fit,type="l",col="red")
+plot(scale(et),type="l",main="Residuales")
+abline(h=2*sqrt(var(scale(et))),col="red",lty=2)
+abline(h=-2*sqrt(var(scale(et))),col="red",lty=2)
+acf(et)
+pacf(et)
+qqPlot(scale(et))
+acf(abs(et)) #Mide Estructura Heteroced?stica
+
+```
+
+
+#### Test de Autocorrelacion de Ljung-Box
+
+$H_0: r1=r2=r3=...=rlag=0$
+
+
+
+$H_a$: Al menos una es dif de cero
+
+
+```{r}
+Box.test(et,lag=15,type="Ljung-Box")
+```
+
+```{r}
+tsdiag(modelo1 , gof.lag = 20)
+```
+
+
+
+
+
+
+
+#### Test de Normalidad basado en Sesgo y Curtosis
+ $H_0:$ Datos provienen de una Dist. Normal
+ 
+$H_a:$ Los datos no provienen de una Dist. Normal
+
+
+```{r}
+jarque.bera.test(et)
+
+```
+
+
+#### Test de Aleatoriedad
+
+$H_0:$ Residuales exhiben un comport. de Aleatoriedad
+$H_a:$ Residuales no exhiben estructura (Tendencia, o cualquier otro comportamiento predecible)
+
+```{r}
+runs.test(as.factor(sign(et)), alternative="two.sided")
+```
+
+
+
+
+#### Pronóstico Fuera Muestra
+
+```{r}
+plot(forecast(modelo1,h=10, fan=T))
+lines(fitted(modelo1), col="red")
+
+```
+
+
