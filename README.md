@@ -5,6 +5,18 @@
 ### Wilson Sandoval Rodriguez, wsandovalr@ucentral.edu.co
 </div>
 
+El curso tiene como objetivo principal introducir a los estudiantes a los métodos fundamentales y avanzados de análisis de series de tiempo, junto con sus aplicaciones en una amplia variedad de disciplinas, tales como: estudios actuariales, climatología, economía, finanzas, geografía, meteorología, ciencias políticas, gestión de riesgos y sociología.
+
+Se abordarán las técnicas de modelado de series de tiempo desde un enfoque práctico, haciendo énfasis en su uso en la predicción y en la interpretación de resultados cuando sea pertinente. Aunque los modelos lineales recibirán una atención detallada, se incluirán extensiones hacia modelos no lineales, con un enfoque en su aplicabilidad a problemas complejos del mundo real.
+
+El curso se centra en:
+
+Los conceptos fundamentales de las series de tiempo, incluyendo componentes como tendencia, estacionalidad y ruido.
+La aplicación práctica de los métodos mediante ejemplos contextualizados y el uso de software estadístico como R y Python.
+La comparación y selección de técnicas de modelado en función de sus ventajas, limitaciones y la naturaleza de los datos.
+Al final del curso, los estudiantes estarán preparados para implementar y evaluar modelos de series de tiempo en contextos diversos, utilizando herramientas computacionales y un enfoque analítico crítico.
+
+
 
 |Semana|Tema|Lectura|
 |---|---|---|
