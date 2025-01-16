@@ -23,7 +23,7 @@
 |13|Machine Learning para Series Multivariadas||
 |14|Deep Learning para Series Multivariadas||
 |15|Datos Tipo Panel||
-|16|Presentación Proyectos de Aplicación,Exposiciones,Entrega Final||
+|16|Presentación Proyectos Finales||
 
 
 
