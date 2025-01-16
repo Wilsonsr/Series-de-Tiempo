@@ -8,7 +8,7 @@
 
 |Semana|Tema|Lectura|
 |---|---|---|
-|1|Introducción a las Series de Tiempo:Conceptos básicos: Tipos de datos de series de tiempo, componentes (tendencia, estacionalidad, ciclos, ruido).||
+|1|**Introducción a las Series de Tiempo:**Conceptos básicos: Tipos de datos de series de tiempo, componentes (tendencia, estacionalidad, ciclos, ruido).||
 |2| Suavizamiento Exponencial:Suavizamiento simple, doble (Holt) y triple (Holt-Winters).Análisis de tendencia y estacionalidad. Ventajas y limitaciones del método.||
 |3|Procesos Estacionarios. Introducción a los procesos ARMA | |
 |4|Modelos ARIMA para series de tiempo no estacionarias: Técnicas de identificación y raíces unitarias en modelos de series de tiempo.Primer avance. Problema, justificación y objetivos. 
