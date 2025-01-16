@@ -5,6 +5,71 @@
 ### Wilson Sandoval Rodriguez, wsandovalr@ucentral.edu.co
 </div>
 
+
+|Semana|Tema|Lectura|
+|---|---|---|
+|1|Introducción a las Series de Tiempo:Conceptos básicos: Tipos de datos de series de tiempo, componentes (tendencia, estacionalidad, ciclos, ruido).||
+|2|Modelos Estacionarios y Autocorrelación|   |
+|3|Procesos Estacionarios. Introducción a los procesos ARMA | |
+|4|Modelos ARIMA para series de tiempo no estacionarias: Técnicas de identificación y raíces unitarias en modelos de series de tiempo. ||
+Primer avance. Problema, justificación y objetivos.|
+|5|Pronóstico de modelos ARIMA| |
+
+
+
+
+Semana 6
+Modelos SARIMA y Análisis Estacional Avanzado
+
+
+Semana 7
+Otras Metodologías para Series Univariadas
+Modelos Holt-Winters: Suavización exponencial simple, doble y triple.
+Modelos ETS, Introducción a Prophet.
+
+
+Semana 8
+Casos de Estudio y Aplicaciones Prácticas
+Implementación de Modelos en Casos Reales.
+Análisis Comparativo de Metodologías: ARIMA, SARIMA, Holt-Winters, ETS, Prophet.
+
+
+Semana 9
+Introducción a Machine Learning para Series de Tiempo
+
+
+
+Semana 10
+Semana 10: Introducción a Series Multivariadas Modelos SARIMAX
+
+
+Segundo avance. Marco teórico – Previa metodología-modelo univariado
+
+
+Semana 11
+Modelos VAR para Series Multivariadas
+
+
+
+
+Semana 12
+Modelos de corrección del Error VEC
+Semana 13
+Machine Learning para Series Multivariadas
+Semana 14
+Deep Learning para Series Multivariadas
+Semana 15
+Datos Tipo Panel
+Semana 16
+Presentación Proyectos de Aplicación
+Exposiciones 
+Entrega Final
+
+
+
+
+
+
 1.  <a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/presentacion.Rmd"> Introducción </a>
 
   
