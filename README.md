@@ -13,7 +13,7 @@ El curso se centra en:
 - Los conceptos fundamentales de las series de tiempo, incluyendo componentes como tendencia, estacionalidad y ruido.
 - La aplicación práctica de los métodos mediante ejemplos contextualizados y el uso de software estadístico como R y Python.
 - La comparación y selección de técnicas de modelado en función de sus ventajas, limitaciones y la naturaleza de los datos.
-- 
+  
 Al final del curso, los estudiantes estarán preparados para implementar y evaluar modelos de series de tiempo en contextos diversos, utilizando herramientas computacionales y un enfoque analítico crítico.
 
 
