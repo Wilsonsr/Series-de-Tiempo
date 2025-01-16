@@ -2,6 +2,7 @@
     
 # **Series de Tiempo**
 
+### Wilson Sandoval Rodriguez, wsandovalr@ucentral.edu.co
 </div>
 
 1.  <a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/presentacion.Rmd"> Introducción </a>
