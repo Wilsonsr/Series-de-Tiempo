@@ -14,10 +14,10 @@
 |4|Modelos ARIMA para series de tiempo no estacionarias: Técnicas de identificación y raíces unitarias en modelos de series de tiempo.Primer avance. Problema, justificación y objetivos. 
 |5|Modelos SARIMA y Análisis Estacional Avanzado| |
 |6|Introducción a Prophet. Construcción y ajuste de modelos Prophet.||
-|7|| |
-|8|Casos de Estudio y Aplicaciones Prácticas Implementación de Modelos en Casos Reales.Análisis Comparativo de Metodologías: ARIMA, SARIMA, Holt-Winters, ETS, Prophet.||
-|9|Introducción a Machine Learning para Series de Tiempo||
-|10|Introducción a Series Multivariadas Modelos SARIMAX Segundo avance. Marco teórico – Previa metodología-modelo univariado||
+|7|Casos de Estudio y Aplicaciones Prácticas Implementación de Modelos en Casos Reales.Análisis Comparativo de Metodologías: ARIMA, SARIMA, Holt-Winters, ETS, Prophet.||
+|8|Introducción a Machine Learning para Series de Tiempo||
+|9|Introducción a Series Multivariadas Modelos SARIMAX 
+|10|Segundo avance. Marco teórico – Previa metodología-modelo univariado||
 |11|Modelos VAR para Series Multivariadas||
 |12|Modelos de corrección del Error VEC||
 |13|Machine Learning para Series Multivariadas||
