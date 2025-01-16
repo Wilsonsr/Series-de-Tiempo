@@ -49,7 +49,7 @@ library(rio)
 
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
-INFLACION=rio::import("https://github.com/Wilsonsr/Series-de-Tiempo/raw/main/bases/INFLACION.xlsx")
+INFLACION=rio::import("https://github.com/Wilsonsr/Series-de-Tiempo/raw/main/Data/INFLACION.xlsx")
 ```
 
 
