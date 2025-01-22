@@ -27,7 +27,7 @@ Al final del curso, los estudiantes estarán preparados para implementar y evalu
 |5|**Modelos SARIMA:** y Análisis Estacional Avanzado| |
 |6|**Introducción a Prophet:** Construcción y ajuste de modelos Prophet.||
 |7|**Casos de Estudio y Aplicaciones Prácticas** Implementación de Modelos en Casos Reales.Análisis Comparativo de Metodologías: ARIMA, SARIMA, Holt-Winters, ETS, Prophet.||
-|8|**Introducción a Machine Learning para Series de Tiempo**||
+|8|**Introducción a Machine Learning para Series de Tiempo**  modelos basados en regresores como Random Forest, XGBoost, y su adaptación para series temporales ||
 |9|**Introducción a Series Multivariadas** Modelos SARIMAX 
 |10|**Segundo avance**. Marco teórico – Previa metodología-modelo univariado||
 |11|**Modelos VAR:** para Series Multivariadas||
