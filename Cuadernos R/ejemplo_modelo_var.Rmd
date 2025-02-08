@@ -25,7 +25,7 @@ library(bvartools)
 ## Cargar los datos y darles formato de series de tiempo
 
 ```{r echo=TRUE}
-datos <- read.csv("https://raw.githubusercontent.com/Wilsonsr/Series-de-Tiempo/main/bases/blanchQua.csv")
+datos <- read.csv("https://raw.githubusercontent.com/Wilsonsr/Series-de-Tiempo/main/Data/blanchQua.csv")
 gdp <- ts(datos$GDP, start = c(1948, 2), freq = 4) # gdp
 une <- ts(datos$U, start = c(1948, 2), freq = 4)   # unemployment
 plot(cbind(gdp, une), main="PIB y DESEMPLEO" )
