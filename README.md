@@ -40,6 +40,7 @@ Al final del curso, los estudiantes estarán preparados para implementar y evalu
 
 
 
+<!--
 
 
 1.  <a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/presentacion.Rmd"> Introducción </a>
@@ -81,7 +82,6 @@ Al final del curso, los estudiantes estarán preparados para implementar y evalu
 
 - <a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/ejemplovecgerman.Rmd"> Ejemplo modelo VEC  </a>
 
-<!--
 
 
 - <a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/CUADERNOS/VAR.Rmd"> Modelo VAR  </a>
