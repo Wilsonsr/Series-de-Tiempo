@@ -118,7 +118,7 @@ Las notas se distribuirán de la siguiente manera
 + Exposiciones Entrega Final
 
  
-
+<a href="https://meet.google.com/nhz-mouo-fox"> Enlace Meet </a>
 
  <a href="https://www.superfinanciera.gov.co/publicaciones/10082252/informes-y-cifrascifrasestablecimientos-de-creditoinformacion-periodicamensualcalidad-de-cartera-establecimientos-de-credito-10082252/"> Superfinanciera </a>
 
