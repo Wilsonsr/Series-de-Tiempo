@@ -252,7 +252,7 @@ library(readxl)
 library(TSstudio)
 library(highcharter)
 library(rio)
-df=rio::import("https://github.com/Wilsonsr/Series-de-Tiempo/raw/main/bases/IPC.xlsx")
+df=rio::import("https://github.com/Wilsonsr/Series-de-Tiempo/raw/main/Data/IPC.xlsx")
 #df <- read_excel("IPC.xlsx")
 IPC=ts(df[,2], start = c(2000,1),  frequency = 12)
 plot(IPC)
@@ -263,7 +263,7 @@ hchart(IPC)
 
 ```{r, message=FALSE, warning=FALSE}
 library(readr)
-amazon=rio::import("https://github.com/Wilsonsr/Series-de-Tiempo/raw/main/bases/AMZN.csv")
+amazon=rio::import("https://github.com/Wilsonsr/Series-de-Tiempo/raw/main/Data/AMZN.csv")
 amazon=ts(amazon[,5], start=c(1997,06,01), frequency = 12)
 hchart(amazon)
 ```
@@ -347,7 +347,7 @@ ts_seasonal(AirPassengers, type = "all")
 
 ```{r,message=FALSE}
 library(readr)
-oilfilters=rio::import("https://github.com/Wilsonsr/Series-de-Tiempo/raw/main/bases/oilfilters.dat", format=",")
+oilfilters=rio::import("https://github.com/Wilsonsr/Series-de-Tiempo/raw/main/Data/oilfilters.dat", format=",")
 oilfilters <-ts(oilfilters,  start=c(1984,1), end= c(1987,7), frequency = 12  )
 autoplot(oilfilters, colour = "red")
 ```
@@ -362,7 +362,7 @@ hchart(stl(oilfilters, s.window="periodic"))
 
 
 ```{r}
-df=rio::import("https://github.com/Wilsonsr/Series-de-Tiempo/raw/main/bases/Respiratorios.xlsx")
+df=rio::import("https://github.com/Wilsonsr/Series-de-Tiempo/raw/main/Data/Respiratorios.xlsx")
 ```
 
 ```{r}

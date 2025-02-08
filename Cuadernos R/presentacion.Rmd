@@ -29,7 +29,7 @@ Esta metodología se utiliza ampliamente en los negocios, las ciencias sociales,
   + Índices del precio del petróleo.
 
 
-<img src="https://github.com/Wilsonsr/Series-de-Tiempo/raw/main/bases/economia.png" width=500 />
+<img src="https://github.com/Wilsonsr/Series-de-Tiempo/raw/main/Data/economia.png" width=500 />
 
 
 ##
@@ -133,7 +133,7 @@ hchart(airforecast) %>%  hc_add_theme(hc_theme_sandsignika())%>%hc_title(text = 
   + Tasa de mortalidad infantil por año.
 
 
-<img src="https://github.com/Wilsonsr/Series-de-Tiempo/raw/main/bases/demografia.png" alt="Demografia" width="500"/>
+<img src="https://github.com/Wilsonsr/Series-de-Tiempo/raw/main/Data/demografia.png" alt="Demografia" width="500"/>
 
 
 
@@ -147,7 +147,7 @@ durante una serie de años.
   + Temperatura media mensual.
   + Medición diaria del contenido en residuos tóxicos en un río.
 
-<img src="https://github.com/Wilsonsr/Series-de-Tiempo/raw/main/bases/medioambiente.png" width=400 />
+<img src="https://github.com/Wilsonsr/Series-de-Tiempo/raw/main/Data/medioambiente.png" width=400 />
 
 
 
@@ -186,7 +186,7 @@ durante una serie de años.
 
 Redes Neuronales 
 
-<img src="https://github.com/Wilsonsr/Series-de-Tiempo/raw/main/bases/red.png" width=500 />
+<img src="https://github.com/Wilsonsr/Series-de-Tiempo/raw/main/Data/red.png" width=500 />
 
 
 
@@ -219,7 +219,7 @@ hchart(USeconomic)%>%hc_add_theme(hc_theme_538())%>%
 ##
 
 <center>
-![ibm](https://github.com/Wilsonsr/Series-de-Tiempo/raw/main/bases/seriesapple.jpg)
+![ibm](https://github.com/Wilsonsr/Series-de-Tiempo/raw/main/Data/seriesapple.jpg)
 </center>
 
 
