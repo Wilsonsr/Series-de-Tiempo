@@ -124,5 +124,6 @@ Las notas se distribuirán de la siguiente manera
 
 <a href="https://docs.google.com/document/d/1y3lnQ_wxnQS7QVg2KbOwjuRYibVn2Oaw/edit?usp=sharing&ouid=111401641962812428858&rtpof=true&sd=true"> Rubrica <a/>
 
-- grupos
-https://docs.google.com/spreadsheets/d/1YZFQoSu1wZSgJ-uVm-YO_yVKC1VpFwKjy4xwKjpgXkI/edit?usp=sharing
+- grupos https://docs.google.com/spreadsheets/d/1IB33KpA-bXE_Delpih2Xs6YgAV8_9cAUaoJY68dVbEM/edit?usp=sharing
+  
+
