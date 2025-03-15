@@ -25,7 +25,6 @@ Al final del curso, los estudiantes estarán preparados para implementar y evalu
 |3|**Procesos Estacionarios:** Introducción a los procesos ARMA | <a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/Cuadernos%20Python/3_procesos_estacionarioa%20ARMA.ipynb">  Procesos Estacionarios </a>|
 |4|**Modelos ARIMA para series de tiempo no estacionarias:** Técnicas de identificación y raíces unitarias en modelos de series de tiempo.Primer avance. Problema, justificación y objetivos. 
 |5|**Modelos SARIMA:** y Análisis Estacional Avanzado| <a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/Cuadernos%20Python/5_SARIMA.ipynb"> Sarima 
-
 <a href="https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/Cuadernos%20Python/6_sarima_gas_box_cox.ipynb" > Box-Cox </a>  |
 |6|**Introducción a Prophet:** Construcción y ajuste de modelos Prophet.||
 |7|**Criterios de evaluación (RMSE, MAE, MAPE, AIC/BIC) y validación cruzada temporal**.Análisis Comparativo de Metodologías: ARIMA, SARIMA, Holt-Winters, ETS, Prophet.||
