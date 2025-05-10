@@ -12,7 +12,7 @@
 
 <meta name="author" content="WILSON SANDOVAL" />
 
-<meta name="date" content="2024-10-26" />
+<meta name="date" content="2025-05-09" />
 
 <title>Vec-Cointegración</title>
 
@@ -45,7 +45,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
 { counter-reset: source-line 0; }
@@ -150,21 +150,21 @@ code span.ot { color: #007020; }
 <section class="page-header">
 <h1 class="title toc-ignore project-name">Vec-Cointegración</h1>
 <h4 class="author project-author">WILSON SANDOVAL</h4>
-<h4 class="date project-date">2024-10-26</h4>
+<h4 class="date project-date">2025-05-09</h4>
 </section>
 
 
 <div id="TOC" class="toc">
 <div class="toc-box">
 <ul>
-<li><a href="#introducción" id="toc-introducción"><strong>Introducción</strong></a></li>
-<li><a href="#cointegración-definida" id="toc-cointegración-definida"><strong>Cointegración
+<li><a href="#introducci%C3%B3n" id="toc-introducción"><strong>Introducción</strong></a></li>
+<li><a href="#cointegraci%C3%B3n-definida" id="toc-cointegración-definida"><strong>Cointegración
 definida</strong></a></li>
-<li><a href="#cointegración-definida-1" id="toc-cointegración-definida-1">Cointegración definida</a></li>
-<li><a href="#cointegración-definida-2" id="toc-cointegración-definida-2">Cointegración definida</a></li>
+<li><a href="#cointegraci%C3%B3n-definida-1" id="toc-cointegración-definida-1">Cointegración definida</a></li>
+<li><a href="#cointegraci%C3%B3n-definida-2" id="toc-cointegración-definida-2">Cointegración definida</a></li>
 <li><a href="#resumen" id="toc-resumen">Resumen</a></li>
 <li><a href="#resumen-1" id="toc-resumen-1">Resumen</a></li>
-<li><a href="#prueba-de-cointegración" id="toc-prueba-de-cointegración">Prueba de Cointegración</a></li>
+<li><a href="#prueba-de-cointegraci%C3%B3n" id="toc-prueba-de-cointegración">Prueba de Cointegración</a></li>
 </ul>
 </div>
 </div>
@@ -330,7 +330,7 @@ a la alternativa que el rango de cointegración es <span class="math inline">\(n
 ## Test type: maximal eigenvalue statistic (lambda max) , without linear trend and constant in cointegration 
 ## 
 ## Eigenvalues (lambda):
-## [1] 4.331654e-01 1.775836e-01 1.127905e-01 4.341130e-02 6.853773e-16
+## [1] 4.331654e-01 1.775836e-01 1.127905e-01 4.341130e-02 6.668049e-16
 ## 
 ## Values of teststatistic and critical values of test:
 ## 
@@ -354,10 +354,10 @@ a la alternativa que el rango de cointegración es <span class="math inline">\(n
 ## (This is the loading matrix)
 ## 
 ##            LRM.l2      LRY.l2       IBO.l2        IDE.l2      constant
-## LRM.d -0.21295494 -0.00481498  0.035011128  2.028908e-03  2.437019e-13
-## LRY.d  0.11502204  0.01975028  0.049938460  1.108654e-03 -1.738409e-13
-## IBO.d  0.02317724 -0.01059605  0.003480357 -1.573742e-03 -2.139321e-14
-## IDE.d  0.02941109 -0.03022917 -0.002811506 -4.767627e-05 -1.148246e-14</code></pre>
+## LRM.d -0.21295494 -0.00481498  0.035011128  2.028908e-03  2.000335e-13
+## LRY.d  0.11502204  0.01975028  0.049938460  1.108654e-03 -2.479945e-13
+## IBO.d  0.02317724 -0.01059605  0.003480357 -1.573742e-03 -1.732570e-14
+## IDE.d  0.02941109 -0.03022917 -0.002811506 -4.767627e-05  9.675930e-15</code></pre>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co">#</span></span></code></pre></div>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">data</span>(finland)</span>
 <span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>sjf <span class="ot">&lt;-</span> finland</span>
