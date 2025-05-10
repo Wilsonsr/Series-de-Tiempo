@@ -33,6 +33,9 @@ plot(e6)
 hchart(e6)%>%hc_add_theme(hc_theme_darkunica())
 ```
 
+```{r}
+summary(e6)
+```
 
 
 - R:=tasa de interés nominal a largo plazo 
@@ -124,7 +127,7 @@ plot(p1ct , name="Dp")
 ## Diagnostico VAR(4)
 
 ```{r, echo=TRUE}
-ser11 <- serial.test(p1ct, lags.pt = 6, type = "PT.asymptotic")
+ser11 <- serial.test(p1ct, lags.pt =4, type = "PT.asymptotic")
 ser11$serial
 ```
 
@@ -147,7 +150,7 @@ plot(stability(p1ct), nc = 2)
 
 ```{r, echo=TRUE}
 vec <- ca.jo(e6, ecdet = "none", type = "eigen",
-             K = 3, spec = "transitory", season = 4)
+             K = 4, spec = "transitory", season = 4)
 
 summary(vec)
 class(vec)
@@ -170,7 +173,7 @@ var1
 
 
 ```{r, echo=TRUE}
-ser11 <- serial.test(var, lags.pt = 4, type = "PT.asymptotic")
+ser11 <- serial.test(var, lags.pt = 5, type = "PT.asymptotic")
 ser11$serial
 ```
 
@@ -182,7 +185,7 @@ norm1$jb.mul
 
 
 ```{r, echo=TRUE}
-arch1 <- arch.test(var, lags.multi = 7)
+arch1 <- arch.test(var, lags.multi = 8)
 arch1$arch.mul
 plot(arch1, names = "R")
 #plot(vars::stability(var), nc = 2)
