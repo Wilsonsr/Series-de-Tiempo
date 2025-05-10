@@ -22,6 +22,7 @@ library(forecast)
 library(urca)
 library(highcharter)
 library(bvartools)
+library(MTS)
 ```
 
 
@@ -29,8 +30,12 @@ library(bvartools)
 
 ```{r}
 data("e6")  
-plot(e6) 
-hchart(e6)%>%hc_add_theme(hc_theme_darkunica())
+plot(e6)
+```
+
+
+```{r}
+hchart(e6)%>%hc_add_theme(hc_theme_economist())
 ```
 
 ```{r}
@@ -99,6 +104,14 @@ acf(e6[,2])
 adf.test(diff(e6[,1]))
 adf.test(diff(e6[,2]))
 ```
+```{r}
+pp.test(diff(e6[,1]))
+```
+
+
+```{r}
+pp.test(diff(e6[,2]))
+```
 
 
 
@@ -114,9 +127,14 @@ var_aic
 Según el AIC, FPE, SC, HQ, el número de retraso óptimo es $p = 4$,
 
 
+```{r}
+VARorder(e6, maxp=10)
+```
+
+
 ##  VAR(4)
 ```{r, echo=TRUE}
-p1ct <- VAR(e6, p = 4, type = "both")
+p1ct <- vars::VAR(e6, p = 4, type = "both")
 p1ct
 summary(p1ct, equation = "R")
 plot(p1ct, names = "R")
@@ -146,7 +164,7 @@ plot(stability(p1ct), nc = 2)
 
 ```
 
-##  Estimar
+##  Estimar prueba Johanssen  cointegracion.
 
 ```{r, echo=TRUE}
 vec <- ca.jo(e6, ecdet = "none", type = "eigen",
@@ -172,10 +190,22 @@ var1
 ```
 
 
+# Validacion
+
+
+### Correlación serial
+$H_0: \text{Ausencia de correlación serial en los residuales}$
+
+
 ```{r, echo=TRUE}
 ser11 <- serial.test(var, lags.pt = 5, type = "PT.asymptotic")
 ser11$serial
 ```
+
+
+### Normalidad de los residuales
+
+$H_0 :  \text{Los residuales siguen una distribución normal}$
 
 
 ```{r, echo=TRUE}
@@ -184,10 +214,38 @@ norm1$jb.mul
 ```
 
 
+### Homocedasticiad
+
+$H_0 :  \text{Los residuales son homocedasticos}$
+
+
 ```{r, echo=TRUE}
-arch1 <- arch.test(var, lags.multi = 8)
+arch1 <- arch.test(var, lags.multi = 7)
 arch1$arch.mul
-plot(arch1, names = "R")
+```
+
+```{r}
+summary(arch1)
+```
+```{r}
+class(arch1)
+```
+```{r}
+arch1$resid
+```
+
+
+
+```{r, echo=TRUE}
+plot(arch1)
+```
+
+
+```{r}
+```
+
+
+```{r, echo=TRUE}
 #plot(vars::stability(var), nc = 2)
 ```
 
