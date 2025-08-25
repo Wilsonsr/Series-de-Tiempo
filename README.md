@@ -2,8 +2,7 @@
     
 # **Series de Tiempo**
 
-### Wilson Sandoval Rodriguez, wsandovalr@ucentral.edu.co
-</div>
+### Wilson Sandoval Rodriguez
 
 El curso tiene como objetivo principal introducir a los estudiantes a los métodos fundamentales y avanzados de análisis de series de tiempo, junto con sus aplicaciones en una amplia variedad de disciplinas, tales como: estudios actuariales, climatología, economía, finanzas, geografía, meteorología, ciencias políticas, gestión de riesgos y sociología.
 
@@ -67,12 +66,10 @@ Las notas se distribuirán de la siguiente manera
 + Exposiciones Entrega Final
 
  
-<a href="https://meet.google.com/nhz-mouo-fox"> Enlace Meet </a>
 
  <a href="https://www.superfinanciera.gov.co/publicaciones/10082252/informes-y-cifrascifrasestablecimientos-de-creditoinformacion-periodicamensualcalidad-de-cartera-establecimientos-de-credito-10082252/"> Superfinanciera </a>
 
 <a href="https://docs.google.com/document/d/1y3lnQ_wxnQS7QVg2KbOwjuRYibVn2Oaw/edit?usp=sharing&ouid=111401641962812428858&rtpof=true&sd=true"> Rubrica <a/>
 
-- grupos https://docs.google.com/spreadsheets/d/1IB33KpA-bXE_Delpih2Xs6YgAV8_9cAUaoJY68dVbEM/edit?usp=sharing
   
 
