@@ -50,7 +50,7 @@ Al final del curso, los estudiantes estarán preparados para implementar y evalu
 
 -->
 
- ## Evaluación
+## Evaluación
 Las notas se distribuirán de la siguiente manera
 
 |ACTIVIDAD|PORCENTAJE|
@@ -65,7 +65,6 @@ Las notas se distribuirán de la siguiente manera
 + Metodología y primeros resultados.
 + Exposiciones Entrega Final
 
- 
 
  <a href="https://www.superfinanciera.gov.co/publicaciones/10082252/informes-y-cifrascifrasestablecimientos-de-creditoinformacion-periodicamensualcalidad-de-cartera-establecimientos-de-credito-10082252/"> Superfinanciera </a>
 
