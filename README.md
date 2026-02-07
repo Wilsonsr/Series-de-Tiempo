@@ -18,6 +18,27 @@ El curso se centra en:
 Al final del curso, los estudiantes estarán preparados para implementar y evaluar modelos de series de tiempo en contextos diversos, utilizando herramientas computacionales y un enfoque analítico crítico.
 
 
+|Semana|Tema|Lectura|
+|---|---|---|
+|1|**Fundamentos del análisis de series de tiempo:** Forecasting, nowcasting y detección de anomalías. Componentes, frecuencia y horizonte de pronóstico.|Hyndman & Athanasopoulos, *Forecasting: Principles and Practice* (Cap. 1) ; Introducción general (docs)|
+|2|**Preparación de datos temporales:** Resampling, manejo de valores faltantes y atípicos, transformaciones y calendarios.|Hyndman & Athanasopoulos (Cap. 2) ; pandas time series docs|
+|3|**Evaluación en series de tiempo:** Entrenamiento y prueba temporal, backtesting y métricas de desempeño.|Hyndman & Athanasopoulos (Cap. 5)|
+|4|**Modelos de suavizamiento exponencial y ETS:** Modelos basados en estado para series univariadas.|Hyndman & Athanasopoulos (Cap. 7–8) ; statsmodels ETS docs|
+|5|**Modelos ARIMA y SARIMA:** Identificación, estimación y diagnóstico.|Hyndman & Athanasopoulos (Cap. 9–10) ; statsmodels ARIMA/SARIMAX docs|
+|6|**Modelos con variables exógenas:** Regresión dinámica y SARIMAX.|statsmodels SARIMAX documentation|
+|7|**Modelos aditivos modernos:** Prophet y detección de changepoints.|Prophet official documentation|
+|8|**Machine Learning para series de tiempo:** Series temporales como problema supervisado e ingeniería de características.|sktime user guide (Supervised Forecasting)|
+|9|**Pronóstico probabilístico:** Intervalos de predicción, cuantiles y evaluación de incertidumbre.|Hyndman & Athanasopoulos (Cap. 6)|
+|10|**Series múltiples y datos tipo panel:** Modelos globales y pronóstico por grupos.|sktime or darts documentation (Global Models)|
+|11|**Pronóstico jerárquico:** Reconciliación y coherencia entre series.|Hyndman et al. (2011), *Optimal forecast reconciliation*|
+|12|**Modelos multivariados clásicos:** VAR para análisis dinámico multivariable.|Lütkepohl, *New Introduction to Multiple Time Series Analysis* (Cap. VAR)|
+|13|**Modelos de corrección del error:** Cointegración y modelos VEC.|Lütkepohl (Cap. VEC) ; statsmodels VECM docs|
+|14|**Deep Learning para series de tiempo:** Modelos secuenciales y convolucionales para forecasting.|darts documentation (N-BEATS, TCN)|
+|15|**Detección de anomalías y monitoreo:** Identificación de comportamientos atípicos y drift temporal.|Chandola et al. (2009), *Anomaly Detection: A Survey*|
+|16|**Presentación de proyectos finales:** Integración de modelos y análisis comparativo de resultados.|—|
+
+
+
 
 |Semana|Tema|Lectura|
 |---|---|---|
