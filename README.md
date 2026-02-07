@@ -40,6 +40,28 @@ Al final del curso, los estudiantes estarán preparados para implementar y evalu
 
 
 
+|Semana|Tema|Lectura|
+|---|---|---|
+|1|**Fundamentos del análisis de series de tiempo:** Diferencia entre forecasting, nowcasting y detección de anomalías. Componentes de una serie temporal, frecuencia y horizonte de pronóstico.| |
+|2|**Preparación de datos temporales:** Resampling, manejo de valores faltantes y atípicos, transformaciones y calendarios.| |
+|3|**Evaluación en series de tiempo:** Esquemas de entrenamiento y prueba temporal, backtesting y métricas de desempeño.| |
+|4|**Modelos de suavizamiento exponencial y ETS:** Modelos basados en estado para series de tiempo univariadas.| |
+|5|**Modelos ARIMA y SARIMA:** Identificación, estimación y diagnóstico de modelos autorregresivos integrados.| |
+|6|**Modelos con variables exógenas:** Regresión dinámica y modelos SARIMAX.| |
+|7|**Modelos aditivos modernos:** Prophet y detección de changepoints.| |
+|8|**Machine Learning para series de tiempo:** Series temporales como problema supervisado e ingeniería de características temporales.| |
+|9|**Pronóstico probabilístico:** Intervalos de predicción, cuantiles y evaluación de la incertidumbre.| |
+|10|**Series múltiples y datos tipo panel:** Modelos globales y pronóstico por grupos.| |
+|11|**Pronóstico jerárquico:** Reconciliación y coherencia entre series agregadas y desagregadas.| |
+|12|**Modelos multivariados clásicos:** Modelos VAR para análisis dinámico multivariable.| |
+|13|**Modelos de corrección del error:** Cointegración y modelos VEC.| |
+|14|**Deep Learning para series de tiempo:** Modelos secuenciales y convolucionales para forecasting.| |
+|15|**Detección de anomalías y monitoreo:** Identificación de comportamientos atípicos y drift temporal.| |
+|16|**Presentación de proyectos finales:** Integración de modelos y análisis comparativo de resultados.| |
+
+
+
+
 
 <!--
 
