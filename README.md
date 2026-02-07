@@ -60,25 +60,25 @@ Al final del curso, los estudiantes estarán preparados para implementar y evalu
 |16|**Presentación Proyectos Finales**||
 
 
-
 |Semana|Tema|Lectura|
 |---|---|---|
-|1|**Fundamentos del análisis de series de tiempo:** Diferencia entre forecasting, nowcasting y detección de anomalías. Componentes de una serie temporal, frecuencia y horizonte de pronóstico.| |
-|2|**Preparación de datos temporales:** Resampling, manejo de valores faltantes y atípicos, transformaciones y calendarios.| |
-|3|**Evaluación en series de tiempo:** Esquemas de entrenamiento y prueba temporal, backtesting y métricas de desempeño.| |
-|4|**Modelos de suavizamiento exponencial y ETS:** Modelos basados en estado para series de tiempo univariadas.| |
-|5|**Modelos ARIMA y SARIMA:** Identificación, estimación y diagnóstico de modelos autorregresivos integrados.| |
-|6|**Modelos con variables exógenas:** Regresión dinámica y modelos SARIMAX.| |
-|7|**Modelos aditivos modernos:** Prophet y detección de changepoints.| |
-|8|**Machine Learning para series de tiempo:** Series temporales como problema supervisado e ingeniería de características temporales.| |
-|9|**Pronóstico probabilístico:** Intervalos de predicción, cuantiles y evaluación de la incertidumbre.| |
-|10|**Series múltiples y datos tipo panel:** Modelos globales y pronóstico por grupos.| |
-|11|**Pronóstico jerárquico:** Reconciliación y coherencia entre series agregadas y desagregadas.| |
-|12|**Modelos multivariados clásicos:** Modelos VAR para análisis dinámico multivariable.| |
-|13|**Modelos de corrección del error:** Cointegración y modelos VEC.| |
-|14|**Deep Learning para series de tiempo:** Modelos secuenciales y convolucionales para forecasting.| |
-|15|**Detección de anomalías y monitoreo:** Identificación de comportamientos atípicos y drift temporal.| |
-|16|**Presentación de proyectos finales:** Integración de modelos y análisis comparativo de resultados.| |
+|1|**Fundamentos del análisis de series de tiempo:** Forecasting, nowcasting y detección de anomalías. Componentes, frecuencia y horizonte de pronóstico.|Hyndman & Athanasopoulos, *Forecasting: Principles and Practice*, Cap. 1: https://otexts.com/fpp3/what-can-be-forecast.html |
+|2|**Preparación de datos temporales:** Resampling, manejo de valores faltantes y atípicos, transformaciones y calendarios.|Hyndman & Athanasopoulos, Cap. 2: https://otexts.com/fpp3/time-series-data.html ; pandas Time Series: https://pandas.pydata.org/docs/user_guide/timeseries.html |
+|3|**Evaluación en series de tiempo:** Entrenamiento y prueba temporal, backtesting y métricas de desempeño.|Hyndman & Athanasopoulos, Cap. 5: https://otexts.com/fpp3/forecast-evaluation.html |
+|4|**Modelos de suavizamiento exponencial y ETS:** Modelos basados en estado para series univariadas.|Hyndman & Athanasopoulos, Cap. 7–8: https://otexts.com/fpp3/exponential-smoothing.html ; statsmodels ETS: https://www.statsmodels.org/stable/tsa.html#exponential-smoothing |
+|5|**Modelos ARIMA y SARIMA:** Identificación, estimación y diagnóstico.|Hyndman & Athanasopoulos, Cap. 9–10: https://otexts.com/fpp3/arima.html ; statsmodels ARIMA/SARIMAX: https://www.statsmodels.org/stable/tsa.html |
+|6|**Modelos con variables exógenas:** Regresión dinámica y SARIMAX.|statsmodels SARIMAX: https://www.statsmodels.org/stable/generated/statsmodels.tsa.statespace.sarimax.SARIMAX.html |
+|7|**Modelos aditivos modernos:** Prophet y detección de changepoints.|Prophet documentation: https://facebook.github.io/prophet/docs/quick_start.html |
+|8|**Machine Learning para series de tiempo:** Series temporales como problema supervisado e ingeniería de características.|sktime user guide – Supervised Forecasting: https://www.sktime.net/en/stable/examples/01_forecasting.html |
+|9|**Pronóstico probabilístico:** Intervalos de predicción, cuantiles y evaluación de la incertidumbre.|Hyndman & Athanasopoulos, Cap. 6: https://otexts.com/fpp3/prediction-intervals.html |
+|10|**Series múltiples y datos tipo panel:** Modelos globales y pronóstico por grupos.|darts – Global Models: https://unit8co.github.io/darts/examples/02-multi-time-series-and-covariates.html |
+|11|**Pronóstico jerárquico:** Reconciliación y coherencia entre series.|Hyndman et al. (2011), *Optimal forecast reconciliation*: https://robjhyndman.com/papers/Hierarchical6.pdf |
+|12|**Modelos multivariados clásicos:** VAR para análisis dinámico multivariable.|Lütkepohl, *New Introduction to Multiple Time Series Analysis* (overview): https://www.jstatsoft.org/article/view/v027i02 ; statsmodels VAR: https://www.statsmodels.org/stable/vector_ar.html |
+|13|**Modelos de corrección del error:** Cointegración y modelos VEC.|statsmodels VECM: https://www.statsmodels.org/stable/vector_ar.html#vector-error-correction-models |
+|14|**Deep Learning para series de tiempo:** Modelos secuenciales y convolucionales para forecasting.|darts – Deep Learning Models: https://unit8co.github.io/darts/generated_api/darts.models.forecasting.html |
+|15|**Detección de anomalías y monitoreo:** Identificación de comportamientos atípicos y drift temporal.|Chandola et al. (2009), *Anomaly Detection: A Survey*: https://www.cs.umn.edu/~schmidtm/ML2014/AnomalyDetectionSurvey.pdf |
+|16|**Presentación de proyectos finales:** Integración de modelos y análisis comparativo de resultados.|—|
+
 
 
 
