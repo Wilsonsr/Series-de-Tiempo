@@ -3,6 +3,8 @@
 # **Series de Tiempo**
 
 ### Wilson Sandoval Rodriguez
+</div>    
+
 
 El curso tiene como objetivo principal introducir a los estudiantes a los métodos fundamentales y avanzados de análisis de series de tiempo, junto con sus aplicaciones en una amplia variedad de disciplinas, tales como: estudios actuariales, climatología, economía, finanzas, geografía, meteorología, ciencias políticas, gestión de riesgos y sociología.
 
