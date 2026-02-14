@@ -28,7 +28,7 @@ Al final del curso, los estudiantes estarán preparados para implementar y evalu
 |Semana|Tema|Lectura|
 |---|---|---|
 |1|**Fundamentos del análisis de series de tiempo:** Forecasting, nowcasting y detección de anomalías. Componentes, frecuencia y horizonte de pronóstico.|[PDA](https://docs.google.com/document/d/1X-KnJP9FAvmkS89UIjmv8KBc6qyfCVsj/edit?usp=sharing&ouid=111401641962812428858&rtpof=true&sd=true) · [Intrdoducción](https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/Cuadernos%20Python/1_Introduccion.ipynb) · [FPP3 – Cap. 1](https://otexts.com/fpp3/what-can-be-forecast.html)|
-|2|**Preparación de datos temporales:** Resampling, manejo de valores faltantes y atípicos, transformaciones y calendarios.||
+|2|**Preparación de datos temporales:** Resampling, manejo de valores faltantes y atípicos, transformaciones y calendarios.|[Res-Impu](https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/Cuadernos%20Python/2_resampling_transformaciones_imputacion.ipynb)|
 |3|**Evaluación en series de tiempo:** Entrenamiento y prueba temporal, backtesting y métricas de desempeño.||
 |4|**Modelos de suavizamiento exponencial y ETS:** Modelos basados en estado para series univariadas.||
 |5|**Modelos ARIMA y SARIMA:** Identificación, estimación y diagnóstico.||
