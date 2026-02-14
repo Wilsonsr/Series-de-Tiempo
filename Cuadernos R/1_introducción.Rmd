@@ -398,6 +398,11 @@ ts_seasonal(pm10_ts, type = "all")
 ```
 
 
+
+```{r}
+ts_heatmap(AirPassengers)
+```
+
 # Estacionariedad (descriptiva)
 
 una serie es estacionaria cuando es estable a lo largo del tiempo, es
