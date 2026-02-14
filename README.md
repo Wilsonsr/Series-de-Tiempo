@@ -77,5 +77,5 @@ Las notas se distribuirán de la siguiente manera
 
 <a href="https://docs.google.com/document/d/1y3lnQ_wxnQS7QVg2KbOwjuRYibVn2Oaw/edit?usp=sharing&ouid=111401641962812428858&rtpof=true&sd=true"> Rubrica <a/>
 
-  
+[Enlace meet](https://meet.google.com/wqp-cmxd-jgd)
 
