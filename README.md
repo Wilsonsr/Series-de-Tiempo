@@ -32,6 +32,7 @@ Al final del curso, los estudiantes estarán preparados para implementar y evalu
 |3|**Evaluación en series de tiempo:** Entrenamiento y prueba temporal, backtesting y métricas de desempeño.|[eval](https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/Cuadernos%20Python/sesion3_evaluacion_series_tiempo_5.ipynb)|
 |4|**Modelos de suavizamiento exponencial:** Modelos basados en estado para series univariadas.|[SES-Holt-Winters](https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/Cuadernos%20Python/2_Suavizado%20Exponencial.ipynb)|
 |5|**Modelos ARIMA y SARIMA:** Identificación, estimación y diagnóstico.|[Proc_estacionario](https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/Cuadernos%20Python/3_procesos_estacionarioa%20ARMA.ipynb)|
+|6|**Modelos ARIMA y SARIMA:** Identificación, estimación y diagnóstico.|[Proc_estacionario](https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/Cuadernos%20Python/codigo_base_ARIMA.ipynb) · [SARIMA](https://github.com/Wilsonsr/Series-de-Tiempo/blob/main/Cuadernos%20Python/5_SARIMA.ipynb)  |
 |6|**Modelos con variables exógenas:** Regresión dinámica y SARIMAX.||
 |7|**Modelos aditivos modernos:** Prophet y detección de changepoints.|[Prophet Docs](https://facebook.github.io/prophet/docs/quick_start.html)|
 |8|**Machine Learning para series de tiempo:** Series temporales como problema supervisado e ingeniería de características.||
