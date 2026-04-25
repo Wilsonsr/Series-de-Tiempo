@@ -80,3 +80,4 @@ Las notas se distribuirán de la siguiente manera
 
 [Enlace meet](https://meet.google.com/wqp-cmxd-jgd)
 
+[Hoja_grupos](https://docs.google.com/spreadsheets/d/1BWcs-PGRNsGa2RQNOPKFKwA168hWivabhVhnCiv4Mz4/edit?usp=sharing)
