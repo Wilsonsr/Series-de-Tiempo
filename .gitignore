@@ -1,0 +1,9 @@
+.ipynb_checkpoints/
+__pycache__/
+*.py[cod]
+.Rhistory
+.RData
+logs.log
+.DS_Store
+Thumbs.db
+

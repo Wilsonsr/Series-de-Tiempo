@@ -1,0 +1,512 @@
+class(z1)
+z1= ts(ipvn$Bogotá , start = c(2004, 1) ,end = c(2022,12),frequency = 12  )
+z1
+class(z1)
+#####
+plot(z1)
+########
+library(TSstudio)
+ts_plot(z1)
+ts_plot(z1, slider = T)
+######
+ts_decompose(z1)
+#####
+ts_seasonal(z1)
+#####
+ts_seasonal(z1,type = "all" )
+####
+ts_heatmap(z1)
+######
+library(highcharter)
+hchart(z1)
+autoplot(z1)
+library(ggplot2)
+autoplot(z1)
+library(shiny); runApp('Shiny_AR(P).R')
+fluidPage(
+titlePanel("Changing the values of inputs from the server"),
+fluidRow(
+column(3, wellPanel(
+h4("These inputs control the other inputs on the page"),
+textInput("control_label",
+"This controls some of the labels:",
+"LABEL TEXT"),
+sliderInput("control_num",
+"This controls values:",
+min = 1, max = 20, value = 15)
+)),
+column(3, wellPanel(
+textInput("inText",  "Text input:", value = "start text"),
+numericInput("inNumber", "Number input:",
+min = 1, max = 20, value = 5, step = 0.5),
+numericInput("inNumber2", "Number input 2:",
+min = 1, max = 20, value = 5, step = 0.5),
+sliderInput("inSlider", "Slider input:",
+min = 1, max = 20, value = 15),
+sliderInput("inSlider2", "Slider input 2:",
+min = 1, max = 20, value = c(5, 15)),
+sliderInput("inSlider3", "Slider input 3:",
+min = 1, max = 20, value = c(5, 15)),
+dateInput("inDate", "Date input:"),
+dateRangeInput("inDateRange", "Date range input:")
+)),
+column(3,
+wellPanel(
+checkboxInput("inCheckbox", "Checkbox input",
+value = FALSE),
+checkboxGroupInput("inCheckboxGroup",
+"Checkbox group input:",
+c("label 1" = "option1",
+"label 2" = "option2")),
+radioButtons("inRadio", "Radio buttons:",
+c("label 1" = "option1",
+"label 2" = "option2")),
+selectInput("inSelect", "Select input:",
+c("label 1" = "option1",
+"label 2" = "option2")),
+selectInput("inSelect2", "Select input 2:",
+multiple = TRUE,
+c("label 1" = "option1",
+"label 2" = "option2"))
+),
+tabsetPanel(id = "inTabset",
+tabPanel("panel1", h2("This is the first panel.")),
+tabPanel("panel2", h2("This is the second panel."))
+)
+)
+)
+)
+fluidPage(
+titlePanel("Changing the values of inputs from the server"),
+fluidRow(
+column(3, wellPanel(
+h4("These inputs control the other inputs on the page"),
+textInput("control_label",
+"This controls some of the labels:",
+"LABEL TEXT"),
+sliderInput("control_num",
+"This controls values:",
+min = 1, max = 20, value = 15)
+)),
+column(3, wellPanel(
+textInput("inText",  "Text input:", value = "start text"),
+numericInput("inNumber", "Number input:",
+min = 1, max = 20, value = 5, step = 0.5),
+numericInput("inNumber2", "Number input 2:",
+min = 1, max = 20, value = 5, step = 0.5),
+sliderInput("inSlider", "Slider input:",
+min = 1, max = 20, value = 15),
+sliderInput("inSlider2", "Slider input 2:",
+min = 1, max = 20, value = c(5, 15)),
+sliderInput("inSlider3", "Slider input 3:",
+min = 1, max = 20, value = c(5, 15)),
+dateInput("inDate", "Date input:"),
+dateRangeInput("inDateRange", "Date range input:")
+)),
+column(3,
+wellPanel(
+checkboxInput("inCheckbox", "Checkbox input",
+value = FALSE),
+checkboxGroupInput("inCheckboxGroup",
+"Checkbox group input:",
+c("label 1" = "option1",
+"label 2" = "option2")),
+radioButtons("inRadio", "Radio buttons:",
+c("label 1" = "option1",
+"label 2" = "option2")),
+selectInput("inSelect", "Select input:",
+c("label 1" = "option1",
+"label 2" = "option2")),
+selectInput("inSelect2", "Select input 2:",
+multiple = TRUE,
+c("label 1" = "option1",
+"label 2" = "option2"))
+),
+tabsetPanel(id = "inTabset",
+tabPanel("panel1", h2("This is the first panel.")),
+tabPanel("panel2", h2("This is the second panel."))
+)
+)
+)
+)
+length(gas)
+library(car)
+library(urca)
+library(forecast)
+library(tseries)
+library(ggfortify)
+library(TSstudio)
+library(highcharter)
+data(gas)
+ts_plot(gas)
+ts_decompose(gas, type = "both")
+#autoplot(gas)
+#autoplot(stl(gas, s.window = 12))
+summary(gas)
+forecast::BoxCox.lambda(gas)
+z1 <- forecast::BoxCox(gas,0.082)
+ts_plot(z1)
+length(gas)
+ts_decompose(z1)
+par(mfrow=c(3,3))
+plot(z1,type="o")
+acf(z1, lag.max=40)
+pacf(z1, lag.max=40)
+plot(diff(z1),type="o")
+abline(h=2*sqrt(var(diff(z1))),col="red",lty=2)
+abline(h=-2*sqrt(var(diff(z1))),col="red",lty=2)
+acf(diff(z1), lag.max=40)
+pacf(diff(z1), lag.max=40)
+plot(diff(z1,12),type="o")
+acf(diff(z1,12), lag.max=40)
+pacf(diff(z1,12), lag.max=40)
+adf.test(z1)
+pp.test(z1)
+adf.test(diff(z1))  # estacionaria
+pp.test(diff(z1))
+adf.test(diff(z1,12))
+pp.test(diff(z1,12))
+adf.test(diff(diff(z1,12)))
+par(mfrow=c(4,3))
+plot(z1,type="o")
+z2.inv
+z2inv
+library(car)
+library(urca)
+library(forecast)
+library(tseries)
+library(ggfortify)
+library(TSstudio)
+library(highcharter)
+data(gas)
+ts_plot(gas)
+ts_decompose(gas, type = "both")
+#autoplot(gas)
+#autoplot(stl(gas, s.window = 12))
+summary(gas)
+forecast::BoxCox.lambda(gas)
+z1 <- forecast::BoxCox(gas,0.082)
+ts_plot(z1)
+length(gas)
+ts_decompose(z1)
+par(mfrow=c(3,3))
+plot(z1,type="o")
+acf(z1, lag.max=40)
+pacf(z1, lag.max=40)
+plot(diff(z1),type="o")
+abline(h=2*sqrt(var(diff(z1))),col="red",lty=2)
+abline(h=-2*sqrt(var(diff(z1))),col="red",lty=2)
+acf(diff(z1), lag.max=40)
+pacf(diff(z1), lag.max=40)
+plot(diff(z1,12),type="o")
+acf(diff(z1,12), lag.max=40)
+pacf(diff(z1,12), lag.max=40)
+adf.test(z1)
+pp.test(z1)
+adf.test(diff(z1))  # estacionaria
+pp.test(diff(z1))
+adf.test(diff(z1,12))
+pp.test(diff(z1,12))
+adf.test(diff(diff(z1,12)))
+par(mfrow=c(4,3))
+plot(z1,type="o")
+z2inv.li
+z2inv.li
+lambda <- 0.082
+predt <- forecast(modelo1,h=12)
+z2inv <- forecast::InvBoxCox(predt$mean,lambda)
+z2inv.li <- forecast::InvBoxCox(predt$lower[,2],lambda) #Linf IC 95%
+z2inv.ls <- forecast::InvBoxCox(predt$upper[,2],lambda) #lsUP ic 95%
+z1.fit <- forecast::InvBoxCox(x1.fit,lambda)
+plot(ts(c(gas,z2inv),start=c(1956,1),freq=12), type="l", col="blue", lwd=2,
+main="Pronóstico h=12 Pasos al Frente Gas",
+xlab="Anual",
+ylab="",
+ylim=c(min(gas,z2inv.li,z2inv.ls),max(gas,z2inv.li,z2inv.ls)))
+polygon(c(time(z2inv.li),rev(time(z2inv.ls))),
+c(z2inv.li,rev(z2inv.ls)),
+col="gray", border=NA)
+lines(z2inv, type="b", col="blue", lwd=2)
+lines(z1.fit, type="l", col="red", lty=2, lwd=3)
+z3<-ts(tail(z1.fit,n=10))
+plot(z3)
+z2inv.li
+z2inv.ls
+lambda <- 0.082
+predt <- forecast(modelo1,h=12)
+z2inv <- forecast::InvBoxCox(predt$mean,lambda)
+z2inv.li <- forecast::InvBoxCox(predt$lower[,2],lambda) #Linf IC 95%
+z2inv.ls <- forecast::InvBoxCox(predt$upper[,2],lambda) #lsUP ic 95%
+z1.fit <- forecast::InvBoxCox(x1.fit,lambda)
+plot(ts(c(gas,z2inv),start=c(1956,1),freq=12), type="l", col="blue", lwd=2,
+main="Pronóstico h=12 Pasos al Frente Gas",
+xlab="Anual",
+ylab="",
+ylim=c(min(gas,z2inv.li,z2inv.ls),max(gas,z2inv.li,z2inv.ls)))
+polygon(c(time(z2inv.li),rev(time(z2inv.ls))),
+c(z2inv.li,rev(z2inv.ls)),
+col="gray", border=NA)
+lines(z2inv, type="b", col="blue", lwd=2)
+lines(z1.fit, type="l", col="red", lty=2, lwd=3)
+z3<-ts(tail(z1.fit,n=10))
+plot(z3)
+z2inv
+library(car)
+library(urca)
+library(forecast)
+library(tseries)
+library(ggfortify)
+library(TSstudio)
+library(highcharter)
+data(gas)
+ts_plot(gas)
+ts_decompose(gas, type = "both")
+#autoplot(gas)
+#autoplot(stl(gas, s.window = 12))
+summary(gas)
+forecast::BoxCox.lambda(gas)
+z1 <- forecast::BoxCox(gas,0.082)
+ts_plot(z1)
+length(gas)
+ts_decompose(z1)
+par(mfrow=c(3,3))
+plot(z1,type="o")
+acf(z1, lag.max=40)
+pacf(z1, lag.max=40)
+plot(diff(z1),type="o")
+abline(h=2*sqrt(var(diff(z1))),col="red",lty=2)
+abline(h=-2*sqrt(var(diff(z1))),col="red",lty=2)
+acf(diff(z1), lag.max=40)
+pacf(diff(z1), lag.max=40)
+plot(diff(z1,12),type="o")
+acf(diff(z1,12), lag.max=40)
+pacf(diff(z1,12), lag.max=40)
+adf.test(z1)
+pp.test(z1)
+adf.test(diff(z1))  # estacionaria
+pp.test(diff(z1))
+adf.test(diff(z1,12))
+pp.test(diff(z1,12))
+adf.test(diff(diff(z1,12)))
+par(mfrow=c(4,3))
+plot(z1,type="o")
+z2inv
+gas
+write.csv(gas, "gas.csv")
+write.csv2(gas, "C:\Users\wsand\Documents\GitHub\Series-de-Tiempo\bases\gas.csv")
+write.csv2(gas, "C:/Users/wsand/Documents/GitHub/Series-de-Tiempo/bases/gas.csv")
+summary(gas)
+library(car)
+library(urca)
+library(forecast)
+library(tseries)
+library(ggfortify)
+library(TSstudio)
+library(highcharter)
+data(gas)
+ts_plot(gas)
+ts_decompose(gas, type = "both")
+#autoplot(gas)
+#autoplot(stl(gas, s.window = 12))
+star(gas)
+z1 <- forecast::BoxCox(gas,0.082)
+length(gas)
+start(z1)
+forecast::BoxCox.lambda(gas)
+z1 <- forecast::BoxCox(gas,0.082)
+ts_plot(z1)
+z1
+library(lmtest)
+grangertest(egg ~ chicken, order = 3, data = ChickEgg)
+grangertest(chicken ~ egg, order = 3, data = ChickEgg)
+## alternative ways of specifying the same test
+grangertest(ChickEgg, order = 3)
+grangertest(ChickEgg[, 1], ChickEgg[, 2], order = 3)
+data(ChickEgg)
+grangertest(egg ~ chicken,  data = ChickEgg)
+grangertest(chicken ~ egg, order = 3, data = ChickEgg)
+data(ChickEgg)
+grangertest(egg ~ chicken,  data = ChickEgg)
+grangertest(chicken ~ egg, order = 3, data = ChickEgg)
+data(ChickEgg)
+grangertest(egg ~ chicken,  data = ChickEgg)
+ChickEgg
+?ChickEgg
+grangertest(egg ~ chicken,  data = ChickEgg)
+grangertest(egg ~ chicken, order=3, data = ChickEgg)
+grangertest(egg ~ chicken, order=c(2,4), data = ChickEgg)
+grangertest(egg ~ chicken, order=1, data = ChickEgg)
+ChickEgg
+grangertest(chicken ~ egg, order = 3, data = ChickEgg)
+grangertest(chicken ~ egg, order = 2, data = ChickEgg)
+grangertest(chicken ~ egg, order = 1, data = ChickEgg)
+grangertest(chicken ~ egg, order = 2, data = ChickEgg)
+grangertest(chicken ~ egg, order = 3, data = ChickEgg)
+library(lmtest)
+data("ChickEgg")
+ChickEgg
+?ChickEgg
+?ChickEgg
+grangertest(chicken ~ egg, data=ChickEgg)
+grangertest(chicken ~ egg, order=1,    data=ChickEgg)
+grangertest(chicken ~ egg, order=1, data=ChickEgg)
+grangertest(chicken ~ egg, order=3, data=ChickEgg)
+grangertest(chicken ~ egg, order=2, data=ChickEgg)
+grangertest(chicken ~ egg, order=1, data=ChickEgg)
+grangertest(chicken ~ egg, order=2, data=ChickEgg)
+grangertest(egg~ chicken. order=3, data=ChickEgg)
+grangertest(egg~ chicken, order=3, data=ChickEgg)
+grangertest(egg~ chicken, order=2, data=ChickEgg)
+grangertest(egg~ chicken, order=4, data=ChickEgg)
+library(urca)
+data(denmark)
+sjd <- denmark[, c("LRM", "LRY", "IBO", "IDE")]
+sjd.vecm <- ca.jo(sjd, ecdet = "const", type="eigen", K=2, spec="longrun",
+season=4)
+summary(sjd.vecm)
+#
+data(finland)
+sjf <- finland
+sjf.vecm <- ca.jo(sjf, ecdet = "none", type="eigen", K=2,
+spec="longrun", season=4)
+summary(sjf.vecm)
+data(denmark)
+denmark
+?denmark
+denmark
+data(denmark)
+library(urca)
+data(denmark)
+denmark
+?denmark
+plot(denmark)
+sjd <- denmark[, c("LRM", "LRY", "IBO", "IDE")]
+plot(sjd)
+class(denmark)
+denmark
+e6
+library(vars)
+library(tseries)
+library(forecast)
+library(urca)
+library(highcharter)
+library(bvartools)
+data("e6")
+plot(e6)
+hchart(e6)%>%hc_add_theme(hc_theme_darkunica())
+e6
+?e6
+library(tseries)
+library(TSstudio)
+library(rio)
+library(tseries)
+library(TSstudio)
+library(rio)
+cafe=rio::import("https://github.com/Wilsonsr/Series-de-Tiempo/raw/main/03_datos/compartidos/produccion_cafe.xlsx")
+cafe
+#### formato serie de tiempo
+cafe_ts = ts(cafe[,2])
+cafe_ts
+#### formato serie de tiempo
+cafe_ts = ts(cafe[,2],  start = c(2000,1),  frequency = 12)
+cafe_ts
+ts_plot(cafe_ts)
+ts_plot(cafe_ts, slider = TRUE)
+ts_seasonal(cafe_ts, type = "all")
+ts_heatmap(cafe)
+ts_heatmap(cafe_ts)
+View(soi.rec)
+library(highcharter)
+hchart(forecast(auto.arima(cafe_ts)),8)
+library(forecast)
+hchart(forecast(auto.arima(cafe_ts)),8)
+hchart(forecast(auto.arima(cafe_ts),8))
+hchart(forecast(auto.arima(cafe_ts),24))
+forecast(auto.arima(cafe_ts),24)
+AirPassengers
+acf(AirPassengers)
+ts_cor(ruido_blanco1)
+library(shiny); runApp('Shiny_AR(P).R')
+library(shiny); runApp('Shiny_AR(P).R')
+runApp('Shiny_MA(q).R')
+runApp('Shiny_AR(P).R')
+runApp('Shiny_MA(q).R')
+#Librerias
+library(car)
+library(tseries)
+library(urca)
+library(highcharter)
+library(TSstudio)
+library(forecast)
+library(rio)
+Caffeine=rio::import("https://github.com/Wilsonsr/Series-de-Tiempo/raw/main/03_datos/06_estacionariedad/caffeine.csv")
+View(Caffeine)
+Caffeine=rio::import("https://github.com/Wilsonsr/Series-de-Tiempo/raw/main/03_datos/06_estacionariedad/caffeine.csv")
+View(Caffeine)
+z1=ts(Caffeine[,2])   #Formato serie de tiempo
+z1
+summary(z1)
+### Grafico para la serie
+plot(z1, main="Caffeine", ylab="Concentracion")
+ts_plot(z1,color = "red",title = "Caffeine", Ytitle = "Concentración")
+hchart(z1) %>%hc_add_theme(hc_theme_darkunica())
+###### Identificacion
+par(mfrow=c(2,3))
+plot(z1)
+acf(z1, lag.max = 40)
+pacf(z1, lag.max = 40)
+plot(diff(z1))
+abline(h=2*sqrt(var(diff(z1))), col="red", lty=2  )
+abline(h=-2*sqrt(var(diff(z1))), col="red", lty=2  )
+acf(diff(z1), lag.max = 40)
+pacf(diff(z1), lag.max = 40)
+adf.test(z1)
+adf.test(z1)
+adf.test(z1)
+adf.test(z1,k = 10)
+z1
+adf.test(z1,k = 10,alternative = "e")
+adf.test(z1,k = 10,alternative = "s")
+adf.test(z1,k = 1,alternative = "s")
+adf.test(z1,k = 2,alternative = "s")
+adf.test(z1,k = 2,alternative = "s")
+adf.test(z1,k = 2,alternative = "s")
+adf.test(z1,k = 5,alternative = "s")
+adf.test(z1,k = 6,alternative = "s")
+adf.test(z1,k = 7,alternative = "s")
+adf.test(z1,alternative = "s")
+adf.test(z1,alternative = "s")
+pp.test(z1) # serie es estacionaria
+adf.test(diff(z1))
+pp.test(diff(z1))
+ts_cor(diff(z1), lag.max = 40)
+modelo1 = stats::arima(z1, order = c(0,1,8),
+fixed = c(NA,NA,NA,NA,NA,NA,NA,NA))
+modelo1
+tt=  modelo1$coef[which(modelo1$coef!=0)]/sqrt(diag(modelo1$var.coef))
+1-pt(abs(tt), (modelo1$nobs - length(modelo1$coef[which(modelo1$coef!=0)])))
+BIC(modelo1)
+et=residuals(modelo1)
+z1.fit= z1-et
+fitted(modelo1)
+par(mfrow=c(3,2))
+plot(z1)
+lines(z1.fit, col="red", lty=2)
+plot(scale(et), type="l")
+abline(h=2*sqrt(var(scale(et))), col="red", lty=2)
+abline(h=-2*sqrt(var(scale(et))), col="red", lty=2)
+acf(scale(et),lag.max = 20)
+pacf(scale(et),lag.max = 20)
+qqPlot(et)
+acf(abs(et))
+Box.test(et, lag=6,type = "Ljung-Box")
+#p-value = 0.02093   Rechazamos Ho
+tsdiag(modelo1,  gof.lag = 20)
+jarque.bera.test(et)
+runs.test(as.factor(sign(et)), alternative ="two.sided" )
+plot(forecast(modelo1, h=6, fan=T))
+lines(fitted(modelo1), col="red")
+jarque.bera.test(et)
+#p-value = 0.02093   Rechazamos Ho
+tsdiag(modelo1,  gof.lag = 20)
+Box.test(et, lag=6,type = "Ljung-Box")
