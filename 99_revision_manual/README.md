@@ -5,14 +5,13 @@ Esta carpeta no forma parte de la ruta del estudiante. Conserva materiales que r
 ## Categorías
 
 - `duplicados/`: copias exactas o semánticamente equivalentes;
-- `errores_ejecucion/`: notebooks con errores almacenados;
-- `datos_faltantes/`: materiales que dependen de archivos ausentes;
-- `versiones/`: variantes que pueden contener contenido único;
 - `posibles_obsoletos/`: logs, historiales, archivos vacíos o borradores.
+
+Para cumplir la regla de mantener todos los notebooks de Python juntos, las variantes y los cuadernos que requieren revisión permanecen en `Notebooks-Python/`. Se reconocen por sufijos como `_duplicado`, `_borrador`, `_version_anterior`, `_errores` o `_preliminar`.
 
 ## Regla
 
-No eliminar ningún archivo de esta carpeta sin comparar contenido, documentar el motivo y contar con autorización del docente.
+No eliminar ningún archivo de esta carpeta ni ninguna variante de notebook sin comparar contenido, documentar el motivo y contar con autorización del docente.
 
 ## Decisiones pendientes principales
 
@@ -21,4 +20,3 @@ No eliminar ningún archivo de esta carpeta sin comparar contenido, documentar e
 3. Confirmar la eliminación futura de `.RData`, historiales, logs y archivos vacíos.
 4. Recuperar los datos de accidentes, `based.txt`, `armax1.dat` y `pib.csv`, o retirar sus scripts.
 5. Consolidar las versiones de Prophet y Random Forest que contienen errores.
-

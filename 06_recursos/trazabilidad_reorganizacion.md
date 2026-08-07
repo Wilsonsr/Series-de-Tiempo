@@ -5,26 +5,25 @@ Fecha de reorganización: 2026-08-07.
 ## Criterios
 
 - Python quedó como ruta académica principal.
-- R se conservó bajo `r_opcional/` o `complementarios/`.
+- Todos los notebooks de Python se reunieron en una sola carpeta.
+- R se conservó en una carpeta independiente de material opcional.
 - No se eliminó ningún archivo.
 - Los duplicados exactos se preservaron en `99_revision_manual/duplicados/`.
-- Los archivos con errores almacenados se separaron de la ruta del estudiante.
+- Las variantes, borradores y notebooks con errores almacenados se conservaron con nombres descriptivos dentro de la carpeta única de Python.
 - Los datos se movieron de `Data/` a `03_datos/`.
 - Las imágenes se movieron de `Data/` y `Notebooks-Python/` a `assets/images/`.
-- Los HTML generados se separaron de sus fuentes.
+- Los HTML generados en R se conservaron junto al material opcional, dentro de `renderizados/`.
 
 ## Mapa general
 
 | Ubicación anterior | Ubicación nueva |
 |---|---|
-| `Notebooks-Python/` | `02_clases/<modulo>/python/` o `99_revision_manual/` |
-| `Cuadernos R/*.Rmd`, `*.R` | `02_clases/<modulo>/r_opcional/` o recursos complementarios |
-| `Cuadernos R/*.html` | `06_recursos/renderizados/r/` |
+| Notebooks de Python dispersos | `Notebooks-Python/` |
+| `Cuadernos R/*.Rmd`, `*.R` | `Cuadernos-R-opcional/` |
+| `Cuadernos R/*.html` | `Cuadernos-R-opcional/renderizados/` |
 | `Data/` | `03_datos/<tema>/`, `assets/images/` o recursos complementarios |
 | Duplicados y copias | `99_revision_manual/duplicados/` |
-| Archivos con errores | `99_revision_manual/errores_ejecucion/` |
-| Material con datos faltantes | `99_revision_manual/datos_faltantes/` |
+| Variantes y borradores de notebooks | `Notebooks-Python/`, identificados en el nombre |
 | Artefactos de sesión y logs | `99_revision_manual/posibles_obsoletos/` |
 
 Git puede detectar los movimientos por similitud de contenido. Las rutas internas conocidas a `Data/`, `/bases/` y descargas locales fueron actualizadas mecánicamente sin alterar resultados estadísticos.
-
