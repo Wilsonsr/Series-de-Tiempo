@@ -1,6 +1,6 @@
 <div align="center">
 
-# 📈 Series de Tiempo
+# 📈 Series de Tiempo    https://meet.google.com/jvi-ixkc-nox
 
 ### Análisis, modelado y pronóstico principalmente con Python
 
