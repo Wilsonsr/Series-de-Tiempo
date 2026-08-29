@@ -309,6 +309,9 @@ Docente del curso **Series de Tiempo**
 
 GitHub: [@Wilsonsr](https://github.com/Wilsonsr)
 
+Grupos: [Grupos_proyectos](https://docs.google.com/spreadsheets/d/1WfwY41cuZplOQN1bA0hkruN4rXh4-wpfaanRW0NI1rg/edit?usp=sharing)
+
+
 ---
 
 <div align="center">
