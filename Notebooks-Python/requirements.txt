@@ -1,0 +1,11 @@
+# Dependencias para 15_Cointegracion_VECM_Mejorado.ipynb
+# Versiones con las que se ejecutó y verificó el cuaderno (Python 3.13)
+numpy>=1.26,<3            # verificado con 2.5.3
+pandas==2.3.3
+scipy>=1.11               # verificado con 1.18.1
+statsmodels==0.14.5
+matplotlib>=3.8           # verificado con 3.11.2
+seaborn==0.13.2
+jupyter                   # para abrir y ejecutar el cuaderno
+# Opcional: solo si se activa DESCARGAR = True en el Módulo 4
+# yfinance>=0.2.40
